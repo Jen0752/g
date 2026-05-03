@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* 移动端触摸优化 */
+/* button, [role="button"] {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+} */
+
+/* 隐藏 Maplibre 默认控件 */
+.maplibregl-ctrl-attrib {
+  display: none !important;
+}
+
+.maplibregl-ctrl-logo {
+  display: none !important;
+}
+
+/* 修复 NavigationControl 点击问题 */
+.maplibregl-ctrl-top-left {
+  pointer-events: auto !important;
+  z-index: 10 !important;
+}
+
+.maplibregl-ctrl-top-left > * {
+  pointer-events: auto !important;
+}
+
+/* 确保地图画布可以接收鼠标事件 */
+.maplibregl-canvas {
+  pointer-events: auto !important;
+}
+
+/* 自定义标记样式 */
+.custom-marker {
+  z-index: 10;
+  pointer-events: auto !important;
+}
+
+.custom-marker img {
+  pointer-events: none;
+}
+
+.maplibregl-marker {
+  pointer-events: auto !important;
+}

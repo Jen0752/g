@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm create *)",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(cp -r re2_map_sewer public/)",
+      "Bash(cp -r re2_map_sewer_ui public/)",
+      "Read(//d/re2_sewer_map/public/re2_map_sewer_ui/**)",
+      "Bash(python3 -c ' *)",
+      "Bash(npm ls *)"
+    ],
+    "additionalDirectories": [
+      "D:\\re2_sewer_map\\re2_map_sewer_ui\\ui_controls"
+    ]
+  }
+}
