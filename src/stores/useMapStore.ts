@@ -15,12 +15,15 @@ export interface MarkerItem {
 
 export interface CustomMarker {
   id: string
+  name: string
   category: string
   icon: string
   coordinates: [number, number]
   floor: Floor
   character: Character | 'both'
   mode: GameMode | 'both'
+  description?: string
+  screenshots?: string[]
 }
 
 // 临时标点 - 放置模式下只有一个
@@ -28,6 +31,16 @@ export interface TempMarker {
   category: string
   icon: string
   coordinates: [number, number]
+}
+
+// 放置模式下，完成人物/模式选择后的中间状态
+export interface PendingMarkerBase {
+  name: string
+  category: string
+  icon: string
+  coordinates: [number, number]
+  character: Character | 'both'
+  mode: GameMode | 'both'
 }
 
 interface MapStore {
@@ -68,7 +81,18 @@ interface MapStore {
   tempMarker: TempMarker | null
   setTempMarker: (marker: TempMarker | null) => void
   updateTempMarker: (updates: Partial<TempMarker>) => void
-  confirmTempMarker: () => void
+
+  // 放置模式第二步：完成人物/模式选择后的中间状态
+  pendingMarker: PendingMarkerBase | null
+  setPendingMarker: (marker: PendingMarkerBase | null) => void
+
+  // 编辑/查看弹窗
+  editingMarkerId: string | null
+  setEditingMarkerId: (id: string | null) => void
+
+  // 编辑模式（点击标点直接编辑，而非查看）
+  isEditingMarkers: boolean
+  setIsEditingMarkers: (v: boolean) => void
 }
 
 const ALL_CATEGORIES = [
@@ -83,7 +107,7 @@ export const useMapStore = create<MapStore>((set) => ({
   mode: 'normal',
   setMode: (m) => set({ mode: m }),
 
-  floor: 'B1',
+  floor: '3F',
   setFloor: (f) => set({ floor: f }),
 
   activeCategories: new Set(ALL_CATEGORIES),
@@ -133,22 +157,16 @@ export const useMapStore = create<MapStore>((set) => ({
   updateTempMarker: (updates) => set((state) => ({
     tempMarker: state.tempMarker ? { ...state.tempMarker, ...updates } : null
   })),
-  confirmTempMarker: () => set((state) => {
-    if (!state.tempMarker) return state
-    const marker: CustomMarker = {
-      id: `custom_${Date.now()}`,
-      category: state.tempMarker.category,
-      icon: state.tempMarker.icon,
-      coordinates: state.tempMarker.coordinates,
-      floor: state.floor,
-      character: state.character,
-      mode: state.mode,
-    }
-    return {
-      customMarkers: [...state.customMarkers, marker],
-      tempMarker: null,
-      isPlacingMarker: false,
-      selectedMarkerIcon: null,
-    }
-  }),
+
+  // 放置模式第二步
+  pendingMarker: null,
+  setPendingMarker: (marker) => set({ pendingMarker: marker }),
+
+  // 编辑/查看弹窗
+  editingMarkerId: null,
+  setEditingMarkerId: (id) => set({ editingMarkerId: id }),
+
+  // 编辑模式
+  isEditingMarkers: false,
+  setIsEditingMarkers: (v) => set({ isEditingMarkers: v }),
 }))

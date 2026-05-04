@@ -25,10 +25,12 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
   const mode = useMapStore(s => s.mode)
   const floor = useMapStore(s => s.floor)
   const isPlacingMarker = useMapStore(s => s.isPlacingMarker)
+  const isEditingMarkers = useMapStore(s => s.isEditingMarkers)
   const setCharacter = useMapStore(s => s.setCharacter)
   const setMode = useMapStore(s => s.setMode)
   const setFloor = useMapStore(s => s.setFloor)
   const setIsPlacingMarker = useMapStore(s => s.setIsPlacingMarker)
+  const setIsEditingMarkers = useMapStore(s => s.setIsEditingMarkers)
   const setSelectedMarkerIcon = useMapStore(s => s.setSelectedMarkerIcon)
   const setTempMarker = useMapStore(s => s.setTempMarker)
 
@@ -324,6 +326,38 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             alt="标点"
             className="w-full h-full object-contain bg-gray-800"
           />
+        </button>
+
+        {/* 编辑标点按钮 */}
+        <button
+          onClick={() => {
+            // 关闭其他面板
+            setShowModePicker(false)
+            setShowFloorPicker(false)
+            setShowCharacterPicker(false)
+            setShowMarkerPicker(false)
+            // 切换编辑模式
+            if (isEditingMarkers) {
+              setIsEditingMarkers(false)
+            } else {
+              // 如果正在放置标点，先取消放置模式
+              if (isPlacingMarker) {
+                setIsPlacingMarker(false)
+                setSelectedMarkerIcon(null)
+              }
+              setIsEditingMarkers(true)
+            }
+          }}
+          className={`w-12 h-12 rounded overflow-hidden border-2 transition-colors ${
+            isEditingMarkers ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
+          }`}
+          title="编辑标点"
+        >
+          <div className="w-full h-full flex items-center justify-center bg-gray-800">
+            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+          </div>
         </button>
       </div>
 

@@ -1,7 +1,9 @@
 import { useRef, useEffect, useState } from 'react'
 import maplibregl, { Map as MapLibreMap } from 'maplibre-gl'
 import { useMapStore, type CustomMarker, type TempMarker } from '../stores/useMapStore'
+import { CATEGORIES } from '../data/markers'
 import 'maplibre-gl/dist/maplibre-gl.css'
+import MarkerEditModal from './MarkerEditModal'
 
 // 楼层图片映射
 const FLOOR_IMAGES: Record<string, string> = {
@@ -61,7 +63,8 @@ export default function Map() {
   const [popupPosition, setPopupPosition] = useState<{x: number; y: number} | null>(null)
   const [showMarkerForm, setShowMarkerForm] = useState(false)
   const [markerFormPosition, setMarkerFormPosition] = useState<{x: number; y: number} | null>(null)
-  const [pendingMarker, setPendingMarker] = useState<{coordinates: [number, number]; icon: string; category: string} | null>(null)
+  const [pendingMarker, setPendingMarker] = useState<{name: string; coordinates: [number, number]; icon: string; category: string} | null>(null)
+  const [editingMarker, setEditingMarker] = useState<{marker: CustomMarker; position: {x: number; y: number}} | null>(null)
 
   // 临时标点引用
   const tempMarkerRef = useRef<maplibregl.Marker | null>(null)
@@ -69,6 +72,7 @@ export default function Map() {
   const {
     floor,
     isPlacingMarker,
+    isEditingMarkers,
     selectedMarkerIcon,
     customMarkers,
     addCustomMarker,
@@ -159,10 +163,14 @@ export default function Map() {
         top = Math.max(padding, Math.min(top, window.innerHeight - popupHeight - padding))
 
         setMarkerFormPosition({ x: left, y: top })
+        const cat = CATEGORIES.find(c => state.selectedMarkerIcon?.includes(`/${c.id}/`))
+        const iconName = state.selectedMarkerIcon?.split('/').pop() || ''
+        const subCat = cat?.subCategories.find(s => s.icon === iconName)
         setPendingMarker({
-          coordinates,
+          name: subCat?.name || cat?.name || iconName,
+          category: cat?.id || state.selectedMarkerIcon?.split('/')[5] || 'unknown',
           icon: state.selectedMarkerIcon,
-          category: state.selectedMarkerIcon.split('/')[5],
+          coordinates,
         })
         setShowMarkerForm(true)
       })
@@ -354,18 +362,30 @@ export default function Map() {
       document.addEventListener('mousemove', onMouseMove)
       document.addEventListener('mouseup', onMouseUp)
 
-      // 点击标点显示详情弹窗
+      // 点击标点显示详情弹窗或编辑弹窗
       wrapper.addEventListener('click', (e) => {
         e.stopPropagation()
         const markerId = wrapper.dataset.markerId
         if (!markerId) return
 
+        const marker = customMarkers.find(m => m.id === markerId)
+        if (!marker) return
+
         const rect = wrapper.getBoundingClientRect()
-        setPopupPosition({
+        const pos = {
           x: rect.left + rect.width / 2,
-          y: rect.top,
-        })
-        setSelectedMarkerId(markerId)
+          y: rect.top + 42,  // anchor: 'bottom' 的尖端位置
+        }
+
+        if (isEditingMarkers) {
+          // 编辑模式：打开编辑弹窗
+          setEditingMarker({ marker, position: pos })
+          setSelectedMarkerId(null)
+        } else {
+          // 查看模式：打开详情弹窗
+          setPopupPosition(pos)
+          setSelectedMarkerId(markerId)
+        }
       })
 
       // 创建地图标记
@@ -376,7 +396,7 @@ export default function Map() {
         .setLngLat(marker.coordinates)
         .addTo(map)
     })
-  }, [customMarkers, floor])
+  }, [customMarkers, floor, isEditingMarkers])
 
   // 楼层变化时更新图片
   useEffect(() => {
@@ -441,6 +461,28 @@ export default function Map() {
     }
   }, [selectedMarkerId, customMarkers])
 
+  // 当地图移动/缩放时更新编辑弹窗位置
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !editingMarker) return
+
+    const updatePosition = () => {
+      const screenPos = map.project(editingMarker.marker.coordinates)
+      setEditingMarker(prev => prev ? {
+        ...prev,
+        position: { x: screenPos.x, y: screenPos.y }
+      } : null)
+    }
+
+    map.on('move', updatePosition)
+    map.on('zoom', updatePosition)
+
+    return () => {
+      map.off('move', updatePosition)
+      map.off('zoom', updatePosition)
+    }
+  }, [editingMarker])
+
   // 点击地图空白区域关闭弹窗
   useEffect(() => {
     const map = mapRef.current
@@ -456,16 +498,32 @@ export default function Map() {
     }
   }, [selectedMarkerId])
 
+  // 点击地图空白区域关闭编辑弹窗
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map || !editingMarker) return
+
+    const handleMapClick = () => {
+      setEditingMarker(null)
+    }
+
+    map.on('click', handleMapClick)
+    return () => {
+      map.off('click', handleMapClick)
+    }
+  }, [editingMarker])
+
   // ESC键关闭弹窗
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && selectedMarkerId) {
+      if (e.key === 'Escape') {
         setSelectedMarkerId(null)
+        setEditingMarker(null)
       }
     }
     document.addEventListener('keydown', handleKeyDown)
     return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [selectedMarkerId])
+  }, [])
 
   return (
     <div className="w-full h-full relative">
@@ -607,6 +665,7 @@ export default function Map() {
                 const state = useMapStore.getState()
                 const marker: CustomMarker = {
                   id: `custom_${Date.now()}`,
+                  name: pendingMarker.name,
                   category: pendingMarker.category,
                   icon: pendingMarker.icon,
                   coordinates: pendingMarker.coordinates,
@@ -630,52 +689,99 @@ export default function Map() {
 
       {/* 标点详情弹窗 */}
       {selectedMarkerId && popupPosition && (
-        <div
-          className="absolute z-50 bg-re2-dark/95 border border-gray-600 rounded-lg shadow-2xl overflow-hidden"
-          style={{
-            left: popupPosition.x,
-            top: popupPosition.y - 10,
-            transform: 'translate(-50%, -100%)',
-            maxWidth: '280px',
-          }}
-          onClick={(e) => e.stopPropagation()}
-        >
-          {/* 弹窗头部 */}
-          <div className="flex items-center justify-between px-3 py-2 border-b border-gray-600 bg-gray-800/50">
-            <span className="text-white font-medium text-sm">标点详情</span>
-            <button
-              onClick={() => setSelectedMarkerId(null)}
-              className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
+        (() => {
+          const marker = customMarkers.find(m => m.id === selectedMarkerId)
+          if (!marker) return null
+          return (
+            <div
+              className="absolute z-50 bg-re2-dark/95 border border-gray-600 rounded-lg shadow-2xl overflow-hidden"
+              style={{
+                left: popupPosition.x,
+                top: popupPosition.y - 10,
+                transform: 'translate(-50%, -100%)',
+                width: '280px',
+              }}
+              onClick={(e) => e.stopPropagation()}
             >
-              ×
-            </button>
-          </div>
-          {/* 弹窗内容 */}
-          <div className="p-3">
-            {/* 标点图标 */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
-                <img
-                  src={customMarkers.find(m => m.id === selectedMarkerId)?.icon}
-                  alt=""
-                  className="w-10 h-10 object-contain"
-                />
+              {/* 关闭按钮 */}
+              <div className="flex justify-end px-3 py-1 border-b border-gray-600 bg-gray-800/50">
+                <button
+                  onClick={() => setSelectedMarkerId(null)}
+                  className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors text-xs"
+                >
+                  ×
+                </button>
               </div>
-              <div>
-                <p className="text-white text-sm font-medium">
-                  {customMarkers.find(m => m.id === selectedMarkerId)?.category || '未分类'}
-                </p>
-                <p className="text-gray-400 text-xs mt-1">
-                  坐标: {customMarkers.find(m => m.id === selectedMarkerId)?.coordinates?.join(', ')}
-                </p>
+              {/* 道具类别和名称 */}
+              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-600">
+                <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded">
+                  {marker.category}
+                </span>
+                <span className="text-white text-sm font-medium">{marker.name}</span>
+              </div>
+              {/* 弹窗内容 */}
+              <div className="p-3">
+                {/* 描述 */}
+                <div className="mb-3">
+                  <p className="text-gray-400 text-xs mb-1">描述</p>
+                  {marker.description ? (
+                    <p className="text-gray-300 text-sm whitespace-pre-wrap">{marker.description}</p>
+                  ) : (
+                    <p className="text-gray-500 text-sm">无</p>
+                  )}
+                </div>
+                {/* 截图 */}
+                <div>
+                  <p className="text-gray-400 text-xs mb-1">截图</p>
+                  {marker.screenshots && marker.screenshots.length > 0 ? (
+                    <div className="space-y-1">
+                      {marker.screenshots.map((src, idx) => (
+                        <img
+                          key={idx}
+                          src={src}
+                          alt={`截图 ${idx + 1}`}
+                          className="w-full h-auto rounded border border-gray-600"
+                        />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="text-gray-500 text-sm">无</p>
+                  )}
+                </div>
               </div>
             </div>
-            {/* 提示文字 */}
-            <p className="text-gray-400 text-xs">
-              提示：拖动标点可移动位置，点击其他区域关闭此弹窗
-            </p>
-          </div>
-        </div>
+          )
+        })()
+      )}
+
+      {/* 编辑模式下的编辑弹窗 */}
+      {editingMarker && (
+        <MarkerEditModal
+          pendingMarker={{
+            name: editingMarker.marker.name,
+            category: editingMarker.marker.category,
+            icon: editingMarker.marker.icon,
+            coordinates: editingMarker.marker.coordinates,
+            character: editingMarker.marker.character as 'leon' | 'claire' | 'both',
+            mode: editingMarker.marker.mode as 'normal' | 'expert' | 'both',
+          }}
+          position={editingMarker.position}
+          isEditing={true}
+          initialDescription={editingMarker.marker.description || ''}
+          initialScreenshots={editingMarker.marker.screenshots || []}
+          onConfirm={(description, screenshots) => {
+            useMapStore.getState().updateCustomMarker(editingMarker.marker.id, {
+              description,
+              screenshots,
+            })
+            setEditingMarker(null)
+          }}
+          onCancel={() => setEditingMarker(null)}
+          onDelete={() => {
+            useMapStore.getState().removeCustomMarker(editingMarker.marker.id)
+            setEditingMarker(null)
+          }}
+        />
       )}
     </div>
   )
