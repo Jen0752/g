@@ -187,13 +187,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
         <div className="flex flex-col gap-1.5 p-2 bg-white/85 backdrop-blur-md rounded-xl shadow-card">
         {/* 当前楼层显示 */}
         <div className="flex items-center justify-center py-1.5 px-3 mb-1 bg-re2-subtle/50 rounded-lg">
-          <span className="text-base font-semibold text-black">{floor}</span>
+          <span className="text-base font-semibold text-re2-accent">{floor}</span>
         </div>
 
         {/* 分隔线 */}
         <div className="h-px bg-re2-subtle mx-1" />
 
-        {/* 筛选按钮 */}
+        {/* 筛选按钮 - 灰蓝色边框 */}
         <button
           onClick={() => {
             onFilterToggle()
@@ -201,13 +201,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowFloorPicker(false)
             setShowCharacterPicker(false)
           }}
-          className={`${buttonBase} ${showFilter ? buttonActive : ''}`}
+          className={`${buttonBase} border border-slate-200/80 ${showFilter ? buttonActive : ''}`}
           title="筛选"
         >
           <FilterIcon active={showFilter} />
         </button>
 
-        {/* 楼层选择按钮 */}
+        {/* 楼层选择按钮 - 柔和蓝边框 */}
         <div className="relative">
           <button
             onClick={() => {
@@ -216,7 +216,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`${buttonBase} ${showFloorPicker ? buttonActive : ''}`}
+            className={`${buttonBase} border border-blue-200/80 ${showFloorPicker ? buttonActive : ''}`}
             title="楼层"
           >
             <FloorIcon active={showFloorPicker} />
@@ -224,7 +224,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
 
           {/* 楼层选择面板 */}
           {showFloorPicker && (
-            <div className="absolute right-full top-0 mr-2 bg-white/95 backdrop-blur-md rounded-lg shadow-lifted overflow-hidden z-20 min-w-[80px]">
+            <div className="absolute right-full top-0 mr-2 bg-white/95 backdrop-blur-md rounded-xl shadow-lifted overflow-hidden z-20 min-w-[80px]">
               <div className="py-1.5">
                 {FLOOR_ORDER.map((f) => (
                   <button
@@ -233,7 +233,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
                     className={`w-full px-4 py-2 text-center text-sm whitespace-nowrap transition-all duration-150 ${
                       floor === f
                         ? 'bg-re2-accent/15 text-re2-accent font-medium'
-                        : 'text-re2-text hover:bg-re2-subtle'
+                        : 'text-re2-accent hover:bg-slate-200'
                     }`}
                   >
                     {f}
@@ -244,7 +244,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
           )}
         </div>
 
-        {/* 角色选择按钮 */}
+        {/* 角色选择按钮 - 柔和绿边框 */}
         <div className="relative">
           <button
             onClick={() => {
@@ -253,7 +253,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowFloorPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`${buttonBase} ${showCharacterPicker ? buttonActive : ''}`}
+            className={`${buttonBase} border border-green-200/80 ${showCharacterPicker ? buttonActive : ''}`}
             title="角色"
           >
             <CharacterIcon active={showCharacterPicker} />
@@ -265,7 +265,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleCharacterChange('leon')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  character === 'leon' ? 'bg-blue-50 text-blue-600' : 'text-re2-text hover:bg-re2-subtle'
+                  character === 'leon' ? 'bg-blue-50 text-blue-600' : 'text-re2-dark hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-blue-500"></span>
@@ -274,7 +274,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleCharacterChange('claire')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  character === 'claire' ? 'bg-red-50 text-red-600' : 'text-re2-text hover:bg-re2-subtle'
+                  character === 'claire' ? 'bg-red-50 text-red-600' : 'text-re2-dark hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-red-500"></span>
@@ -284,7 +284,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
           )}
         </div>
 
-        {/* 模式切换按钮 */}
+        {/* 模式切换按钮 - 柔和黄边框 */}
         <div className="relative">
           <button
             onClick={() => {
@@ -293,7 +293,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`${buttonBase} ${showModePicker ? buttonActive : ''} ${mode === 'expert' ? 'ring-2 ring-red-400/40' : ''}`}
+            className={`${buttonBase} border border-amber-200/80 ${showModePicker ? buttonActive : ''} ${mode === 'expert' ? 'ring-2 ring-red-400/40' : ''}`}
             title="模式"
           >
             <svg className={`w-5 h-5 transition-colors ${mode === 'expert' ? 'text-red-500' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
@@ -307,7 +307,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleModeChange('normal')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  mode === 'normal' ? 'bg-green-50 text-green-600' : 'text-re2-text hover:bg-re2-subtle'
+                  mode === 'normal' ? 'bg-green-50 text-green-600' : 'text-re2-dark hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-green-500"></span>
@@ -316,7 +316,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleModeChange('expert')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  mode === 'expert' ? 'bg-red-50 text-red-600' : 'text-re2-text hover:bg-re2-subtle'
+                  mode === 'expert' ? 'bg-red-50 text-red-600' : 'text-re2-dark hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-red-500"></span>
@@ -329,16 +329,16 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
         {/* 分隔线 */}
         <div className="h-px bg-re2-subtle mx-1" />
 
-        {/* 标点标记按钮 - 放在模式下方 */}
+        {/* 标点标记按钮 - 柔和玫瑰边框 */}
         <button
           onClick={handleAddMarkerClick}
-          className={`${buttonBase} ${isPlacingMarker ? buttonActive : ''}`}
+          className={`${buttonBase} border border-rose-200/80 ${isPlacingMarker ? 'bg-re2-accent/10 border-2 border-re2-accent/60' : ''}`}
           title="添加标点"
         >
           <PinIcon active={isPlacingMarker} />
         </button>
 
-        {/* 路线按钮 */}
+        {/* 路线按钮 - 柔和紫边框 */}
         <button
           onClick={() => {
             onRouteToggle()
@@ -347,13 +347,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowCharacterPicker(false)
             setShowMarkerPicker(false)
           }}
-          className={`${buttonBase} ${showRoutes ? buttonActive : ''}`}
+          className={`${buttonBase} border border-purple-200/80 ${showRoutes ? buttonActive : ''}`}
           title="路线"
         >
           <PathIcon active={showRoutes} />
         </button>
 
-        {/* 路线编辑按钮 */}
+        {/* 路线编辑按钮 - 柔和青边框 */}
         <button
           onClick={() => {
             setIsEditingRoutes(!isEditingRoutes)
@@ -369,13 +369,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setIsEditingMarkers(false)
             }
           }}
-          className={`${buttonBase} ${isEditingRoutes ? 'bg-purple-50 ring-2 ring-purple-400/40' : ''}`}
+          className={`${buttonBase} border border-teal-200/80 ${isEditingRoutes ? 'bg-purple-50 ring-2 ring-purple-400/40' : ''}`}
           title="编辑路线"
         >
           <SettingsIcon />
         </button>
 
-        {/* 编辑标点按钮 */}
+        {/* 编辑标点按钮 - 柔和橙边框 */}
         <button
           onClick={() => {
             setShowModePicker(false)
@@ -392,7 +392,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setIsEditingMarkers(true)
             }
           }}
-          className={`${buttonBase} ${isEditingMarkers ? buttonActive : ''}`}
+          className={`${buttonBase} border border-orange-200/80 ${isEditingMarkers ? buttonActive : ''}`}
           title="编辑标点"
         >
           <EditIcon />
