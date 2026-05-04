@@ -102,10 +102,10 @@ export default function RouteEditor() {
   if (!isEditingRoutes) return null
 
   return (
-    <div className="absolute top-0 left-0 z-20 w-72 h-full bg-white/95 backdrop-blur-md border-r border-re2-subtle shadow-lifted flex flex-col">
+    <div className="absolute top-0 left-0 z-20 w-72 h-full bg-teal-100/95 backdrop-blur-md border-r border-teal-200/80 shadow-lifted flex flex-col">
       {/* 头部 */}
       <div className="flex items-center justify-between px-4 py-3.5 border-b border-re2-subtle">
-        <h2 className="text-base font-semibold text-re2-text">路线编辑</h2>
+        <h2 className="text-base font-semibold text-gray-700">路线编辑</h2>
         <button
           onClick={() => setIsEditingRoutes(false)}
           className="w-8 h-8 rounded-btn bg-re2-subtle/50 hover:bg-re2-subtle flex items-center justify-center transition-colors"
@@ -126,7 +126,7 @@ export default function RouteEditor() {
               value={newRouteName}
               onChange={(e) => setNewRouteName(e.target.value)}
               placeholder="路线名称"
-              className="w-full px-3 py-2 bg-white text-re2-text text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none mb-3"
+              className="w-full px-3 py-2 bg-white text-gray-700 text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none mb-3"
             />
             <div className="flex gap-2 mb-3">
               {COLORS.map(color => (
@@ -156,7 +156,7 @@ export default function RouteEditor() {
         ) : (
           <button
             onClick={() => setIsCreating(true)}
-            className="w-full py-2.5 px-3 bg-re2-subtle/30 text-re2-muted text-sm rounded-xl border-2 border-dashed border-re2-subtle hover:border-re2-accent hover:text-re2-text hover:bg-re2-accent/5 transition-all mb-3"
+            className="w-full py-2.5 px-3 bg-re2-subtle/30 text-re2-muted text-sm rounded-xl border-2 border-dashed border-re2-subtle hover:border-re2-accent hover:text-gray-700 hover:bg-re2-accent/5 transition-all mb-3"
           >
             + 创建新路线
           </button>
@@ -172,13 +172,13 @@ export default function RouteEditor() {
                 onChange={handleImportRoutes}
                 className="hidden"
               />
-              <div className="text-xs text-center text-re2-muted hover:text-re2-text bg-re2-subtle/30 hover:bg-re2-subtle cursor-pointer py-2 px-2 rounded-lg transition-colors">
+              <div className="text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/30 hover:bg-re2-subtle cursor-pointer py-2 px-2 rounded-lg transition-colors">
                 导入
               </div>
             </label>
             <button
               onClick={handleExportRoutes}
-              className="flex-1 text-xs text-center text-re2-muted hover:text-re2-text bg-re2-subtle/30 hover:bg-re2-subtle py-2 px-2 rounded-lg transition-colors"
+              className="flex-1 text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/30 hover:bg-re2-subtle py-2 px-2 rounded-lg transition-colors"
             >
               导出
             </button>
@@ -200,7 +200,7 @@ export default function RouteEditor() {
                   className="w-4 h-4 rounded-full shadow-sm"
                   style={{ backgroundColor: route.color }}
                 />
-                <span className="text-re2-text text-sm font-medium flex-1">{route.name}</span>
+                <span className="text-gray-700 text-sm font-medium flex-1">{route.name}</span>
                 <span className="text-re2-muted text-xs">{route.waypoints.length} 点</span>
               </div>
 
@@ -208,12 +208,12 @@ export default function RouteEditor() {
                 <div className="mt-3 pt-3 border-t border-re2-subtle">
                   {/* 路线名称编辑 */}
                   <div className="mb-3">
-                    <label className="text-re2-muted text-xs mb-1.5 block">路线名称</label>
+                    <label className="text-gray-500 text-xs mb-1.5 block">路线名称</label>
                     <input
                       type="text"
                       value={route.name}
                       onChange={(e) => updateRoute(route.id, { name: e.target.value })}
-                      className="w-full px-3 py-2 bg-white text-re2-text text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none"
+                      className="w-full px-3 py-2 bg-white text-gray-700 text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none"
                     />
                   </div>
 
@@ -247,7 +247,7 @@ export default function RouteEditor() {
                             className="flex items-center gap-2 bg-white rounded-lg px-2.5 py-1.5 shadow-soft"
                           >
                             <span className="text-re2-muted text-xs w-4">{index + 1}.</span>
-                            <span className="text-re2-text text-xs flex-1">
+                            <span className="text-gray-700 text-xs flex-1">
                               {wp.coordinates[0].toFixed(3)}, {wp.coordinates[1].toFixed(3)}
                             </span>
                             <button

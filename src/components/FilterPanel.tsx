@@ -115,7 +115,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
         {/* 头部 */}
         <div className="flex items-center justify-between px-5 py-3 border-b border-re2-subtle">
           <div className="flex items-center gap-3">
-            <h2 className="text-base font-semibold text-re2-text">道具筛选</h2>
+            <h2 className="text-base font-semibold text-gray-700">道具筛选</h2>
             <button
               onClick={handleToggleAll}
               className="px-5 py-2 rounded-xl bg-re2-accent/10 hover:bg-re2-accent/20 text-re2-accent text-sm font-medium transition-colors shadow-soft"
@@ -147,7 +147,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                   onClick={() => handleCategoryClick(cat.id)}
                   onDoubleClick={() => handleCategoryDoubleClick(cat.id)}
                   className={`w-full px-2 py-2.5 flex items-center gap-2 border-b border-re2-subtle transition-colors ${
-                    isActive ? 'bg-white' : 'hover:bg-white/50'
+                    isActive ? 'bg-gray-200' : 'hover:bg-gray-100'
                   }`}
                 >
                   <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-soft flex-shrink-0">
@@ -160,7 +160,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                       }}
                     />
                   </div>
-                  <span className={`text-xs flex-1 text-left ${isActive ? 'text-re2-text font-medium' : 'text-re2-muted'}`}>{cat.name}</span>
+                  <span className={`text-xs flex-1 text-left ${isActive ? 'text-gray-700 font-medium' : 'text-re2-muted'}`}>{cat.name}</span>
                   <svg className="w-3 h-3 text-re2-subtle flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                   </svg>
@@ -193,7 +193,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                           }}
                         />
                       </div>
-                      <span className="text-sm font-medium text-re2-text">{cat.name}</span>
+                      <span className="text-sm font-medium text-gray-700">{cat.name}</span>
                     </div>
                     <button
                       onClick={() => handleToggleCategorySubs(cat.id)}
@@ -228,7 +228,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                               }}
                             />
                           </div>
-                          <span className={`text-xs ${isActive ? 'text-re2-text font-medium' : 'text-re2-muted'}`}>
+                          <span className={`text-xs ${isActive ? 'text-gray-700 font-medium' : 'text-re2-muted'}`}>
                             {sub.name}
                           </span>
                         </button>

@@ -400,7 +400,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
 
       {/* 标点选择器 */}
       {showMarkerPicker && (
-        <div className="absolute right-full top-0 mr-2 bg-white/95 backdrop-blur-md rounded-xl shadow-lifted p-4 z-20 w-72">
+        <div className="absolute right-full top-0 mr-2 bg-rose-200/80 backdrop-blur-md rounded-xl shadow-lifted p-4 z-20 w-72">
           {/* 导入/导出按钮 */}
           <div className="flex gap-2 mb-4 border-b border-re2-subtle pb-4">
             <label className="flex-1">
@@ -410,13 +410,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
                 onChange={handleImportMarkers}
                 className="hidden"
               />
-              <div className="text-xs text-center text-re2-muted hover:text-re2-text bg-re2-subtle/50 hover:bg-re2-subtle cursor-pointer py-2 px-3 rounded-btn transition-colors">
+              <div className="text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/50 hover:bg-re2-subtle cursor-pointer py-2 px-3 rounded-btn transition-colors">
                 导入
               </div>
             </label>
             <button
               onClick={handleExportMarkers}
-              className="flex-1 text-xs text-center text-re2-muted hover:text-re2-text bg-re2-subtle/50 hover:bg-re2-subtle py-2 px-3 rounded-btn transition-colors"
+              className="flex-1 text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/50 hover:bg-re2-subtle py-2 px-3 rounded-btn transition-colors"
             >
               导出
             </button>
@@ -450,7 +450,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             <>
               <button
                 onClick={() => setSelectedCategory(null)}
-                className="text-xs text-re2-muted hover:text-re2-text mb-3 flex items-center gap-1.5 transition-colors"
+                className="text-xs text-re2-muted hover:text-gray-700 mb-3 flex items-center gap-1.5 transition-colors"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />

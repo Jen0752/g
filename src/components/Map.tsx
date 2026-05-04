@@ -63,6 +63,8 @@ export default function Map() {
 
   const {
     floor,
+    character,
+    mode,
     isPlacingMarker,
     isEditingMarkers,
     customMarkers,
@@ -181,6 +183,8 @@ export default function Map() {
           icon: state.selectedMarkerIcon,
           coordinates,
         })
+        state.setCharacter('both')
+        state.setMode('both')
         setShowMarkerForm(true)
       })
     })
@@ -263,8 +267,17 @@ export default function Map() {
     // 清除旧的标记
     document.querySelectorAll('.map-marker-wrapper').forEach(el => el.remove())
 
-    // 只显示当前楼层的标点
-    const floorMarkers = customMarkers.filter(m => m.floor === floor)
+    // 只显示当前楼层和当前人物线、模式的标点
+    const floorMarkers = customMarkers.filter(m => {
+      if (m.floor !== floor) return false
+      // 人物线过滤
+      if (character === 'leon' && m.character !== 'leon' && m.character !== 'both') return false
+      if (character === 'claire' && m.character !== 'claire' && m.character !== 'both') return false
+      // 模式过滤
+      if (mode === 'normal' && m.mode !== 'normal' && m.mode !== 'both') return false
+      if (mode === 'expert' && m.mode !== 'expert' && m.mode !== 'both') return false
+      return true
+    })
 
     // 添加新的标记
     floorMarkers.forEach((marker, index) => {
@@ -405,7 +418,7 @@ export default function Map() {
         .setLngLat(marker.coordinates)
         .addTo(map)
     })
-  }, [customMarkers, floor, isEditingMarkers])
+  }, [customMarkers, floor, character, mode, isEditingMarkers])
 
   // 楼层变化时更新图片
   useEffect(() => {
@@ -674,7 +687,7 @@ export default function Map() {
 
       {/* 标点模式提示 */}
       {isPlacingMarker && !showMarkerForm && (
-        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 bg-white/95 backdrop-blur-md text-re2-text px-5 py-2.5 rounded-full text-sm shadow-card">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 bg-white/95 backdrop-blur-md text-gray-700 px-5 py-2.5 rounded-full text-sm shadow-card">
           点击地图选择位置
         </div>
       )}
@@ -734,7 +747,7 @@ export default function Map() {
             left: markerFormPosition.x,
             top: markerFormPosition.y,
             transform: 'none',
-            width: '280px',
+            width: '360px',
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -749,13 +762,13 @@ export default function Map() {
             }}
           />
           <div className="flex items-center justify-between px-4 py-3 border-b border-re2-subtle bg-re2-subtle/30">
-            <span className="text-re2-text font-medium text-sm">填写标点信息</span>
+            <span className="text-gray-700 font-medium text-sm">填写标点信息</span>
             <button
               onClick={() => {
                 setShowMarkerForm(false)
                 setPendingMarker(null)
               }}
-              className="w-6 h-6 flex items-center justify-center text-re2-muted hover:text-re2-text hover:bg-re2-subtle rounded-btn transition-colors"
+              className="w-6 h-6 flex items-center justify-center text-re2-muted hover:text-gray-700 hover:bg-re2-subtle rounded-btn transition-colors"
             >
               ×
             </button>
@@ -771,7 +784,7 @@ export default function Map() {
                 />
               </div>
               <div>
-                <p className="text-re2-text text-sm font-medium">{pendingMarker.category}</p>
+                <p className="text-gray-700 text-sm font-medium">{pendingMarker.category}</p>
                 <p className="text-re2-muted text-xs mt-1">坐标: {pendingMarker.coordinates.join(', ')}</p>
               </div>
             </div>
@@ -802,6 +815,17 @@ export default function Map() {
                   <span className="w-3 h-3 rounded-full bg-red-500"></span>
                   克莱尔
                 </button>
+                <button
+                  onClick={() => useMapStore.getState().setCharacter('both')}
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors ${
+                    useMapStore.getState().character === 'both'
+                      ? 'bg-purple-50 text-purple-600 border border-purple-200'
+                      : 'bg-re2-subtle/30 text-re2-muted border border-transparent hover:bg-re2-subtle/50'
+                  }`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-purple-500"></span>
+                  共有
+                </button>
               </div>
             </div>
 
@@ -830,6 +854,17 @@ export default function Map() {
                 >
                   <span className="w-3 h-3 rounded-full bg-red-500"></span>
                   专家
+                </button>
+                <button
+                  onClick={() => useMapStore.getState().setMode('both')}
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors ${
+                    useMapStore.getState().mode === 'both'
+                      ? 'bg-purple-50 text-purple-600 border border-purple-200'
+                      : 'bg-re2-subtle/30 text-re2-muted border border-transparent hover:bg-re2-subtle/50'
+                  }`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-purple-500"></span>
+                  共有
                 </button>
               </div>
             </div>
@@ -869,12 +904,18 @@ export default function Map() {
           if (!marker) return null
           return (
             <div
-              className="absolute z-50 bg-white/95 backdrop-blur-md border border-re2-subtle rounded-xl shadow-lifted overflow-hidden"
+              className={`absolute z-50 backdrop-blur-md border border-re2-subtle rounded-xl shadow-lifted overflow-hidden ${
+                character === 'leon'
+                  ? 'bg-blue-100/95 border-blue-200/80'
+                  : character === 'claire'
+                  ? 'bg-red-200/95 border-red-300/80'
+                  : 'bg-white/95'
+              }`}
               style={{
                 left: popupPosition.x,
                 top: popupPosition.y - 10,
                 transform: 'translate(-50%, -100%)',
-                width: '280px',
+                width: '360px',
               }}
               onClick={(e) => e.stopPropagation()}
             >
@@ -882,7 +923,7 @@ export default function Map() {
               <div className="flex justify-end px-3 py-1.5 border-b border-re2-subtle bg-re2-subtle/30">
                 <button
                   onClick={() => setSelectedMarkerId(null)}
-                  className="w-5 h-5 flex items-center justify-center text-re2-muted hover:text-re2-text hover:bg-re2-subtle rounded-btn transition-colors text-xs"
+                  className="w-5 h-5 flex items-center justify-center text-re2-muted hover:text-gray-700 hover:bg-re2-subtle rounded-btn transition-colors text-xs"
                 >
                   ×
                 </button>
@@ -892,7 +933,7 @@ export default function Map() {
                 <span className="text-xs text-re2-muted bg-re2-subtle/50 px-2 py-0.5 rounded">
                   {marker.category}
                 </span>
-                <span className="text-re2-text text-sm font-medium">{marker.name}</span>
+                <span className="text-gray-700 text-sm font-medium">{marker.name}</span>
               </div>
               {/* 弹窗内容 */}
               <div className="p-3.5">
@@ -900,7 +941,7 @@ export default function Map() {
                 <div className="mb-3">
                   <p className="text-re2-muted text-xs mb-1.5">描述</p>
                   {marker.description ? (
-                    <p className="text-re2-text text-sm whitespace-pre-wrap">{marker.description}</p>
+                    <p className="text-gray-700 text-sm whitespace-pre-wrap">{marker.description}</p>
                   ) : (
                     <p className="text-re2-muted text-sm">无</p>
                   )}

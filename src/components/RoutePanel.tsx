@@ -8,10 +8,10 @@ export default function RoutePanel({ onClose }: RoutePanelProps) {
   const { activeRoutes, toggleRoute, routes } = useMapStore()
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-20 bg-white/95 backdrop-blur-md rounded-t-2xl shadow-lifted">
+    <div className="absolute bottom-0 left-0 right-0 z-20 bg-purple-100/95 backdrop-blur-md rounded-t-2xl shadow-lifted">
       {/* 头部 */}
       <div className="flex items-center justify-between px-5 py-3.5 border-b border-re2-subtle">
-        <h2 className="text-base font-semibold text-re2-text">路线选择</h2>
+        <h2 className="text-base font-semibold text-gray-700">路线选择</h2>
         <button
           onClick={onClose}
           className="w-9 h-9 rounded-btn bg-re2-subtle/50 hover:bg-re2-subtle flex items-center justify-center transition-colors"
@@ -46,7 +46,7 @@ export default function RoutePanel({ onClose }: RoutePanelProps) {
                   className="w-4 h-4 rounded-full shadow-sm"
                   style={{ backgroundColor: route.color }}
                 />
-                <span className={`text-sm font-medium ${isActive ? 'text-re2-text' : 'text-re2-muted'}`}>
+                <span className={`text-sm font-medium ${isActive ? 'text-gray-700' : 'text-re2-muted'}`}>
                   {route.name}
                 </span>
                 {isActive && (

@@ -122,7 +122,7 @@ export default function MarkerEditModal({
 
   return (
     <div
-      className="absolute z-50 bg-white/95 backdrop-blur-md border border-re2-subtle rounded-xl shadow-lifted overflow-hidden"
+      className="absolute z-50 bg-orange-200/80 backdrop-blur-md border border-orange-200/80 rounded-xl shadow-lifted overflow-hidden"
       style={{ left: pos.x, top: pos.y, width: popupWidth, maxHeight: '80vh' }}
     >
       {/* 可拖动的头部 */}
@@ -130,10 +130,10 @@ export default function MarkerEditModal({
         className="flex items-center justify-between px-4 py-3 border-b border-re2-subtle bg-re2-subtle/30 cursor-grab active:cursor-grabbing select-none"
         onMouseDown={handleHeaderMouseDown}
       >
-        <span className="text-re2-text font-medium text-sm">{isEditing ? '编辑标点' : '编辑标点信息'}</span>
+        <span className="text-gray-700 font-medium text-sm">{isEditing ? '编辑标点' : '编辑标点信息'}</span>
         <button
           onClick={onCancel}
-          className="w-6 h-6 flex items-center justify-center text-re2-muted hover:text-re2-text hover:bg-re2-subtle rounded-btn transition-colors"
+          className="w-6 h-6 flex items-center justify-center text-re2-muted hover:text-gray-700 hover:bg-re2-subtle rounded-btn transition-colors"
         >
           ×
         </button>
@@ -145,7 +145,7 @@ export default function MarkerEditModal({
             <img src={pendingMarker.icon} alt="" className="w-9 h-9 object-contain" />
           </div>
           <div>
-            <p className="text-re2-text text-sm font-medium">{pendingMarker.name}</p>
+            <p className="text-gray-700 text-sm font-medium">{pendingMarker.name}</p>
             <p className="text-re2-muted text-xs mt-1">
               {pendingMarker.character === 'leon' ? '里昂线' : pendingMarker.character === 'claire' ? '克莱尔线' : '双线'} /
               {pendingMarker.mode === 'normal' ? '普通' : '专家'}模式
@@ -155,11 +155,11 @@ export default function MarkerEditModal({
 
         {/* 道具名称 */}
         <div className="mb-4">
-          <p className="text-re2-muted text-xs mb-1.5">道具名称</p>
+          <p className="text-gray-500 text-xs mb-1.5">道具名称</p>
           <input
             type="text"
             defaultValue={pendingMarker.name}
-            className="w-full px-3 py-2.5 bg-re2-subtle/30 text-re2-text text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none transition-colors"
+            className="w-full px-3 py-2.5 bg-re2-subtle/30 text-gray-700 text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none transition-colors"
             placeholder="输入道具名称"
           />
         </div>
@@ -170,7 +170,7 @@ export default function MarkerEditModal({
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="输入道具描述..."
-            className="w-full h-20 px-3 py-2.5 bg-re2-subtle/30 text-re2-text text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none resize-none transition-colors"
+            className="w-full h-20 px-3 py-2.5 bg-re2-subtle/30 text-gray-700 text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none resize-none transition-colors"
           />
         </div>
 
@@ -198,7 +198,7 @@ export default function MarkerEditModal({
 
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full py-2.5 px-3 bg-re2-subtle/30 text-re2-muted text-sm rounded-lg border-2 border-dashed border-re2-subtle hover:border-re2-accent hover:text-re2-text transition-colors"
+            className="w-full py-2.5 px-3 bg-re2-subtle/30 text-re2-muted text-sm rounded-lg border-2 border-dashed border-re2-subtle hover:border-re2-accent hover:text-gray-700 transition-colors"
           >
             + 添加截图
           </button>
