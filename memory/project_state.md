@@ -59,12 +59,28 @@ src/
 ```
 
 ## 状态管理 (useMapStore)
+- `character`: 'leon' | 'claire' | 'both' - 当前人物线
+- `mode`: 'normal' | 'expert' | 'both' - 当前模式
 - `isEditingMarkers`: 标点编辑模式
 - `isEditingRoutes`: 路线编辑模式
 - `editingRouteId`: 当前编辑的路线 ID
 - `activeRoutes`: Set<string> 选中的路线（用于显示）
 - `routes: Route[]`: 所有路线数据
-- `editingMarkerId`: 当前编辑的标点 ID
+- `customMarkers`: 自定义标点数组
+
+## UI/UX 优化（2024年完成）
+- [x] FilterPanel 改为底部弹窗（50vh高度）
+- [x] 工具栏8个按钮各有独特边框颜色匹配图标
+- [x] 地图缩放控制移至右下角，自定义样式
+- [x] 人物线筛选：里昂线显示里昂+共有，克莱尔线显示克莱尔+共有
+- [x] 模式筛选：普通模式显示普通+共有，专家模式显示专家+共有
+- [x] 放置标点弹窗默认人物线='both'，模式='both'
+- [x] 各弹窗背景颜色与对应按钮边框颜色统一
+- [x] 字体颜色加深：text-re2-text → text-gray-700
+- [x] 筛选面板选中分类背景加深，未选中添加悬停效果
+- [x] 标点详情弹窗改为极简悬浮面板风格（无边界、去分割线）
+- [x] 标点详情弹窗添加可拖动功能
+- [x] 标点详情弹窗自动调整位置（避免超出屏幕）
 
 ## 待完成功能
 - [ ] 路线显示开关（目前需要退出编辑才显示）
