@@ -50,6 +50,10 @@ export default function Map() {
   const [imageError, setImageError] = useState<string | null>(null)
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null)
   const [popupPosition, setPopupPosition] = useState<{x: number; y: number} | null>(null)
+  const [popupPos, setPopupPos] = useState({ x: 0, y: 0 })
+  const popupDragging = useRef(false)
+  const popupDragStart = useRef({ x: 0, y: 0 })
+  const popupPosStart = useRef({ x: 0, y: 0 })
   const [showMarkerForm, setShowMarkerForm] = useState(false)
   const [markerFormPosition, setMarkerFormPosition] = useState<{x: number; y: number} | null>(null)
   const [pendingMarker, setPendingMarker] = useState<{name: string; coordinates: [number, number]; icon: string; category: string} | null>(null)
@@ -904,67 +908,67 @@ export default function Map() {
           if (!marker) return null
           return (
             <div
-              className={`absolute z-50 backdrop-blur-md border border-re2-subtle rounded-xl shadow-lifted overflow-hidden ${
+              className={`absolute z-50 bg-white/95 backdrop-blur-md rounded-xl shadow-lifted overflow-hidden ${
                 character === 'leon'
-                  ? 'bg-blue-100/95 border-blue-200/80'
+                  ? 'border border-blue-200/80'
                   : character === 'claire'
-                  ? 'bg-red-200/95 border-red-300/80'
-                  : 'bg-white/95'
+                  ? 'border border-red-200/80'
+                  : 'border border-gray-200'
               }`}
               style={{
                 left: popupPosition.x,
                 top: popupPosition.y - 10,
                 transform: 'translate(-50%, -100%)',
-                width: '360px',
+                width: '320px',
               }}
               onClick={(e) => e.stopPropagation()}
             >
               {/* 关闭按钮 */}
-              <div className="flex justify-end px-3 py-1.5 border-b border-re2-subtle bg-re2-subtle/30">
+              <div className="flex justify-end px-4 pt-3">
                 <button
                   onClick={() => setSelectedMarkerId(null)}
-                  className="w-5 h-5 flex items-center justify-center text-re2-muted hover:text-gray-700 hover:bg-re2-subtle rounded-btn transition-colors text-xs"
+                  className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors text-lg leading-none"
                 >
                   ×
                 </button>
               </div>
-              {/* 道具类别和名称 */}
-              <div className="flex items-center justify-between px-4 py-2.5 border-b border-re2-subtle">
-                <span className="text-xs text-re2-muted bg-re2-subtle/50 px-2 py-0.5 rounded">
-                  {marker.category}
-                </span>
-                <span className="text-gray-700 text-sm font-medium">{marker.name}</span>
+              {/* 主标题：图标 + 名称 */}
+              <div className="flex items-center gap-3 px-5 pb-4">
+                <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                  <img src={marker.icon} alt="" className="w-7 h-7 object-contain" />
+                </div>
+                <div className="flex flex-col gap-0.5">
+                  <span className="text-gray-500 text-xs">{marker.category}</span>
+                  <span className="text-gray-800 text-base font-semibold">{marker.name}</span>
+                </div>
               </div>
-              {/* 弹窗内容 */}
-              <div className="p-3.5">
-                {/* 描述 */}
-                <div className="mb-3">
-                  <p className="text-re2-muted text-xs mb-1.5">描述</p>
+              {/* 描述 */}
+              <div className="px-5 pb-4">
+                <div className="flex items-center gap-2 mb-1.5">
+                  <span className="text-gray-400 text-xs">描述</span>
                   {marker.description ? (
                     <p className="text-gray-700 text-sm whitespace-pre-wrap">{marker.description}</p>
                   ) : (
-                    <p className="text-re2-muted text-sm">无</p>
-                  )}
-                </div>
-                {/* 截图 */}
-                <div>
-                  <p className="text-re2-muted text-xs mb-1.5">截图</p>
-                  {marker.screenshots && marker.screenshots.length > 0 ? (
-                    <div className="space-y-2">
-                      {marker.screenshots.map((src, idx) => (
-                        <img
-                          key={idx}
-                          src={src}
-                          alt={`截图 ${idx + 1}`}
-                          className="w-full h-auto rounded-lg border border-re2-subtle shadow-soft"
-                        />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="text-re2-muted text-sm">无</p>
+                    <span className="text-gray-400 text-sm">无</span>
                   )}
                 </div>
               </div>
+              {/* 截图 */}
+              {marker.screenshots && marker.screenshots.length > 0 && (
+                <div className="px-5 pb-5">
+                  <span className="text-gray-400 text-xs">截图</span>
+                  <div className="space-y-2 mt-1.5">
+                    {marker.screenshots.map((src, idx) => (
+                      <img
+                        key={idx}
+                        src={src}
+                        alt={`截图 ${idx + 1}`}
+                        className="w-full h-auto rounded-lg"
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )
         })()
