@@ -54,6 +54,9 @@ export default function Map() {
   const popupDragging = useRef(false)
   const popupDragStart = useRef({ x: 0, y: 0 })
   const popupPosStart = useRef({ x: 0, y: 0 })
+  const popupWidth = 320
+  const popupHeight = 200
+  const popupPadding = 16
   const [showMarkerForm, setShowMarkerForm] = useState(false)
   const [markerFormPosition, setMarkerFormPosition] = useState<{x: number; y: number} | null>(null)
   const [pendingMarker, setPendingMarker] = useState<{name: string; coordinates: [number, number]; icon: string; category: string} | null>(null)
@@ -559,6 +562,52 @@ export default function Map() {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  // 拖动标点详情弹窗
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!popupDragging.current) return
+      const dx = e.clientX - popupDragStart.current.x
+      const dy = e.clientY - popupDragStart.current.y
+      setPopupPos({
+        x: popupPosStart.current.x + dx,
+        y: popupPosStart.current.y + dy,
+      })
+    }
+
+    const handleMouseUp = () => {
+      popupDragging.current = false
+    }
+
+    document.addEventListener('mousemove', handleMouseMove)
+    document.addEventListener('mouseup', handleMouseUp)
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove)
+      document.removeEventListener('mouseup', handleMouseUp)
+    }
+  }, [])
+
+  // 初始化弹窗位置
+  useEffect(() => {
+    if (popupPosition) {
+      const spaceBelow = window.innerHeight - popupPosition.y
+      const spaceAbove = popupPosition.y
+
+      let x = popupPosition.x - popupWidth / 2
+      let y: number
+
+      if (spaceBelow >= popupHeight + 20 || spaceBelow > spaceAbove) {
+        y = popupPosition.y + 10
+      } else {
+        y = popupPosition.y - popupHeight - 10
+      }
+
+      x = Math.max(popupPadding, Math.min(x, window.innerWidth - popupWidth - popupPadding))
+      y = Math.max(popupPadding, Math.min(y, window.innerHeight - popupHeight - popupPadding))
+
+      setPopupPos({ x, y })
+    }
+  }, [popupPosition])
+
   // 渲染路线和路径点
   useEffect(() => {
     const map = mapRef.current
@@ -902,7 +951,7 @@ export default function Map() {
       )}
 
       {/* 标点详情弹窗 */}
-      {selectedMarkerId && popupPosition && (
+      {selectedMarkerId && (
         (() => {
           const marker = customMarkers.find(m => m.id === selectedMarkerId)
           if (!marker) return null
@@ -916,12 +965,18 @@ export default function Map() {
                   : 'border border-gray-200'
               }`}
               style={{
-                left: popupPosition.x,
-                top: popupPosition.y - 10,
-                transform: 'translate(-50%, -100%)',
+                left: popupPos.x,
+                top: popupPos.y,
                 width: '320px',
               }}
               onClick={(e) => e.stopPropagation()}
+              onMouseDown={(e) => {
+                const target = e.target as HTMLElement
+                if (target.tagName === 'BUTTON' || target.closest('button')) return
+                popupDragging.current = true
+                popupDragStart.current = { x: e.clientX, y: e.clientY }
+                popupPosStart.current = { x: popupPos.x, y: popupPos.y }
+              }}
             >
               {/* 关闭按钮 */}
               <div className="flex justify-end px-4 pt-3">
