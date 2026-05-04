@@ -18,7 +18,6 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
     if (allOn) {
       setCategories(new Set())
     } else {
-      // 全选所有二级分类
       const allSubIds = CATEGORIES.flatMap(cat => cat.subCategories.map(sub => sub.id))
       setCategories(new Set(allSubIds))
     }
@@ -60,25 +59,25 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
   }
 
   return (
-    <div className="absolute top-0 left-0 right-0 bottom-0 z-20 bg-re2-dark/95 backdrop-blur-sm overflow-hidden flex flex-col">
+    <div className="absolute top-0 left-0 right-0 bottom-0 z-20 bg-white/95 backdrop-blur-md overflow-hidden flex flex-col">
       {/* 头部 */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-gray-700">
-        <h2 className="text-lg font-bold text-white">道具筛选</h2>
+      <div className="flex items-center justify-between px-5 py-3.5 border-b border-re2-subtle">
+        <h2 className="text-base font-semibold text-re2-text">道具筛选</h2>
         <button
           onClick={onClose}
-          className="w-10 h-10 rounded bg-gray-700 text-gray-300 hover:bg-gray-600 flex items-center justify-center"
+          className="w-9 h-9 rounded-btn bg-re2-subtle/50 hover:bg-re2-subtle flex items-center justify-center transition-colors"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg className="w-4 h-4 text-re2-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
       {/* 操作栏 */}
-      <div className="px-4 py-2 border-b border-gray-800">
+      <div className="px-4 py-2.5 border-b border-re2-subtle bg-re2-subtle/20">
         <button
           onClick={handleToggleAll}
-          className="w-full py-2 px-3 rounded bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors text-sm"
+          className="w-full py-2 px-4 rounded-btn bg-white text-re2-text text-sm hover:bg-re2-subtle/50 transition-colors shadow-soft"
         >
           {allOn ? '取消全选' : '全选'}
         </button>
@@ -87,7 +86,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
       {/* 主内容区 */}
       <div className="flex-1 flex overflow-hidden">
         {/* 左侧：一级分类列表 */}
-        <div className="w-20 border-r border-gray-800 overflow-y-auto">
+        <div className="w-20 border-r border-re2-subtle overflow-y-auto bg-re2-subtle/10">
           {CATEGORIES.map((cat) => {
             const isActive = cat.id === activeCategory
             const iconPath = `/re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
@@ -97,23 +96,23 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                 key={cat.id}
                 onClick={() => handleCategoryClick(cat.id)}
                 onDoubleClick={() => handleCategoryDoubleClick(cat.id)}
-                className={`w-full p-2 flex flex-col items-center gap-1 border-b border-gray-800 transition-colors ${
-                  isActive ? 'bg-re2-accent/20' : 'hover:bg-gray-800'
+                className={`w-full p-2.5 flex flex-col items-center gap-1.5 border-b border-re2-subtle transition-colors ${
+                  isActive ? 'bg-white' : 'hover:bg-white/50'
                 }`}
               >
-                <div className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center overflow-hidden">
+                <div className="w-10 h-10 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-soft">
                   <img
                     src={iconPath}
                     alt={cat.name}
-                    className="w-8 h-8 object-contain"
+                    className="w-7 h-7 object-contain"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none'
                     }}
                   />
                 </div>
-                <span className="text-xs text-gray-400">{cat.name}</span>
-                <svg className="w-3 h-3 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                <span className={`text-xs ${isActive ? 'text-re2-text font-medium' : 'text-re2-muted'}`}>{cat.name}</span>
+                <svg className="w-3 h-3 text-re2-subtle" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
             )
@@ -132,29 +131,29 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                 className="mb-6"
               >
                 {/* 一级分类标题 */}
-                <div className="flex items-center justify-between mb-3 pb-2 border-b border-gray-700">
-                  <div className="flex items-center gap-2">
-                    <div className="w-8 h-8 bg-gray-700 rounded flex items-center justify-center overflow-hidden">
+                <div className="flex items-center justify-between mb-3 pb-2 border-b border-re2-subtle">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-soft">
                       <img
                         src={iconPath}
                         alt={cat.name}
-                        className="w-6 h-6 object-contain"
+                        className="w-5 h-5 object-contain"
                         onError={(e) => {
                           (e.target as HTMLImageElement).style.display = 'none'
                         }}
                       />
                     </div>
-                    <span className="text-sm font-medium text-white">{cat.name}</span>
+                    <span className="text-sm font-medium text-re2-text">{cat.name}</span>
                   </div>
                   <button
                     onClick={() => handleToggleCategorySubs(cat.id)}
-                    className="px-2 py-1 text-xs rounded bg-gray-700 text-gray-300 hover:bg-gray-600 transition-colors"
+                    className="px-2.5 py-1 text-xs rounded-btn bg-re2-subtle/50 text-re2-muted hover:bg-re2-subtle transition-colors"
                   >
                     {cat.subCategories.every(sub => activeCategories.has(sub.id)) ? '取消' : '全选'}
                   </button>
                 </div>
                 {/* 二级分类网格 */}
-                <div className="grid grid-cols-4 gap-2">
+                <div className="grid grid-cols-4 gap-2.5">
                   {cat.subCategories.map((sub) => {
                     const isActive = activeCategories.has(sub.id)
                     const subIconPath = `/re2_map_sewer_ui/loot%20ping/${cat.id}/${sub.icon}`
@@ -163,23 +162,23 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                       <button
                         key={sub.id}
                         onClick={() => handleSubCategoryToggle(sub.id)}
-                        className={`p-2 rounded-lg flex flex-col items-center gap-1 transition-all ${
+                        className={`p-2 rounded-xl flex flex-col items-center gap-1.5 transition-all duration-150 ${
                           isActive
-                            ? 'bg-re2-accent/30 border-2 border-re2-accent'
-                            : 'bg-gray-800 border-2 border-transparent hover:bg-gray-700'
+                            ? 'bg-re2-accent/10 ring-2 ring-re2-accent/30 shadow-soft'
+                            : 'bg-white border border-transparent hover:shadow-soft hover:border-re2-subtle'
                         }`}
                       >
-                        <div className="w-10 h-10 bg-gray-700 rounded flex items-center justify-center overflow-hidden">
+                        <div className="w-10 h-10 bg-re2-subtle/30 rounded-lg flex items-center justify-center overflow-hidden">
                           <img
                             src={subIconPath}
                             alt={sub.name}
-                            className="w-8 h-8 object-contain"
+                            className="w-7 h-7 object-contain"
                             onError={(e) => {
                               (e.target as HTMLImageElement).style.display = 'none'
                             }}
                           />
                         </div>
-                        <span className={`text-xs ${isActive ? 'text-white' : 'text-gray-400'}`}>
+                        <span className={`text-xs ${isActive ? 'text-re2-text font-medium' : 'text-re2-muted'}`}>
                           {sub.name}
                         </span>
                       </button>

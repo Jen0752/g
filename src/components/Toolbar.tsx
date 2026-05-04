@@ -9,41 +9,59 @@ interface ToolbarProps {
   showRoutes: boolean
 }
 
-// SVG 图标组件
-const FilterIcon = () => (
-  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+// 统一风格的线性图标
+const FilterIcon = ({ active }: { active?: boolean }) => (
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
   </svg>
 )
 
-const FloorIcon = () => (
-  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+const FloorIcon = ({ active }: { active?: boolean }) => (
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
   </svg>
 )
 
-const CharacterIcon = () => (
-  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+const CharacterIcon = ({ active }: { active?: boolean }) => (
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
   </svg>
 )
 
-const PathIcon = () => (
-  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+const PathIcon = ({ active }: { active?: boolean }) => (
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
   </svg>
 )
 
-const PinIcon = () => (
-  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+const PinIcon = ({ active }: { active?: boolean }) => (
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
   </svg>
 )
 
-const ModeIcon = () => (
-  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+const EditIcon = () => (
+  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+  </svg>
+)
+
+const SettingsIcon = () => (
+  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+  </svg>
+)
+
+const ChevronLeftIcon = () => (
+  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+  </svg>
+)
+
+const ChevronRightIcon = () => (
+  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
   </svg>
 )
 
@@ -148,32 +166,32 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
     e.target.value = ''
   }, [addCustomMarker])
 
+  // 按钮通用样式
+  const buttonBase = "w-11 h-11 rounded-xl flex items-center justify-center bg-slate-100/80 hover:bg-slate-200 shadow-soft transition-all duration-150 hover:shadow-card hover:scale-105 active:scale-95"
+  const buttonActive = "bg-re2-accent/10 ring-2 ring-re2-accent/40"
+
   return (
-    <div className="absolute top-0 right-0 z-10 flex items-start">
+    <div className="absolute top-3 right-3 z-10 flex items-start gap-2">
       {/* 收起/展开按钮 */}
       <button
         onClick={() => setIsCollapsed(prev => !prev)}
-        className="w-8 h-8 bg-re2-dark/95 border border-gray-700 rounded-l flex items-center justify-center hover:bg-gray-700 transition-colors"
+        className={`${buttonBase} ${isCollapsed ? '' : 'bg-white/60'}`}
       >
-        <svg
-          className={`w-4 h-4 text-white transition-transform ${isCollapsed ? '' : 'rotate-180'}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-        </svg>
+        {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
       </button>
 
       {/* 工具栏主体 */}
       {!isCollapsed && (
         <>
-        {/* 右侧垂直工具栏 */}
-        <div className="flex flex-col gap-1 p-2 bg-re2-dark/95 backdrop-blur-sm">
+        {/* 右侧垂直工具栏 - 毛玻璃效果 */}
+        <div className="flex flex-col gap-1.5 p-2 bg-white/85 backdrop-blur-md rounded-xl shadow-card">
         {/* 当前楼层显示 */}
-        <div className="flex items-center justify-center py-1 px-3 border-b border-gray-700">
-          <span className="text-lg font-bold text-white">{floor}</span>
+        <div className="flex items-center justify-center py-1.5 px-3 mb-1 bg-re2-subtle/50 rounded-lg">
+          <span className="text-base font-semibold text-black">{floor}</span>
         </div>
+
+        {/* 分隔线 */}
+        <div className="h-px bg-re2-subtle mx-1" />
 
         {/* 筛选按钮 */}
         <button
@@ -183,11 +201,10 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowFloorPicker(false)
             setShowCharacterPicker(false)
           }}
-          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
-            showFilter ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
-          }`}
+          className={`${buttonBase} ${showFilter ? buttonActive : ''}`}
+          title="筛选"
         >
-          <FilterIcon />
+          <FilterIcon active={showFilter} />
         </button>
 
         {/* 楼层选择按钮 */}
@@ -199,24 +216,24 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
-              showFloorPicker ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
-            }`}
-            style={{ padding: 0 }}
+            className={`${buttonBase} ${showFloorPicker ? buttonActive : ''}`}
+            title="楼层"
           >
-            <FloorIcon />
+            <FloorIcon active={showFloorPicker} />
           </button>
 
           {/* 楼层选择面板 */}
           {showFloorPicker && (
-            <div className="absolute right-full top-0 mr-1 bg-re2-dark/98 border border-gray-700 rounded-lg overflow-hidden shadow-xl z-20">
-              <div className="py-1">
+            <div className="absolute right-full top-0 mr-2 bg-white/95 backdrop-blur-md rounded-lg shadow-lifted overflow-hidden z-20 min-w-[80px]">
+              <div className="py-1.5">
                 {FLOOR_ORDER.map((f) => (
                   <button
                     key={f}
                     onClick={() => handleFloorChange(f)}
-                    className={`w-full px-4 py-2 text-left text-sm whitespace-nowrap transition-colors ${
-                      floor === f ? 'bg-re2-accent/30 text-white font-medium' : 'text-gray-300 hover:bg-gray-700'
+                    className={`w-full px-4 py-2 text-center text-sm whitespace-nowrap transition-all duration-150 ${
+                      floor === f
+                        ? 'bg-re2-accent/15 text-re2-accent font-medium'
+                        : 'text-re2-text hover:bg-re2-subtle'
                     }`}
                   >
                     {f}
@@ -236,31 +253,31 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowFloorPicker(false)
               setShowMarkerPicker(false)
             }}
-            className="w-12 h-12 rounded border-2 border-transparent hover:border-white/30 transition-colors flex items-center justify-center"
-            style={{ padding: 0 }}
+            className={`${buttonBase} ${showCharacterPicker ? buttonActive : ''}`}
+            title="角色"
           >
-            <CharacterIcon />
+            <CharacterIcon active={showCharacterPicker} />
           </button>
 
           {/* 角色选择面板 */}
           {showCharacterPicker && (
-            <div className="absolute right-full top-0 mr-1 bg-re2-dark/98 border border-gray-700 rounded-lg overflow-hidden shadow-xl z-20">
+            <div className="absolute right-full top-0 mr-2 bg-white/95 backdrop-blur-md rounded-lg shadow-lifted overflow-hidden z-20 min-w-[120px]">
               <button
                 onClick={() => handleCharacterChange('leon')}
-                className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  character === 'leon' ? 'bg-blue-600/30 text-white' : 'text-gray-300 hover:bg-gray-700'
+                className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
+                  character === 'leon' ? 'bg-blue-50 text-blue-600' : 'text-re2-text hover:bg-re2-subtle'
                 }`}
               >
-                <span className="w-3 h-3 rounded-full bg-blue-500"></span>
+                <span className="w-3.5 h-3.5 rounded-full bg-blue-500"></span>
                 里昂
               </button>
               <button
                 onClick={() => handleCharacterChange('claire')}
-                className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  character === 'claire' ? 'bg-red-600/30 text-white' : 'text-gray-300 hover:bg-gray-700'
+                className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
+                  character === 'claire' ? 'bg-red-50 text-red-600' : 'text-re2-text hover:bg-re2-subtle'
                 }`}
               >
-                <span className="w-3 h-3 rounded-full bg-red-500"></span>
+                <span className="w-3.5 h-3.5 rounded-full bg-red-500"></span>
                 克莱尔
               </button>
             </div>
@@ -276,37 +293,50 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
-              mode === 'expert' ? 'border-red-500' : 'border-transparent hover:border-white/30'
-            }`}
+            className={`${buttonBase} ${showModePicker ? buttonActive : ''} ${mode === 'expert' ? 'ring-2 ring-red-400/40' : ''}`}
+            title="模式"
           >
-            <ModeIcon />
+            <svg className={`w-5 h-5 transition-colors ${mode === 'expert' ? 'text-red-500' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
           </button>
 
           {/* 模式选择面板 */}
           {showModePicker && (
-            <div className="absolute right-full top-0 mr-1 bg-re2-dark/98 border border-gray-700 rounded-lg overflow-hidden shadow-xl z-20 min-w-[120px]">
+            <div className="absolute right-full top-0 mr-2 bg-white/95 backdrop-blur-md rounded-lg shadow-lifted overflow-hidden z-20 min-w-[130px]">
               <button
                 onClick={() => handleModeChange('normal')}
-                className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  mode === 'normal' ? 'bg-green-600/30 text-white' : 'text-gray-300 hover:bg-gray-700'
+                className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
+                  mode === 'normal' ? 'bg-green-50 text-green-600' : 'text-re2-text hover:bg-re2-subtle'
                 }`}
               >
-                <span className="w-3 h-3 rounded-full bg-green-500"></span>
+                <span className="w-3.5 h-3.5 rounded-full bg-green-500"></span>
                 普通模式
               </button>
               <button
                 onClick={() => handleModeChange('expert')}
-                className={`w-full px-4 py-2 text-left text-sm flex items-center gap-2 whitespace-nowrap transition-colors ${
-                  mode === 'expert' ? 'bg-red-600/30 text-white' : 'text-gray-300 hover:bg-gray-700'
+                className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
+                  mode === 'expert' ? 'bg-red-50 text-red-600' : 'text-re2-text hover:bg-re2-subtle'
                 }`}
               >
-                <span className="w-3 h-3 rounded-full bg-red-500"></span>
+                <span className="w-3.5 h-3.5 rounded-full bg-red-500"></span>
                 专家模式
               </button>
             </div>
           )}
         </div>
+
+        {/* 分隔线 */}
+        <div className="h-px bg-re2-subtle mx-1" />
+
+        {/* 标点标记按钮 - 放在模式下方 */}
+        <button
+          onClick={handleAddMarkerClick}
+          className={`${buttonBase} ${isPlacingMarker ? buttonActive : ''}`}
+          title="添加标点"
+        >
+          <PinIcon active={isPlacingMarker} />
+        </button>
 
         {/* 路线按钮 */}
         <button
@@ -317,11 +347,10 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowCharacterPicker(false)
             setShowMarkerPicker(false)
           }}
-          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
-            showRoutes ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
-          }`}
+          className={`${buttonBase} ${showRoutes ? buttonActive : ''}`}
+          title="路线"
         >
-          <PathIcon />
+          <PathIcon active={showRoutes} />
         </button>
 
         {/* 路线编辑按钮 */}
@@ -332,7 +361,6 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowFloorPicker(false)
             setShowCharacterPicker(false)
             setShowMarkerPicker(false)
-            // 如果正在放置标点或编辑标点，取消那些模式
             if (isPlacingMarker) {
               setIsPlacingMarker(false)
               setSelectedMarkerIcon(null)
@@ -341,39 +369,22 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setIsEditingMarkers(false)
             }
           }}
-          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
-            isEditingRoutes ? 'border-purple-500 bg-purple-500/20' : 'border-transparent hover:border-white/30'
-          }`}
+          className={`${buttonBase} ${isEditingRoutes ? 'bg-purple-50 ring-2 ring-purple-400/40' : ''}`}
           title="编辑路线"
         >
-          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-          </svg>
-        </button>
-
-        {/* 标点标记按钮 */}
-        <button
-          onClick={handleAddMarkerClick}
-          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
-            isPlacingMarker ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
-          }`}
-        >
-          <PinIcon />
+          <SettingsIcon />
         </button>
 
         {/* 编辑标点按钮 */}
         <button
           onClick={() => {
-            // 关闭其他面板
             setShowModePicker(false)
             setShowFloorPicker(false)
             setShowCharacterPicker(false)
             setShowMarkerPicker(false)
-            // 切换编辑模式
             if (isEditingMarkers) {
               setIsEditingMarkers(false)
             } else {
-              // 如果正在放置标点，先取消放置模式
               if (isPlacingMarker) {
                 setIsPlacingMarker(false)
                 setSelectedMarkerIcon(null)
@@ -381,24 +392,18 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setIsEditingMarkers(true)
             }
           }}
-          className={`w-12 h-12 rounded overflow-hidden border-2 transition-colors ${
-            isEditingMarkers ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
-          }`}
+          className={`${buttonBase} ${isEditingMarkers ? buttonActive : ''}`}
           title="编辑标点"
         >
-          <div className="w-full h-full flex items-center justify-center bg-gray-800">
-            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-            </svg>
-          </div>
+          <EditIcon />
         </button>
       </div>
 
       {/* 标点选择器 */}
       {showMarkerPicker && (
-        <div className="absolute right-full top-0 mr-1 bg-re2-dark/98 border border-gray-700 rounded-lg p-3 z-20 w-64">
+        <div className="absolute right-full top-0 mr-2 bg-white/95 backdrop-blur-md rounded-xl shadow-lifted p-4 z-20 w-72">
           {/* 导入/导出按钮 */}
-          <div className="flex gap-2 mb-3 border-b border-gray-700 pb-3">
+          <div className="flex gap-2 mb-4 border-b border-re2-subtle pb-4">
             <label className="flex-1">
               <input
                 type="file"
@@ -406,13 +411,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
                 onChange={handleImportMarkers}
                 className="hidden"
               />
-              <div className="text-xs text-center text-gray-400 hover:text-white cursor-pointer bg-gray-800 rounded py-1 px-2">
+              <div className="text-xs text-center text-re2-muted hover:text-re2-text bg-re2-subtle/50 hover:bg-re2-subtle cursor-pointer py-2 px-3 rounded-btn transition-colors">
                 导入
               </div>
             </label>
             <button
               onClick={handleExportMarkers}
-              className="flex-1 text-xs text-gray-400 hover:text-white bg-gray-800 rounded py-1 px-2"
+              className="flex-1 text-xs text-center text-re2-muted hover:text-re2-text bg-re2-subtle/50 hover:bg-re2-subtle py-2 px-3 rounded-btn transition-colors"
             >
               导出
             </button>
@@ -420,7 +425,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
 
           {!selectedCategory ? (
             <>
-              <p className="text-xs text-gray-400 mb-2">选择一级分类：</p>
+              <p className="text-xs text-re2-muted mb-3">选择分类</p>
               <div className="grid grid-cols-5 gap-2">
                 {CATEGORIES.map((cat) => {
                   const iconPath = `/re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
@@ -428,13 +433,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
                     <button
                       key={cat.id}
                       onClick={() => handleSelectCategory(cat.id)}
-                      className="aspect-square bg-gray-800 rounded overflow-hidden hover:bg-gray-700 transition-colors"
+                      className="aspect-square bg-white rounded-lg overflow-hidden hover:shadow-soft transition-all duration-150 hover:scale-105 active:scale-95"
                       title={cat.name}
                     >
                       <img
                         src={iconPath.replace('loot%20ping', 'loot ping')}
                         alt={cat.name}
-                        className="w-full h-full object-contain p-1"
+                        className="w-full h-full object-contain p-1.5"
                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
                       />
                     </button>
@@ -446,15 +451,15 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             <>
               <button
                 onClick={() => setSelectedCategory(null)}
-                className="text-xs text-gray-400 hover:text-white mb-2 flex items-center gap-1"
+                className="text-xs text-re2-muted hover:text-re2-text mb-3 flex items-center gap-1.5 transition-colors"
               >
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
                 返回
               </button>
-              <p className="text-xs text-gray-400 mb-2">
-                {CATEGORIES.find(c => c.id === selectedCategory)?.name} - 选择二级分类：
+              <p className="text-xs text-re2-muted mb-3">
+                {CATEGORIES.find(c => c.id === selectedCategory)?.name}
               </p>
               <div className="grid grid-cols-4 gap-2">
                 {CATEGORIES.find(c => c.id === selectedCategory)?.subCategories.map((sub) => {
@@ -463,7 +468,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
                     <button
                       key={sub.id}
                       onClick={() => handleSelectSubCategory(sub)}
-                      className="aspect-square bg-gray-800 rounded overflow-hidden hover:bg-gray-700 transition-colors flex items-center justify-center p-1"
+                      className="aspect-square bg-white rounded-lg overflow-hidden hover:shadow-soft transition-all duration-150 hover:scale-105 active:scale-95 flex items-center justify-center p-1.5"
                       title={sub.name}
                     >
                       <img

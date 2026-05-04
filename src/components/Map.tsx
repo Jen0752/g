@@ -86,7 +86,7 @@ export default function Map() {
           {
             id: 'background',
             type: 'background',
-            paint: { 'background-color': '#1a1a1a' },
+            paint: { 'background-color': '#e8eaed' },
           },
         ],
       },
@@ -647,11 +647,11 @@ export default function Map() {
 
   return (
     <div className="w-full h-full relative">
-      {/* 地图层 */}
+      {/* 地图容器 - 带圆角和阴影 */}
       <div
         ref={mapContainerRef}
-        className="absolute inset-0 w-full h-full"
-        style={{ zIndex: 1 }}
+        className="absolute inset-2 rounded-xl shadow-card overflow-hidden"
+        style={{ zIndex: 1, backgroundColor: '#e8eaed' }}
       />
 
       {/* 图片加载错误提示 */}
@@ -666,14 +666,14 @@ export default function Map() {
 
       {/* 标点模式提示 */}
       {isPlacingMarker && !showMarkerForm && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-re2-accent text-white px-4 py-2 rounded-full text-sm">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 bg-white/95 backdrop-blur-md text-re2-text px-5 py-2.5 rounded-full text-sm shadow-card">
           点击地图选择位置
         </div>
       )}
 
       {/* 路线编辑模式提示 */}
       {isEditingRoutes && editingRouteId && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm">
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 bg-purple-50 text-purple-600 px-5 py-2.5 rounded-full text-sm shadow-card ring-2 ring-purple-200">
           点击地图添加路径点
         </div>
       )}
@@ -681,7 +681,7 @@ export default function Map() {
       {/* 标点信息填写表单 */}
       {showMarkerForm && pendingMarker && markerFormPosition && (
         <div
-          className="absolute z-50 bg-re2-dark/95 border border-gray-600 rounded-lg shadow-2xl overflow-hidden"
+          className="absolute z-50 bg-white/95 backdrop-blur-md border border-re2-subtle rounded-xl shadow-lifted overflow-hidden"
           style={{
             left: markerFormPosition.x,
             top: markerFormPosition.y,
@@ -697,47 +697,47 @@ export default function Map() {
               bottom: '-8px',
               borderLeft: '8px solid transparent',
               borderRight: '8px solid transparent',
-              borderTop: '8px solid #4b5563',
+              borderTop: '8px solid #e2e8f0',
             }}
           />
-          <div className="flex items-center justify-between px-3 py-2 border-b border-gray-600 bg-gray-800/50">
-            <span className="text-white font-medium text-sm">填写标点信息</span>
+          <div className="flex items-center justify-between px-4 py-3 border-b border-re2-subtle bg-re2-subtle/30">
+            <span className="text-re2-text font-medium text-sm">填写标点信息</span>
             <button
               onClick={() => {
                 setShowMarkerForm(false)
                 setPendingMarker(null)
               }}
-              className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
+              className="w-6 h-6 flex items-center justify-center text-re2-muted hover:text-re2-text hover:bg-re2-subtle rounded-btn transition-colors"
             >
               ×
             </button>
           </div>
-          <div className="p-3">
+          <div className="p-4">
             {/* 标点图标预览 */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 bg-re2-subtle/50 rounded-xl flex items-center justify-center overflow-hidden shadow-soft">
                 <img
                   src={pendingMarker.icon}
                   alt=""
-                  className="w-10 h-10 object-contain"
+                  className="w-9 h-9 object-contain"
                 />
               </div>
               <div>
-                <p className="text-white text-sm font-medium">{pendingMarker.category}</p>
-                <p className="text-gray-400 text-xs mt-1">坐标: {pendingMarker.coordinates.join(', ')}</p>
+                <p className="text-re2-text text-sm font-medium">{pendingMarker.category}</p>
+                <p className="text-re2-muted text-xs mt-1">坐标: {pendingMarker.coordinates.join(', ')}</p>
               </div>
             </div>
 
             {/* 人物选择 */}
             <div className="mb-4">
-              <p className="text-gray-400 text-xs mb-2">人物</p>
+              <p className="text-re2-muted text-xs mb-2">人物</p>
               <div className="flex gap-2">
                 <button
                   onClick={() => useMapStore.getState().setCharacter('leon')}
-                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors ${
                     useMapStore.getState().character === 'leon'
-                      ? 'bg-blue-600/30 text-white border border-blue-500'
-                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                      ? 'bg-blue-50 text-blue-600 border border-blue-200'
+                      : 'bg-re2-subtle/30 text-re2-muted border border-transparent hover:bg-re2-subtle/50'
                   }`}
                 >
                   <span className="w-3 h-3 rounded-full bg-blue-500"></span>
@@ -745,10 +745,10 @@ export default function Map() {
                 </button>
                 <button
                   onClick={() => useMapStore.getState().setCharacter('claire')}
-                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors ${
                     useMapStore.getState().character === 'claire'
-                      ? 'bg-red-600/30 text-white border border-red-500'
-                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                      ? 'bg-red-50 text-red-600 border border-red-200'
+                      : 'bg-re2-subtle/30 text-re2-muted border border-transparent hover:bg-re2-subtle/50'
                   }`}
                 >
                   <span className="w-3 h-3 rounded-full bg-red-500"></span>
@@ -759,14 +759,14 @@ export default function Map() {
 
             {/* 模式选择 */}
             <div className="mb-4">
-              <p className="text-gray-400 text-xs mb-2">模式</p>
+              <p className="text-re2-muted text-xs mb-2">模式</p>
               <div className="flex gap-2">
                 <button
                   onClick={() => useMapStore.getState().setMode('normal')}
-                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors ${
                     useMapStore.getState().mode === 'normal'
-                      ? 'bg-green-600/30 text-white border border-green-500'
-                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                      ? 'bg-green-50 text-green-600 border border-green-200'
+                      : 'bg-re2-subtle/30 text-re2-muted border border-transparent hover:bg-re2-subtle/50'
                   }`}
                 >
                   <span className="w-3 h-3 rounded-full bg-green-500"></span>
@@ -774,10 +774,10 @@ export default function Map() {
                 </button>
                 <button
                   onClick={() => useMapStore.getState().setMode('expert')}
-                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                  className={`flex-1 py-2 px-3 rounded-lg text-sm flex items-center justify-center gap-2 transition-colors ${
                     useMapStore.getState().mode === 'expert'
-                      ? 'bg-red-600/30 text-white border border-red-500'
-                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                      ? 'bg-red-50 text-red-600 border border-red-200'
+                      : 'bg-re2-subtle/30 text-re2-muted border border-transparent hover:bg-re2-subtle/50'
                   }`}
                 >
                   <span className="w-3 h-3 rounded-full bg-red-500"></span>
@@ -806,7 +806,7 @@ export default function Map() {
                 state.setIsPlacingMarker(false)
                 state.setSelectedMarkerIcon(null)
               }}
-              className="w-full py-2 px-4 bg-re2-accent hover:bg-re2-accent/80 text-white rounded font-medium transition-colors"
+              className="w-full py-2.5 px-4 bg-re2-accent hover:bg-re2-accent/80 text-white rounded-lg font-medium transition-colors shadow-soft hover:shadow-card"
             >
               确认添加
             </button>
@@ -821,7 +821,7 @@ export default function Map() {
           if (!marker) return null
           return (
             <div
-              className="absolute z-50 bg-re2-dark/95 border border-gray-600 rounded-lg shadow-2xl overflow-hidden"
+              className="absolute z-50 bg-white/95 backdrop-blur-md border border-re2-subtle rounded-xl shadow-lifted overflow-hidden"
               style={{
                 left: popupPosition.x,
                 top: popupPosition.y - 10,
@@ -831,48 +831,48 @@ export default function Map() {
               onClick={(e) => e.stopPropagation()}
             >
               {/* 关闭按钮 */}
-              <div className="flex justify-end px-3 py-1 border-b border-gray-600 bg-gray-800/50">
+              <div className="flex justify-end px-3 py-1.5 border-b border-re2-subtle bg-re2-subtle/30">
                 <button
                   onClick={() => setSelectedMarkerId(null)}
-                  className="w-5 h-5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors text-xs"
+                  className="w-5 h-5 flex items-center justify-center text-re2-muted hover:text-re2-text hover:bg-re2-subtle rounded-btn transition-colors text-xs"
                 >
                   ×
                 </button>
               </div>
               {/* 道具类别和名称 */}
-              <div className="flex items-center justify-between px-3 py-2 border-b border-gray-600">
-                <span className="text-xs text-gray-400 bg-gray-700 px-2 py-0.5 rounded">
+              <div className="flex items-center justify-between px-4 py-2.5 border-b border-re2-subtle">
+                <span className="text-xs text-re2-muted bg-re2-subtle/50 px-2 py-0.5 rounded">
                   {marker.category}
                 </span>
-                <span className="text-white text-sm font-medium">{marker.name}</span>
+                <span className="text-re2-text text-sm font-medium">{marker.name}</span>
               </div>
               {/* 弹窗内容 */}
-              <div className="p-3">
+              <div className="p-3.5">
                 {/* 描述 */}
                 <div className="mb-3">
-                  <p className="text-gray-400 text-xs mb-1">描述</p>
+                  <p className="text-re2-muted text-xs mb-1.5">描述</p>
                   {marker.description ? (
-                    <p className="text-gray-300 text-sm whitespace-pre-wrap">{marker.description}</p>
+                    <p className="text-re2-text text-sm whitespace-pre-wrap">{marker.description}</p>
                   ) : (
-                    <p className="text-gray-500 text-sm">无</p>
+                    <p className="text-re2-muted text-sm">无</p>
                   )}
                 </div>
                 {/* 截图 */}
                 <div>
-                  <p className="text-gray-400 text-xs mb-1">截图</p>
+                  <p className="text-re2-muted text-xs mb-1.5">截图</p>
                   {marker.screenshots && marker.screenshots.length > 0 ? (
-                    <div className="space-y-1">
+                    <div className="space-y-2">
                       {marker.screenshots.map((src, idx) => (
                         <img
                           key={idx}
                           src={src}
                           alt={`截图 ${idx + 1}`}
-                          className="w-full h-auto rounded border border-gray-600"
+                          className="w-full h-auto rounded-lg border border-re2-subtle shadow-soft"
                         />
                       ))}
                     </div>
                   ) : (
-                    <p className="text-gray-500 text-sm">无</p>
+                    <p className="text-re2-muted text-sm">无</p>
                   )}
                 </div>
               </div>

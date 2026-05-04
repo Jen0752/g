@@ -16,7 +16,8 @@
       "Bash(taskkill //F //PID 32592)",
       "Bash(curl -s http://localhost:5173)",
       "Bash(git restore *)",
-      "Bash(git checkout *)"
+      "Bash(git checkout *)",
+      "Bash(node -e ' *)"
     ],
     "additionalDirectories": [
       "D:\\re2_sewer_map\\re2_map_sewer_ui\\ui_controls"

@@ -6,7 +6,6 @@ interface Props {
   position: { x: number; y: number }
   onConfirm: (description: string, screenshots: string[]) => void
   onCancel: () => void
-  // 编辑模式专用
   isEditing?: boolean
   initialDescription?: string
   initialScreenshots?: string[]
@@ -36,7 +35,6 @@ export default function MarkerEditModal({
   const popupHeight = 480
   const padding = 16
 
-  // 计算初始位置：智能判断弹窗显示在标点上方还是下方
   const getInitialPos = () => {
     const spaceBelow = window.innerHeight - position.y
     const spaceAbove = position.y
@@ -45,14 +43,11 @@ export default function MarkerEditModal({
     let y: number
 
     if (spaceBelow >= popupHeight + 20 || spaceBelow > spaceAbove) {
-      // 放下方
       y = position.y + 10
     } else {
-      // 上方
       y = position.y - popupHeight - 10
     }
 
-    // 边界限制
     x = Math.max(padding, Math.min(x, window.innerWidth - popupWidth - padding))
     y = Math.max(padding, Math.min(y, window.innerHeight - popupHeight - padding))
 
@@ -127,31 +122,31 @@ export default function MarkerEditModal({
 
   return (
     <div
-      className="absolute z-50 bg-re2-dark/95 border border-gray-600 rounded-lg shadow-2xl overflow-hidden"
+      className="absolute z-50 bg-white/95 backdrop-blur-md border border-re2-subtle rounded-xl shadow-lifted overflow-hidden"
       style={{ left: pos.x, top: pos.y, width: popupWidth, maxHeight: '80vh' }}
     >
       {/* 可拖动的头部 */}
       <div
-        className="flex items-center justify-between px-3 py-2 border-b border-gray-600 bg-gray-800/50 cursor-grab active:cursor-grabbing select-none"
+        className="flex items-center justify-between px-4 py-3 border-b border-re2-subtle bg-re2-subtle/30 cursor-grab active:cursor-grabbing select-none"
         onMouseDown={handleHeaderMouseDown}
       >
-        <span className="text-white font-medium text-sm">{isEditing ? '编辑标点' : '编辑标点信息'}</span>
+        <span className="text-re2-text font-medium text-sm">{isEditing ? '编辑标点' : '编辑标点信息'}</span>
         <button
           onClick={onCancel}
-          className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
+          className="w-6 h-6 flex items-center justify-center text-re2-muted hover:text-re2-text hover:bg-re2-subtle rounded-btn transition-colors"
         >
           ×
         </button>
       </div>
 
-      <div className="p-3 overflow-y-auto" style={{ maxHeight: 'calc(80vh - 120px)' }}>
+      <div className="p-4 overflow-y-auto" style={{ maxHeight: 'calc(80vh - 120px)' }}>
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
-            <img src={pendingMarker.icon} alt="" className="w-10 h-10 object-contain" />
+          <div className="w-12 h-12 bg-re2-subtle/50 rounded-xl flex items-center justify-center overflow-hidden shadow-soft">
+            <img src={pendingMarker.icon} alt="" className="w-9 h-9 object-contain" />
           </div>
           <div>
-            <p className="text-white text-sm font-medium">{pendingMarker.name}</p>
-            <p className="text-gray-400 text-xs mt-1">
+            <p className="text-re2-text text-sm font-medium">{pendingMarker.name}</p>
+            <p className="text-re2-muted text-xs mt-1">
               {pendingMarker.character === 'leon' ? '里昂线' : pendingMarker.character === 'claire' ? '克莱尔线' : '双线'} /
               {pendingMarker.mode === 'normal' ? '普通' : '专家'}模式
             </p>
@@ -160,39 +155,39 @@ export default function MarkerEditModal({
 
         {/* 道具名称 */}
         <div className="mb-4">
-          <p className="text-gray-400 text-xs mb-2">道具名称</p>
+          <p className="text-re2-muted text-xs mb-1.5">道具名称</p>
           <input
             type="text"
             defaultValue={pendingMarker.name}
-            className="w-full px-3 py-2 bg-gray-800 text-white text-sm rounded border border-gray-600 focus:border-re2-accent focus:outline-none"
+            className="w-full px-3 py-2.5 bg-re2-subtle/30 text-re2-text text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none transition-colors"
             placeholder="输入道具名称"
           />
         </div>
 
         <div className="mb-4">
-          <p className="text-gray-400 text-xs mb-2">道具描述（支持 Markdown）</p>
+          <p className="text-re2-muted text-xs mb-1.5">道具描述（支持 Markdown）</p>
           <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder="输入道具描述..."
-            className="w-full h-24 px-3 py-2 bg-gray-800 text-white text-sm rounded border border-gray-600 focus:border-re2-accent focus:outline-none resize-none"
+            className="w-full h-20 px-3 py-2.5 bg-re2-subtle/30 text-re2-text text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none resize-none transition-colors"
           />
         </div>
 
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <p className="text-gray-400 text-xs">相关截图</p>
-            <span className="text-gray-500 text-xs">{screenshots.length} 张</span>
+            <p className="text-re2-muted text-xs">相关截图</p>
+            <span className="text-re2-muted text-xs">{screenshots.length} 张</span>
           </div>
 
           {screenshots.length > 0 && (
             <div className="space-y-2 mb-2">
               {screenshots.map((src, index) => (
                 <div key={index} className="relative group">
-                  <img src={src} alt={`截图 ${index + 1}`} className="w-full h-auto rounded border border-gray-600" />
+                  <img src={src} alt={`截图 ${index + 1}`} className="w-full h-auto rounded-lg border border-re2-subtle shadow-soft" />
                   <button
                     onClick={() => removeScreenshot(index)}
-                    className="absolute top-1 right-1 w-6 h-6 bg-red-600/80 text-white text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity"
+                    className="absolute top-2 right-2 w-6 h-6 bg-white/90 text-red-500 text-xs rounded-full shadow-soft opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
                   >
                     ×
                   </button>
@@ -203,7 +198,7 @@ export default function MarkerEditModal({
 
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full py-2 px-3 bg-gray-800 text-gray-300 text-sm rounded border border-dashed border-gray-600 hover:border-re2-accent hover:text-white transition-colors"
+            className="w-full py-2.5 px-3 bg-re2-subtle/30 text-re2-muted text-sm rounded-lg border-2 border-dashed border-re2-subtle hover:border-re2-accent hover:text-re2-text transition-colors"
           >
             + 添加截图
           </button>
@@ -218,18 +213,18 @@ export default function MarkerEditModal({
         </div>
       </div>
 
-      <div className="px-3 py-2 border-t border-gray-600 bg-gray-800/50">
+      <div className="px-4 py-3 border-t border-re2-subtle bg-re2-subtle/20">
         {isEditing ? (
           <div className="flex gap-2">
             <button
               onClick={onDelete}
-              className="flex-1 py-2 px-4 bg-red-600/80 hover:bg-red-600 text-white rounded font-medium transition-colors"
+              className="flex-1 py-2.5 px-4 bg-red-50 text-red-500 rounded-lg hover:bg-red-100 transition-colors text-sm font-medium"
             >
               删除标点
             </button>
             <button
               onClick={handleConfirm}
-              className="flex-1 py-2 px-4 bg-re2-accent hover:bg-re2-accent/80 text-white rounded font-medium transition-colors"
+              className="flex-1 py-2.5 px-4 bg-re2-accent text-white rounded-lg hover:bg-re2-accent/80 transition-colors text-sm font-medium"
             >
               保存修改
             </button>
@@ -237,7 +232,7 @@ export default function MarkerEditModal({
         ) : (
           <button
             onClick={handleConfirm}
-            className="w-full py-2 px-4 bg-re2-accent hover:bg-re2-accent/80 text-white rounded font-medium transition-colors"
+            className="w-full py-2.5 px-4 bg-re2-accent text-white rounded-lg hover:bg-re2-accent/80 transition-colors text-sm font-medium"
           >
             确认添加
           </button>

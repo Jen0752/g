@@ -22,7 +22,7 @@ function App() {
   }, [])
 
   return (
-    <div className="w-full h-full relative overflow-hidden bg-re2-dark">
+    <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
       <Map key={floor} />
 
       <Toolbar
