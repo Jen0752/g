@@ -43,6 +43,20 @@ export interface PendingMarkerBase {
   mode: GameMode | 'both'
 }
 
+// 路线路径点
+export interface Waypoint {
+  id: string
+  coordinates: [number, number] // [x, y] 0-1范围
+}
+
+// 路线
+export interface Route {
+  id: string
+  name: string
+  color: string
+  waypoints: Waypoint[]
+}
+
 interface MapStore {
   // 角色
   character: Character
@@ -64,6 +78,18 @@ interface MapStore {
   // 路线
   activeRoutes: Set<string>
   toggleRoute: (route: string) => void
+
+  // 路线编辑
+  routes: Route[]
+  addRoute: (route: Route) => void
+  updateRoute: (id: string, updates: Partial<Route>) => void
+  removeRoute: (id: string) => void
+
+  // 路线编辑模式
+  isEditingRoutes: boolean
+  setIsEditingRoutes: (v: boolean) => void
+  editingRouteId: string | null
+  setEditingRouteId: (id: string | null) => void
 
   // 自定义标点
   customMarkers: CustomMarker[]
@@ -132,6 +158,26 @@ export const useMapStore = create<MapStore>((set) => ({
     }
     return { activeRoutes: newRoutes }
   }),
+
+  // 路线编辑
+  routes: [],
+  addRoute: (route) => set((state) => ({
+    routes: [...state.routes, route]
+  })),
+  updateRoute: (id, updates) => set((state) => ({
+    routes: state.routes.map(r =>
+      r.id === id ? { ...r, ...updates } : r
+    )
+  })),
+  removeRoute: (id) => set((state) => ({
+    routes: state.routes.filter(r => r.id !== id)
+  })),
+
+  // 路线编辑模式
+  isEditingRoutes: false,
+  setIsEditingRoutes: (v) => set({ isEditingRoutes: v }),
+  editingRouteId: null,
+  setEditingRouteId: (id) => set({ editingRouteId: id }),
 
   customMarkers: [],
   addCustomMarker: (marker) => set((state) => ({

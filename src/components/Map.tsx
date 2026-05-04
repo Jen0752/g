@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
-import maplibregl, { Map as MapLibreMap } from 'maplibre-gl'
-import { useMapStore, type CustomMarker, type TempMarker } from '../stores/useMapStore'
+import maplibregl, { Map as MapLibreMap, Marker as MapMarker } from 'maplibre-gl'
+import { useMapStore, type CustomMarker } from '../stores/useMapStore'
 import { CATEGORIES } from '../data/markers'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import MarkerEditModal from './MarkerEditModal'
@@ -30,7 +30,7 @@ const FLOOR_RATIOS: Record<string, number> = {
 // 根据宽高比获取图片坐标
 // MapLibre image source: coordinates are [topLeft, topRight, bottomRight, bottomLeft]
 // 坐标范围 [0,0] 到 [1,1]
-function getFloorCoordinates(floor: string): number[][] {
+function getFloorCoordinates(floor: string): [[number, number], [number, number], [number, number], [number, number]] {
   const ratio = FLOOR_RATIOS[floor] || 1
   if (ratio >= 1) {
     // 横向图片（宽>高）：宽度撑满1，高度按比例
@@ -41,17 +41,6 @@ function getFloorCoordinates(floor: string): number[][] {
     const w = ratio
     const xOffset = (1 - w) / 2
     return [[xOffset, 1], [xOffset + w, 1], [xOffset + w, 0], [xOffset, 0]]
-  }
-}
-
-// 获取当前楼层的地理边界
-function getFloorBounds(floor: string): { minX: number; minY: number; maxX: number; maxY: number } {
-  const coords = getFloorCoordinates(floor)
-  return {
-    minX: Math.min(...coords.map(c => c[0])),
-    minY: Math.min(...coords.map(c => c[1])),
-    maxX: Math.max(...coords.map(c => c[0])),
-    maxY: Math.max(...coords.map(c => c[1])),
   }
 }
 
@@ -69,17 +58,19 @@ export default function Map() {
   // 临时标点引用
   const tempMarkerRef = useRef<maplibregl.Marker | null>(null)
 
+  // 路线路径点引用
+  const waypointMarkersRef = useRef<MapMarker[]>([])
+
   const {
     floor,
     isPlacingMarker,
     isEditingMarkers,
-    selectedMarkerIcon,
     customMarkers,
-    addCustomMarker,
     tempMarker,
-    setTempMarker,
-    updateTempMarker,
-    confirmTempMarker,
+    routes,
+    activeRoutes,
+    isEditingRoutes,
+    editingRouteId,
   } = useMapStore()
 
   // 初始化地图
@@ -145,6 +136,24 @@ export default function Map() {
       // 点击事件监听 - 在 map 初始化后设置
       map.on('click', (e) => {
         const state = useMapStore.getState()
+
+        // 路线编辑模式：添加路径点
+        if (state.isEditingRoutes && state.editingRouteId) {
+          const coordinates: [number, number] = [e.lngLat.lng, e.lngLat.lat]
+          const route = state.routes.find(r => r.id === state.editingRouteId)
+          if (route) {
+            const newWaypoint = {
+              id: `wp_${Date.now()}`,
+              coordinates
+            }
+            state.updateRoute(state.editingRouteId, {
+              waypoints: [...route.waypoints, newWaypoint]
+            })
+          }
+          return
+        }
+
+        // 标点放置模式
         if (!state.isPlacingMarker || !state.selectedMarkerIcon) return
 
         const coordinates: [number, number] = [e.lngLat.lng, e.lngLat.lat]
@@ -312,7 +321,7 @@ export default function Map() {
         hasMoved = false
         startX = e.clientX
         startY = e.clientY
-        startLngLat = mapMarker.getLngLat()
+        startLngLat = [mapMarker.getLngLat().lng, mapMarker.getLngLat().lat]
         wrapper.style.cursor = 'grabbing'
       }
 
@@ -525,6 +534,117 @@ export default function Map() {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [])
 
+  // 渲染路线和路径点
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+
+    // 清除旧的路径点标记
+    waypointMarkersRef.current.forEach(marker => marker.remove())
+    waypointMarkersRef.current = []
+
+    // 计算应该显示的路线ID（包括 activeRoutes 和正在编辑的路线）
+    const visibleRouteIds = new Set([
+      ...routes.filter(r => r.waypoints.length >= 2 && activeRoutes.has(r.id)).map(r => r.id),
+      editingRouteId
+    ].filter(Boolean))
+
+    // 移除所有不在 visibleRouteIds 中的路线图层和数据源
+    const existingSources = Object.keys(map.getStyle()?.sources || {})
+    existingSources.forEach(sourceId => {
+      if (sourceId.startsWith('route-source-')) {
+        const routeId = sourceId.replace('route-source-', '')
+        if (!visibleRouteIds.has(routeId)) {
+          if (map.getLayer(`route-line-${routeId}`)) {
+            map.removeLayer(`route-line-${routeId}`)
+          }
+          map.removeSource(sourceId)
+        }
+      }
+    })
+
+    // 只显示有路径点且在 activeRoutes 中选中的路线，或正在编辑的路线
+    const routesWithWaypoints = routes.filter(r =>
+      r.waypoints.length >= 2 && (activeRoutes.has(r.id) || r.id === editingRouteId)
+    )
+    if (routesWithWaypoints.length === 0) return
+
+    // 为每条路线添加线段和路径点
+    routesWithWaypoints.forEach(route => {
+      // 添加路线路径
+      if (route.waypoints.length >= 2) {
+        const lineCoordinates = route.waypoints.map(wp => wp.coordinates)
+
+        // 如果源不存在，则添加
+        if (!map.getSource(`route-source-${route.id}`)) {
+          map.addSource(`route-source-${route.id}`, {
+            type: 'geojson',
+            data: {
+              type: 'Feature',
+              properties: {},
+              geometry: {
+                type: 'LineString',
+                coordinates: lineCoordinates
+              }
+            }
+          })
+
+          map.addLayer({
+            id: `route-line-${route.id}`,
+            type: 'line',
+            source: `route-source-${route.id}`,
+            paint: {
+              'line-color': route.color,
+              'line-width': 4,
+              'line-opacity': 0.8
+            }
+          })
+        } else {
+          // 如果源已存在但路径点有变化，更新数据
+          const source = map.getSource(`route-source-${route.id}`) as maplibregl.GeoJSONSource
+          source.setData({
+            type: 'Feature',
+            properties: {},
+            geometry: {
+              type: 'LineString',
+              coordinates: lineCoordinates
+            }
+          })
+        }
+      }
+
+      // 添加路径点标记
+      route.waypoints.forEach((wp) => {
+        const el = document.createElement('div')
+        el.className = 'waypoint-marker'
+        el.style.cssText = `
+          width: 16px;
+          height: 16px;
+          background-color: ${route.color};
+          border: 2px solid white;
+          border-radius: 50%;
+          cursor: pointer;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+          z-index: 1000;
+        `
+
+        const marker = new MapMarker({
+          element: el,
+          anchor: 'center'
+        })
+          .setLngLat(wp.coordinates)
+          .addTo(map)
+
+        waypointMarkersRef.current.push(marker)
+      })
+    })
+  }, [routes, editingRouteId, activeRoutes])
+
+  // 路线编辑模式提示
+  useEffect(() => {
+    // This is just for the hint display, actual click handling is in the map click handler
+  }, [isEditingRoutes, editingRouteId])
+
   return (
     <div className="w-full h-full relative">
       {/* 地图层 */}
@@ -548,6 +668,13 @@ export default function Map() {
       {isPlacingMarker && !showMarkerForm && (
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-re2-accent text-white px-4 py-2 rounded-full text-sm">
           点击地图选择位置
+        </div>
+      )}
+
+      {/* 路线编辑模式提示 */}
+      {isEditingRoutes && editingRouteId && (
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-purple-600 text-white px-4 py-2 rounded-full text-sm">
+          点击地图添加路径点
         </div>
       )}
 

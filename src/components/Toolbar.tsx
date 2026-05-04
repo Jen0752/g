@@ -9,15 +9,43 @@ interface ToolbarProps {
   showRoutes: boolean
 }
 
-// UI 图标路径
-const UI_ICONS = {
-  character: '/re2_map_sewer_ui/character selection.png',
-  filter: '/re2_map_sewer_ui/filter.png',
-  floor: '/re2_map_sewer_ui/floor selection.png',
-  mode: '/re2_map_sewer_ui/model selection.png',
-  path: '/re2_map_sewer_ui/Path selection.png',
-  punctuation: '/re2_map_sewer_ui/punctuation marking.png',
-}
+// SVG 图标组件
+const FilterIcon = () => (
+  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+  </svg>
+)
+
+const FloorIcon = () => (
+  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+  </svg>
+)
+
+const CharacterIcon = () => (
+  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+  </svg>
+)
+
+const PathIcon = () => (
+  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+  </svg>
+)
+
+const PinIcon = () => (
+  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
+)
+
+const ModeIcon = () => (
+  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+)
 
 export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, showRoutes }: ToolbarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
@@ -26,11 +54,13 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
   const floor = useMapStore(s => s.floor)
   const isPlacingMarker = useMapStore(s => s.isPlacingMarker)
   const isEditingMarkers = useMapStore(s => s.isEditingMarkers)
+  const isEditingRoutes = useMapStore(s => s.isEditingRoutes)
   const setCharacter = useMapStore(s => s.setCharacter)
   const setMode = useMapStore(s => s.setMode)
   const setFloor = useMapStore(s => s.setFloor)
   const setIsPlacingMarker = useMapStore(s => s.setIsPlacingMarker)
   const setIsEditingMarkers = useMapStore(s => s.setIsEditingMarkers)
+  const setIsEditingRoutes = useMapStore(s => s.setIsEditingRoutes)
   const setSelectedMarkerIcon = useMapStore(s => s.setSelectedMarkerIcon)
   const setTempMarker = useMapStore(s => s.setTempMarker)
 
@@ -153,15 +183,11 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowFloorPicker(false)
             setShowCharacterPicker(false)
           }}
-          className={`w-12 h-12 rounded overflow-hidden border-2 transition-colors ${
-            showFilter ? 'border-re2-accent' : 'border-transparent hover:border-white/30'
+          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
+            showFilter ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
           }`}
         >
-          <img
-            src={UI_ICONS.filter}
-            alt="筛选"
-            className="w-full h-full object-contain bg-gray-800"
-          />
+          <FilterIcon />
         </button>
 
         {/* 楼层选择按钮 */}
@@ -173,16 +199,12 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`w-12 h-12 rounded overflow-hidden border-2 transition-colors ${
-              showFloorPicker ? 'border-re2-accent' : 'border-transparent hover:border-white/30'
+            className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
+              showFloorPicker ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
             }`}
             style={{ padding: 0 }}
           >
-            <img
-              src={UI_ICONS.floor}
-              alt="楼层"
-              className="w-full h-full object-contain bg-gray-800"
-            />
+            <FloorIcon />
           </button>
 
           {/* 楼层选择面板 */}
@@ -214,14 +236,10 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowFloorPicker(false)
               setShowMarkerPicker(false)
             }}
-            className="w-12 h-12 rounded overflow-hidden border-2 border-transparent hover:border-white/30 transition-colors"
+            className="w-12 h-12 rounded border-2 border-transparent hover:border-white/30 transition-colors flex items-center justify-center"
             style={{ padding: 0 }}
           >
-            <img
-              src={UI_ICONS.character}
-              alt="角色切换"
-              className="w-full h-full object-contain bg-gray-800"
-            />
+            <CharacterIcon />
           </button>
 
           {/* 角色选择面板 */}
@@ -258,15 +276,11 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`w-12 h-12 rounded overflow-hidden border-2 transition-colors ${
+            className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
               mode === 'expert' ? 'border-red-500' : 'border-transparent hover:border-white/30'
             }`}
           >
-            <img
-              src={UI_ICONS.mode}
-              alt="模式切换"
-              className="w-full h-full object-contain bg-gray-800"
-            />
+            <ModeIcon />
           </button>
 
           {/* 模式选择面板 */}
@@ -303,29 +317,48 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowCharacterPicker(false)
             setShowMarkerPicker(false)
           }}
-          className={`w-12 h-12 rounded overflow-hidden border-2 transition-colors ${
-            showRoutes ? 'border-re2-accent' : 'border-transparent hover:border-white/30'
+          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
+            showRoutes ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
           }`}
         >
-          <img
-            src={UI_ICONS.path}
-            alt="路线"
-            className="w-full h-full object-contain bg-gray-800"
-          />
+          <PathIcon />
+        </button>
+
+        {/* 路线编辑按钮 */}
+        <button
+          onClick={() => {
+            setIsEditingRoutes(!isEditingRoutes)
+            setShowModePicker(false)
+            setShowFloorPicker(false)
+            setShowCharacterPicker(false)
+            setShowMarkerPicker(false)
+            // 如果正在放置标点或编辑标点，取消那些模式
+            if (isPlacingMarker) {
+              setIsPlacingMarker(false)
+              setSelectedMarkerIcon(null)
+            }
+            if (isEditingMarkers) {
+              setIsEditingMarkers(false)
+            }
+          }}
+          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
+            isEditingRoutes ? 'border-purple-500 bg-purple-500/20' : 'border-transparent hover:border-white/30'
+          }`}
+          title="编辑路线"
+        >
+          <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+          </svg>
         </button>
 
         {/* 标点标记按钮 */}
         <button
           onClick={handleAddMarkerClick}
-          className={`w-12 h-12 rounded overflow-hidden border-2 transition-colors ${
-            isPlacingMarker ? 'border-re2-accent' : 'border-transparent hover:border-white/30'
+          className={`w-12 h-12 rounded border-2 transition-colors flex items-center justify-center ${
+            isPlacingMarker ? 'border-re2-accent bg-re2-accent/20' : 'border-transparent hover:border-white/30'
           }`}
         >
-          <img
-            src={UI_ICONS.punctuation}
-            alt="标点"
-            className="w-full h-full object-contain bg-gray-800"
-          />
+          <PinIcon />
         </button>
 
         {/* 编辑标点按钮 */}

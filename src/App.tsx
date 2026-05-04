@@ -3,6 +3,7 @@ import Map from './components/Map'
 import Toolbar from './components/Toolbar'
 import FilterPanel from './components/FilterPanel'
 import RoutePanel from './components/RoutePanel'
+import RouteEditor from './components/RouteEditor'
 import { useMapStore } from './stores/useMapStore'
 
 function App() {
@@ -38,6 +39,8 @@ function App() {
       {showRoutes && (
         <RoutePanel onClose={() => setShowRoutes(false)} />
       )}
+
+      <RouteEditor />
     </div>
   )
 }
