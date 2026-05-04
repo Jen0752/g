@@ -9,46 +9,46 @@ interface ToolbarProps {
   showRoutes: boolean
 }
 
-// 统一风格的线性图标
+// 统一风格的线性图标 - 每个图标有独立的未选中/选中颜色
 const FilterIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-slate-500' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
   </svg>
 )
 
 const FloorIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-blue-500' : 'text-blue-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
   </svg>
 )
 
 const CharacterIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-green-500' : 'text-green-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
   </svg>
 )
 
 const PathIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-purple-500' : 'text-purple-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
   </svg>
 )
 
 const PinIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-re2-accent' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-rose-500' : 'text-rose-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
     <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
   </svg>
 )
 
-const EditIcon = () => (
-  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+const EditIcon = ({ active }: { active?: boolean }) => (
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-orange-500' : 'text-orange-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
   </svg>
 )
 
-const SettingsIcon = () => (
-  <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+const SettingsIcon = ({ active }: { active?: boolean }) => (
+  <svg className={`w-5 h-5 transition-colors ${active ? 'text-teal-500' : 'text-teal-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
     <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
   </svg>
 )
@@ -168,7 +168,6 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
 
   // 按钮通用样式
   const buttonBase = "w-11 h-11 rounded-xl flex items-center justify-center bg-slate-100/80 hover:bg-slate-200 shadow-soft transition-all duration-150 hover:shadow-card hover:scale-105 active:scale-95"
-  const buttonActive = "bg-re2-accent/10 ring-2 ring-re2-accent/40"
 
   return (
     <div className="absolute top-3 right-3 z-10 flex items-start gap-2">
@@ -187,7 +186,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
         <div className="flex flex-col gap-1.5 p-2 bg-white/85 backdrop-blur-md rounded-xl shadow-card">
         {/* 当前楼层显示 */}
         <div className="flex items-center justify-center py-1.5 px-3 mb-1 bg-re2-subtle/50 rounded-lg">
-          <span className="text-base font-semibold text-re2-accent">{floor}</span>
+          <span className="text-base font-semibold text-blue-500">{floor}</span>
         </div>
 
         {/* 分隔线 */}
@@ -201,7 +200,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowFloorPicker(false)
             setShowCharacterPicker(false)
           }}
-          className={`${buttonBase} border border-slate-200/80 ${showFilter ? buttonActive : ''}`}
+          className={`${buttonBase} ${showFilter ? 'border-2 border-slate-300/80 bg-re2-accent/5' : 'border border-slate-200/80'}`}
           title="筛选"
         >
           <FilterIcon active={showFilter} />
@@ -216,7 +215,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`${buttonBase} border border-blue-200/80 ${showFloorPicker ? buttonActive : ''}`}
+            className={`${buttonBase} ${showFloorPicker ? 'border-2 border-blue-300/80 bg-re2-accent/5' : 'border border-blue-200/80'}`}
             title="楼层"
           >
             <FloorIcon active={showFloorPicker} />
@@ -232,8 +231,8 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
                     onClick={() => handleFloorChange(f)}
                     className={`w-full px-4 py-2 text-center text-sm whitespace-nowrap transition-all duration-150 ${
                       floor === f
-                        ? 'bg-re2-accent/15 text-re2-accent font-medium'
-                        : 'text-re2-accent hover:bg-slate-200'
+                        ? 'bg-blue-100 text-blue-600 font-medium'
+                        : 'text-blue-500 hover:bg-blue-50'
                     }`}
                   >
                     {f}
@@ -253,7 +252,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowFloorPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`${buttonBase} border border-green-200/80 ${showCharacterPicker ? buttonActive : ''}`}
+            className={`${buttonBase} ${showCharacterPicker ? 'border-2 border-green-300/80 bg-re2-accent/5' : 'border border-green-200/80'}`}
             title="角色"
           >
             <CharacterIcon active={showCharacterPicker} />
@@ -293,10 +292,10 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setShowCharacterPicker(false)
               setShowMarkerPicker(false)
             }}
-            className={`${buttonBase} border border-amber-200/80 ${showModePicker ? buttonActive : ''} ${mode === 'expert' ? 'ring-2 ring-red-400/40' : ''}`}
+            className={`${buttonBase} ${showModePicker ? 'border-2 border-amber-300/80 bg-re2-accent/5' : 'border border-amber-200/80'} ${mode === 'expert' ? 'ring-2 ring-red-400/40' : ''}`}
             title="模式"
           >
-            <svg className={`w-5 h-5 transition-colors ${mode === 'expert' ? 'text-red-500' : 'text-black'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
+            <svg className={`w-5 h-5 transition-colors ${mode === 'expert' ? 'text-red-500' : 'text-amber-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
             </svg>
           </button>
@@ -332,7 +331,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
         {/* 标点标记按钮 - 柔和玫瑰边框 */}
         <button
           onClick={handleAddMarkerClick}
-          className={`${buttonBase} border border-rose-200/80 ${isPlacingMarker ? 'bg-re2-accent/10 border-2 border-re2-accent/60' : ''}`}
+          className={`${buttonBase} ${isPlacingMarker ? 'border-2 border-rose-300/80 bg-re2-accent/5' : 'border border-rose-200/80'}`}
           title="添加标点"
         >
           <PinIcon active={isPlacingMarker} />
@@ -347,7 +346,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             setShowCharacterPicker(false)
             setShowMarkerPicker(false)
           }}
-          className={`${buttonBase} border border-purple-200/80 ${showRoutes ? buttonActive : ''}`}
+          className={`${buttonBase} ${showRoutes ? 'border-2 border-purple-300/80 bg-re2-accent/5' : 'border border-purple-200/80'}`}
           title="路线"
         >
           <PathIcon active={showRoutes} />
@@ -369,10 +368,10 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setIsEditingMarkers(false)
             }
           }}
-          className={`${buttonBase} border border-teal-200/80 ${isEditingRoutes ? 'bg-purple-50 ring-2 ring-purple-400/40' : ''}`}
+          className={`${buttonBase} ${isEditingRoutes ? 'border-2 border-teal-300/80 bg-purple-50/50' : 'border border-teal-200/80'}`}
           title="编辑路线"
         >
-          <SettingsIcon />
+          <SettingsIcon active={isEditingRoutes} />
         </button>
 
         {/* 编辑标点按钮 - 柔和橙边框 */}
@@ -392,10 +391,10 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               setIsEditingMarkers(true)
             }
           }}
-          className={`${buttonBase} border border-orange-200/80 ${isEditingMarkers ? buttonActive : ''}`}
+          className={`${buttonBase} ${isEditingMarkers ? 'border-2 border-orange-300/80 bg-re2-accent/5' : 'border border-orange-200/80'}`}
           title="编辑标点"
         >
-          <EditIcon />
+          <EditIcon active={isEditingMarkers} />
         </button>
       </div>
 

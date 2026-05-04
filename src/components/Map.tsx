@@ -123,7 +123,7 @@ export default function Map() {
         })
       }
 
-      map.addControl(new maplibregl.NavigationControl(), 'top-left')
+      // 不使用默认的 NavigationControl，我们用自定义样式按钮
 
       // 设置初始视图以适应图片
       const coords = getFloorCoordinates(floor)
@@ -415,7 +415,7 @@ export default function Map() {
     const imageUrl = FLOOR_IMAGES[floor]
     if (!imageUrl) return
 
-    const updateImage = () => {
+    const updateFloorImage = () => {
       if (map.getLayer('floor-layer')) {
         map.removeLayer('floor-layer')
       }
@@ -434,12 +434,20 @@ export default function Map() {
         type: 'raster',
         source: 'floor-image',
       })
+
+      // 调整视图以适应新楼层
+      const coords = getFloorCoordinates(floor)
+      const minX = Math.min(...coords.map(c => c[0]))
+      const minY = Math.min(...coords.map(c => c[1]))
+      const maxX = Math.max(...coords.map(c => c[0]))
+      const maxY = Math.max(...coords.map(c => c[1]))
+      map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 0, animate: false })
     }
 
     if (map.isStyleLoaded()) {
-      updateImage()
+      updateFloorImage()
     } else {
-      map.once('load', updateImage)
+      map.once('load', updateFloorImage)
     }
   }, [floor])
 
@@ -670,6 +678,46 @@ export default function Map() {
           点击地图选择位置
         </div>
       )}
+
+      {/* 自定义地图缩放按钮 - 右下角 */}
+      <div className="absolute bottom-4 right-4 z-10 flex flex-col gap-1.5">
+        <button
+          onClick={() => {
+            const map = mapRef.current
+            if (!map) return
+            const coords = getFloorCoordinates(floor)
+            const minX = Math.min(...coords.map(c => c[0]))
+            const minY = Math.min(...coords.map(c => c[1]))
+            const maxX = Math.max(...coords.map(c => c[0]))
+            const maxY = Math.max(...coords.map(c => c[1]))
+            map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 0, animate: true })
+          }}
+          className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 flex items-center justify-center shadow-soft hover:bg-slate-100 hover:shadow-card transition-all duration-150 active:scale-95"
+          title="还原默认缩放"
+        >
+          <svg className="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+          </svg>
+        </button>
+        <button
+          onClick={() => mapRef.current?.zoomIn()}
+          className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 flex items-center justify-center shadow-soft hover:bg-slate-100 hover:shadow-card transition-all duration-150 active:scale-95"
+          title="放大"
+        >
+          <svg className="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12M6 12h12" />
+          </svg>
+        </button>
+        <button
+          onClick={() => mapRef.current?.zoomOut()}
+          className="w-10 h-10 rounded-xl bg-white/90 backdrop-blur-md border border-slate-200/80 flex items-center justify-center shadow-soft hover:bg-slate-100 hover:shadow-card transition-all duration-150 active:scale-95"
+          title="缩小"
+        >
+          <svg className="w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12h12" />
+          </svg>
+        </button>
+      </div>
 
       {/* 路线编辑模式提示 */}
       {isEditingRoutes && editingRouteId && (
