@@ -18,6 +18,16 @@ export interface CustomMarker {
   category: string
   icon: string
   coordinates: [number, number]
+  floor: Floor
+  character: Character | 'both'
+  mode: GameMode | 'both'
+}
+
+// 临时标点 - 放置模式下只有一个
+export interface TempMarker {
+  category: string
+  icon: string
+  coordinates: [number, number]
 }
 
 interface MapStore {
@@ -53,6 +63,12 @@ interface MapStore {
   setIsPlacingMarker: (v: boolean) => void
   selectedMarkerIcon: string | null
   setSelectedMarkerIcon: (icon: string | null) => void
+
+  // 临时标点（放置模式下的单个标点）
+  tempMarker: TempMarker | null
+  setTempMarker: (marker: TempMarker | null) => void
+  updateTempMarker: (updates: Partial<TempMarker>) => void
+  confirmTempMarker: () => void
 }
 
 const ALL_CATEGORIES = [
@@ -110,4 +126,29 @@ export const useMapStore = create<MapStore>((set) => ({
   setIsPlacingMarker: (v) => set({ isPlacingMarker: v }),
   selectedMarkerIcon: null,
   setSelectedMarkerIcon: (icon) => set({ selectedMarkerIcon: icon }),
+
+  // 临时标点
+  tempMarker: null,
+  setTempMarker: (marker) => set({ tempMarker: marker }),
+  updateTempMarker: (updates) => set((state) => ({
+    tempMarker: state.tempMarker ? { ...state.tempMarker, ...updates } : null
+  })),
+  confirmTempMarker: () => set((state) => {
+    if (!state.tempMarker) return state
+    const marker: CustomMarker = {
+      id: `custom_${Date.now()}`,
+      category: state.tempMarker.category,
+      icon: state.tempMarker.icon,
+      coordinates: state.tempMarker.coordinates,
+      floor: state.floor,
+      character: state.character,
+      mode: state.mode,
+    }
+    return {
+      customMarkers: [...state.customMarkers, marker],
+      tempMarker: null,
+      isPlacingMarker: false,
+      selectedMarkerIcon: null,
+    }
+  }),
 }))

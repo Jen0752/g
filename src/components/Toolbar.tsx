@@ -30,6 +30,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
   const setFloor = useMapStore(s => s.setFloor)
   const setIsPlacingMarker = useMapStore(s => s.setIsPlacingMarker)
   const setSelectedMarkerIcon = useMapStore(s => s.setSelectedMarkerIcon)
+  const setTempMarker = useMapStore(s => s.setTempMarker)
 
   const [showCharacterPicker, setShowCharacterPicker] = useState(false)
   const [showMarkerPicker, setShowMarkerPicker] = useState(false)
@@ -57,10 +58,11 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
       setIsPlacingMarker(false)
       setSelectedMarkerIcon(null)
       setShowMarkerPicker(false)
+      setTempMarker(null)
     } else {
       setShowMarkerPicker(prev => !prev)
     }
-  }, [isPlacingMarker, setIsPlacingMarker, setSelectedMarkerIcon])
+  }, [isPlacingMarker, setIsPlacingMarker, setSelectedMarkerIcon, setTempMarker])
 
   const handleSelectCategory = useCallback((catId: string) => {
     setSelectedCategory(catId)

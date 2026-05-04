@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import maplibregl, { Map as MapLibreMap } from 'maplibre-gl'
-import { useMapStore, type CustomMarker } from '../stores/useMapStore'
+import { useMapStore, type CustomMarker, type TempMarker } from '../stores/useMapStore'
 import 'maplibre-gl/dist/maplibre-gl.css'
 
 // 楼层图片映射
@@ -27,12 +27,12 @@ const FLOOR_RATIOS: Record<string, number> = {
 
 // 根据宽高比获取图片坐标
 // MapLibre image source: coordinates are [topLeft, topRight, bottomRight, bottomLeft]
+// 坐标范围 [0,0] 到 [1,1]
 function getFloorCoordinates(floor: string): number[][] {
   const ratio = FLOOR_RATIOS[floor] || 1
   if (ratio >= 1) {
     // 横向图片（宽>高）：宽度撑满1，高度按比例
     const h = 1 / ratio
-    // 尝试交换y顺序让图片正过来
     return [[0, h], [1, h], [1, 0], [0, 0]]
   } else {
     // 纵向图片（高>宽）：高度撑满1，宽度按比例
@@ -42,12 +42,29 @@ function getFloorCoordinates(floor: string): number[][] {
   }
 }
 
+// 获取当前楼层的地理边界
+function getFloorBounds(floor: string): { minX: number; minY: number; maxX: number; maxY: number } {
+  const coords = getFloorCoordinates(floor)
+  return {
+    minX: Math.min(...coords.map(c => c[0])),
+    minY: Math.min(...coords.map(c => c[1])),
+    maxX: Math.max(...coords.map(c => c[0])),
+    maxY: Math.max(...coords.map(c => c[1])),
+  }
+}
+
 export default function Map() {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
   const [imageError, setImageError] = useState<string | null>(null)
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null)
   const [popupPosition, setPopupPosition] = useState<{x: number; y: number} | null>(null)
+  const [showMarkerForm, setShowMarkerForm] = useState(false)
+  const [markerFormPosition, setMarkerFormPosition] = useState<{x: number; y: number} | null>(null)
+  const [pendingMarker, setPendingMarker] = useState<{coordinates: [number, number]; icon: string; category: string} | null>(null)
+
+  // 临时标点引用
+  const tempMarkerRef = useRef<maplibregl.Marker | null>(null)
 
   const {
     floor,
@@ -55,6 +72,10 @@ export default function Map() {
     selectedMarkerIcon,
     customMarkers,
     addCustomMarker,
+    tempMarker,
+    setTempMarker,
+    updateTempMarker,
+    confirmTempMarker,
   } = useMapStore()
 
   // 初始化地图
@@ -74,15 +95,17 @@ export default function Map() {
           },
         ],
       },
-      center: [0.5, 0.5],
-      zoom: 1,
+      center: [0, 0],
+      zoom: 0,
+      minZoom: 0,
+      maxZoom: 22,
       attributionControl: false,
       scrollZoom: true,
       boxZoom: true,
       dragRotate: false,
       touchZoomRotate: true,
       keyboard: true,
-      doubleClickZoom: true,
+      doubleClickZoom: false,
       dragPan: true,
     })
 
@@ -120,15 +143,28 @@ export default function Map() {
         const state = useMapStore.getState()
         if (!state.isPlacingMarker || !state.selectedMarkerIcon) return
 
-        const marker: CustomMarker = {
-          id: `custom_${Date.now()}`,
-          category: state.selectedMarkerIcon.split('/')[5],
-          icon: state.selectedMarkerIcon,
-          coordinates: [e.lngLat.lng, e.lngLat.lat],
-        }
+        const coordinates: [number, number] = [e.lngLat.lng, e.lngLat.lat]
+        const screenPos = map.project(e.lngLat)
+        const popupWidth = 280
+        const popupHeight = 340
+        const padding = 16
 
-        state.addCustomMarker(marker)
-        console.log('marker placed, all markers:', state.customMarkers)
+        let left = screenPos.x - popupWidth / 2
+        left = Math.max(padding, Math.min(left, window.innerWidth - popupWidth - padding))
+
+        let top = screenPos.y - popupHeight - 16
+        if (top < padding) {
+          top = screenPos.y + 40
+        }
+        top = Math.max(padding, Math.min(top, window.innerHeight - popupHeight - padding))
+
+        setMarkerFormPosition({ x: left, y: top })
+        setPendingMarker({
+          coordinates,
+          icon: state.selectedMarkerIcon,
+          category: state.selectedMarkerIcon.split('/')[5],
+        })
+        setShowMarkerForm(true)
       })
     })
 
@@ -138,6 +174,70 @@ export default function Map() {
     }
   }, [])
 
+  // 监听临时标点变化，更新地图上的临时标点
+  useEffect(() => {
+    const map = mapRef.current
+    if (!map) return
+
+    // 移除旧的临时标点
+    if (tempMarkerRef.current) {
+      tempMarkerRef.current.remove()
+      tempMarkerRef.current = null
+    }
+
+    if (!tempMarker) return
+
+    // 创建临时标点包装器
+    const wrapper = document.createElement('div')
+    wrapper.className = 'map-marker-wrapper'
+    wrapper.style.cssText = `
+      width: 36px;
+      height: 42px;
+      cursor: grab;
+      position: relative;
+      filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
+      z-index: 100;
+    `
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+    svg.setAttribute('width', '36')
+    svg.setAttribute('height', '42')
+    svg.setAttribute('viewBox', '0 0 36 42')
+    svg.style.cssText = 'position:absolute;top:0;left:0;z-index:1;overflow:visible;'
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+    path.setAttribute('d', 'M 18,0 C 5,0 0,12 0,18 C 0,27 5,34 18,42 C 31,34 36,27 36,18 C 36,12 31,0 18,0 Z')
+    path.setAttribute('fill', 'white')
+    svg.appendChild(path)
+    wrapper.appendChild(svg)
+
+    const img = document.createElement('img')
+    img.src = tempMarker.icon
+    img.style.cssText = `
+      position: absolute;
+      top: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+      pointer-events: none;
+      z-index: 2;
+    `
+    wrapper.appendChild(img)
+
+    // 创建临时标点
+    const marker = new maplibregl.Marker({
+      element: wrapper,
+      anchor: 'bottom',
+    })
+      .setLngLat(tempMarker.coordinates)
+      .addTo(map)
+
+    tempMarkerRef.current = marker
+    console.log('temp marker at', tempMarker.coordinates)
+  }, [tempMarker])
+
   // 监听自定义标点变化，更新地图
   useEffect(() => {
     const map = mapRef.current
@@ -146,31 +246,30 @@ export default function Map() {
     // 清除旧的标记
     document.querySelectorAll('.map-marker-wrapper').forEach(el => el.remove())
 
+    // 只显示当前楼层的标点
+    const floorMarkers = customMarkers.filter(m => m.floor === floor)
+
     // 添加新的标记
-    customMarkers.forEach(marker => {
-      // 创建包装器 - 顶部圆形底部三角形的水滴形状
+    floorMarkers.forEach((marker, index) => {
+      // 创建包装器
       const wrapper = document.createElement('div')
       wrapper.className = 'map-marker-wrapper'
       wrapper.style.cssText = `
         width: 36px;
         height: 42px;
         cursor: grab;
-        position: relative;
         filter: drop-shadow(0 3px 6px rgba(0,0,0,0.35));
+        z-index: ${10 + index};
       `
       wrapper.dataset.markerId = marker.id
 
-      // 使用SVG创建圆润的水滴形状
       const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
       svg.setAttribute('width', '36')
       svg.setAttribute('height', '42')
       svg.setAttribute('viewBox', '0 0 36 42')
       svg.style.cssText = 'position:absolute;top:0;left:0;z-index:1;overflow:visible;'
 
-      // 完全圆润的水滴：顶部半圆，底部尖圆
-      // 使用贝塞尔曲线让所有边都圆润
       const path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
-      // M 圆顶中心, C 左上左下圆润到左下角, L 尖底, ... 镜像到右侧
       path.setAttribute('d', 'M 18,0 C 5,0 0,12 0,18 C 0,27 5,34 18,42 C 31,34 36,27 36,18 C 36,12 31,0 18,0 Z')
       path.setAttribute('fill', 'white')
       svg.appendChild(path)
@@ -193,6 +292,7 @@ export default function Map() {
 
       // 手动拖动实现
       let isDragging = false
+      let hasMoved = false
       let startX = 0
       let startY = 0
       let startLngLat: [number, number] = [0, 0]
@@ -200,14 +300,12 @@ export default function Map() {
       const onMouseDown = (e: MouseEvent) => {
         e.preventDefault()
         e.stopPropagation()
-        // 开始拖动时关闭弹窗
-        setSelectedMarkerId(null)
         isDragging = true
+        hasMoved = false
         startX = e.clientX
         startY = e.clientY
         startLngLat = mapMarker.getLngLat()
         wrapper.style.cursor = 'grabbing'
-        console.log('drag start', marker.id)
       }
 
       const onMouseMove = (e: MouseEvent) => {
@@ -219,14 +317,18 @@ export default function Map() {
         const dx = e.clientX - startX
         const dy = e.clientY - startY
 
+        if (!hasMoved && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
+          hasMoved = true
+          setSelectedMarkerId(null)
+        }
+
         const startPoint = map.project(startLngLat)
         const newPoint = { x: startPoint.x + dx, y: startPoint.y + dy }
         const newLngLat = map.unproject([newPoint.x, newPoint.y])
 
         mapMarker.setLngLat(newLngLat)
 
-        // 拖动时更新弹窗位置
-        if (selectedMarkerId === marker.id) {
+        if (selectedMarkerId === marker.id && hasMoved) {
           const screenPos = map.project(newLngLat)
           setPopupPosition({ x: screenPos.x, y: screenPos.y })
         }
@@ -236,14 +338,15 @@ export default function Map() {
         if (!isDragging) return
         isDragging = false
         wrapper.style.cursor = 'grab'
-        console.log('drag end', marker.id)
 
-        const lngLat = mapMarker.getLngLat()
-        const markerId = wrapper.dataset.markerId
-        if (markerId) {
-          useMapStore.getState().updateCustomMarker(markerId, {
-            coordinates: [lngLat.lng, lngLat.lat],
-          })
+        if (hasMoved) {
+          const lngLat = mapMarker.getLngLat()
+          const markerId = wrapper.dataset.markerId
+          if (markerId) {
+            useMapStore.getState().updateCustomMarker(markerId, {
+              coordinates: [lngLat.lng, lngLat.lat],
+            })
+          }
         }
       }
 
@@ -257,7 +360,6 @@ export default function Map() {
         const markerId = wrapper.dataset.markerId
         if (!markerId) return
 
-        // 获取标点在屏幕上的位置
         const rect = wrapper.getBoundingClientRect()
         setPopupPosition({
           x: rect.left + rect.width / 2,
@@ -273,10 +375,8 @@ export default function Map() {
       })
         .setLngLat(marker.coordinates)
         .addTo(map)
-
-      console.log('marker created:', marker.id, 'at', marker.coordinates)
     })
-  }, [customMarkers])
+  }, [customMarkers, floor])
 
   // 楼层变化时更新图片
   useEffect(() => {
@@ -287,7 +387,6 @@ export default function Map() {
     if (!imageUrl) return
 
     const updateImage = () => {
-      // 移除旧的图片层和源
       if (map.getLayer('floor-layer')) {
         map.removeLayer('floor-layer')
       }
@@ -295,7 +394,6 @@ export default function Map() {
         map.removeSource('floor-image')
       }
 
-      // 添加新的图片层
       map.addSource('floor-image', {
         type: 'image',
         url: imageUrl,
@@ -389,9 +487,144 @@ export default function Map() {
       )}
 
       {/* 标点模式提示 */}
-      {isPlacingMarker && (
+      {isPlacingMarker && !showMarkerForm && (
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 bg-re2-accent text-white px-4 py-2 rounded-full text-sm">
-          点击地图添加标点
+          点击地图选择位置
+        </div>
+      )}
+
+      {/* 标点信息填写表单 */}
+      {showMarkerForm && pendingMarker && markerFormPosition && (
+        <div
+          className="absolute z-50 bg-re2-dark/95 border border-gray-600 rounded-lg shadow-2xl overflow-hidden"
+          style={{
+            left: markerFormPosition.x,
+            top: markerFormPosition.y,
+            transform: 'none',
+            width: '280px',
+          }}
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* 底部小三角指向标点 */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 w-0 h-0"
+            style={{
+              bottom: '-8px',
+              borderLeft: '8px solid transparent',
+              borderRight: '8px solid transparent',
+              borderTop: '8px solid #4b5563',
+            }}
+          />
+          <div className="flex items-center justify-between px-3 py-2 border-b border-gray-600 bg-gray-800/50">
+            <span className="text-white font-medium text-sm">填写标点信息</span>
+            <button
+              onClick={() => {
+                setShowMarkerForm(false)
+                setPendingMarker(null)
+              }}
+              className="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-white hover:bg-gray-700 rounded transition-colors"
+            >
+              ×
+            </button>
+          </div>
+          <div className="p-3">
+            {/* 标点图标预览 */}
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-12 h-12 bg-gray-800 rounded-lg flex items-center justify-center overflow-hidden">
+                <img
+                  src={pendingMarker.icon}
+                  alt=""
+                  className="w-10 h-10 object-contain"
+                />
+              </div>
+              <div>
+                <p className="text-white text-sm font-medium">{pendingMarker.category}</p>
+                <p className="text-gray-400 text-xs mt-1">坐标: {pendingMarker.coordinates.join(', ')}</p>
+              </div>
+            </div>
+
+            {/* 人物选择 */}
+            <div className="mb-4">
+              <p className="text-gray-400 text-xs mb-2">人物</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => useMapStore.getState().setCharacter('leon')}
+                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                    useMapStore.getState().character === 'leon'
+                      ? 'bg-blue-600/30 text-white border border-blue-500'
+                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                  }`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-blue-500"></span>
+                  里昂
+                </button>
+                <button
+                  onClick={() => useMapStore.getState().setCharacter('claire')}
+                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                    useMapStore.getState().character === 'claire'
+                      ? 'bg-red-600/30 text-white border border-red-500'
+                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                  }`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-red-500"></span>
+                  克莱尔
+                </button>
+              </div>
+            </div>
+
+            {/* 模式选择 */}
+            <div className="mb-4">
+              <p className="text-gray-400 text-xs mb-2">模式</p>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => useMapStore.getState().setMode('normal')}
+                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                    useMapStore.getState().mode === 'normal'
+                      ? 'bg-green-600/30 text-white border border-green-500'
+                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                  }`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-green-500"></span>
+                  普通
+                </button>
+                <button
+                  onClick={() => useMapStore.getState().setMode('expert')}
+                  className={`flex-1 py-2 px-3 rounded text-sm flex items-center justify-center gap-2 transition-colors ${
+                    useMapStore.getState().mode === 'expert'
+                      ? 'bg-red-600/30 text-white border border-red-500'
+                      : 'bg-gray-800 text-gray-300 border border-transparent hover:bg-gray-700'
+                  }`}
+                >
+                  <span className="w-3 h-3 rounded-full bg-red-500"></span>
+                  专家
+                </button>
+              </div>
+            </div>
+
+            {/* 确认按钮 */}
+            <button
+              onClick={() => {
+                const state = useMapStore.getState()
+                const marker: CustomMarker = {
+                  id: `custom_${Date.now()}`,
+                  category: pendingMarker.category,
+                  icon: pendingMarker.icon,
+                  coordinates: pendingMarker.coordinates,
+                  floor: state.floor,
+                  character: state.character,
+                  mode: state.mode,
+                }
+                state.addCustomMarker(marker)
+                setShowMarkerForm(false)
+                setPendingMarker(null)
+                state.setIsPlacingMarker(false)
+                state.setSelectedMarkerIcon(null)
+              }}
+              className="w-full py-2 px-4 bg-re2-accent hover:bg-re2-accent/80 text-white rounded font-medium transition-colors"
+            >
+              确认添加
+            </button>
+          </div>
         </div>
       )}
 
