@@ -7,13 +7,13 @@ import MarkerEditModal from './MarkerEditModal'
 
 // 楼层图片映射
 const FLOOR_IMAGES: Record<string, string> = {
-  'B3': '/re2_map_sewer/re2_sewer_B3.png',
-  'B2': '/re2_map_sewer/re2_sewer_B2.png',
-  'B1o': '/re2_map_sewer/re2_sewer_B1o.png',
-  'B1': '/re2_map_sewer/re2_sewer_B1.png',
-  '1F': '/re2_map_sewer/re2_sewer_1F.png',
-  '2F': '/re2_map_sewer/re2_sewer_2F.png',
-  '3F': '/re2_map_sewer/re2_sewer_3F.png',
+  'B3': './re2_map_sewer/re2_sewer_B3.png',
+  'B2': './re2_map_sewer/re2_sewer_B2.png',
+  'B1o': './re2_map_sewer/re2_sewer_B1o.png',
+  'B1': './re2_map_sewer/re2_sewer_B1.png',
+  '1F': './re2_map_sewer/re2_sewer_1F.png',
+  '2F': './re2_map_sewer/re2_sewer_2F.png',
+  '3F': './re2_map_sewer/re2_sewer_3F.png',
 }
 
 // 图片宽高比 (从实际图片尺寸得出)
