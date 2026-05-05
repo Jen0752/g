@@ -264,7 +264,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleCharacterChange('leon')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  character === 'leon' ? 'bg-blue-50 text-blue-600' : 'text-re2-dark hover:bg-slate-200'
+                  character === 'leon' ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-blue-500"></span>
@@ -273,7 +273,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleCharacterChange('claire')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  character === 'claire' ? 'bg-red-50 text-red-600' : 'text-re2-dark hover:bg-slate-200'
+                  character === 'claire' ? 'bg-red-50 text-red-600' : 'text-gray-700 hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-red-500"></span>
@@ -306,7 +306,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleModeChange('normal')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  mode === 'normal' ? 'bg-green-50 text-green-600' : 'text-re2-dark hover:bg-slate-200'
+                  mode === 'normal' ? 'bg-green-50 text-green-600' : 'text-gray-700 hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-green-500"></span>
@@ -315,7 +315,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <button
                 onClick={() => handleModeChange('expert')}
                 className={`w-full px-4 py-2.5 text-left text-sm flex items-center gap-2.5 whitespace-nowrap transition-all duration-150 ${
-                  mode === 'expert' ? 'bg-red-50 text-red-600' : 'text-re2-dark hover:bg-slate-200'
+                  mode === 'expert' ? 'bg-red-50 text-red-600' : 'text-gray-700 hover:bg-slate-200'
                 }`}
               >
                 <span className="w-3.5 h-3.5 rounded-full bg-red-500"></span>

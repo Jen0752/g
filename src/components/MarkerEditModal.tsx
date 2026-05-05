@@ -31,8 +31,8 @@ export default function MarkerEditModal({
   const dragStart = useRef({ x: 0, y: 0 })
   const posStart = useRef({ x: 0, y: 0 })
 
-  const popupWidth = 320
-  const popupHeight = 480
+  const popupWidth = 280
+  const popupHeight = 420
   const padding = 16
 
   const getInitialPos = () => {

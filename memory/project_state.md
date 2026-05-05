@@ -14,6 +14,7 @@ type: project
 - Zustand (状态管理)
 - MapLibre GL JS (原生，非 react-map-gl)
 - Tailwind CSS
+- Vite (构建工具)
 
 ## 核心功能
 - [x] 楼层图片切换显示 (B3/B2/B1o/B1/1F/2F/3F)
@@ -27,19 +28,33 @@ type: project
 - [x] 路线编辑功能（创建/编辑/删除路线）
 - [x] 路线导入/导出 JSON
 - [x] 工具栏图标更换为 SVG 图标
+- [x] 人物线筛选（里昂/克莱尔/共有）
+- [x] 模式筛选（普通/专家/共有）
 
-## 路线编辑功能
-- 左侧 RouteEditor 面板（编辑模式时显示）
-- 创建路线：名称 + 颜色选择
-- 添加路径点：编辑模式下点击地图添加
-- 路线显示：需在路线选择面板中勾选才显示
-- 导出/导入：JSON 格式
+## 部署方式
+- GitHub Pages：仓库 Settings → Pages → Source 选 `main` 分支 + `/docs` 文件夹
+- 构建命令：`npm run build`，输出到 `docs/` 目录
+- Vite 配置：`base: './'`，使用环境变量区分开发/生产路径
+
+## 路径处理（重要）
+```typescript
+// Map.tsx - 根据环境决定路径前缀
+const BASE_PATH = import.meta.env.PROD ? './' : '/'
+const FLOOR_IMAGES = {
+  'B3': `${BASE_PATH}re2_map_sewer/re2_sewer_B3.png`,
+  // ...
+}
+```
+- 开发环境 (`npm run dev`)：使用 `/` 前缀
+- 生产环境 (`npm run build`)：使用 `./` 相对路径
 
 ## 已知 Bug 修复
 - [x] **标点位置偏移 Bug**：移除 wrapper 上的 `position: relative`
 - [x] **路线删除后不隐藏 Bug**：清理地图图层时检查 visibleRouteIds
 - [x] **编辑模式切换 Bug**：Toolbar 按钮逻辑错误 `!isEditingMarkers` → `!isEditingRoutes`
 - [x] **路线可见性依赖 Bug**：useEffect 添加 `editingRouteId` 和 `activeRoutes` 依赖
+- [x] **GitHub Pages 资源 404 Bug**：图片路径从绝对路径改为相对路径/环境判断路径
+- [x] **TypeScript 类型错误**：setCharacter/setMode 参数类型添加 `'both'`
 
 ## 项目文件结构
 ```
@@ -56,11 +71,15 @@ src/
 ├── data/
 │   └── markers.ts       - 标点分类数据
 └── App.tsx
+public/
+├── re2_map_sewer/       - 楼层背景图片
+└── re2_map_sewer_ui/   - UI 图标资源
+docs/                   - GitHub Pages 部署目录
 ```
 
 ## 状态管理 (useMapStore)
-- `character`: 'leon' | 'claire' | 'both' - 当前人物线
-- `mode`: 'normal' | 'expert' | 'both' - 当前模式
+- `character`: Character | 'both' - 当前人物线
+- `mode`: GameMode | 'both' - 当前模式
 - `isEditingMarkers`: 标点编辑模式
 - `isEditingRoutes`: 路线编辑模式
 - `editingRouteId`: 当前编辑的路线 ID
@@ -68,7 +87,7 @@ src/
 - `routes: Route[]`: 所有路线数据
 - `customMarkers`: 自定义标点数组
 
-## UI/UX 优化（2024年完成）
+## UI/UX 优化
 - [x] FilterPanel 改为底部弹窗（50vh高度）
 - [x] 工具栏8个按钮各有独特边框颜色匹配图标
 - [x] 地图缩放控制移至右下角，自定义样式
@@ -81,6 +100,12 @@ src/
 - [x] 标点详情弹窗改为极简悬浮面板风格（无边界、去分割线）
 - [x] 标点详情弹窗添加可拖动功能
 - [x] 标点详情弹窗自动调整位置（避免超出屏幕）
+
+## GitHub 仓库
+- 仓库地址：https://github.com/Jen0752/g
+- 部署地址：https://Jen0752.github.io/g/
+- 分支：main
+- 部署方式：GitHub Pages (docs 目录)
 
 ## 待完成功能
 - [ ] 路线显示开关（目前需要退出编辑才显示）
