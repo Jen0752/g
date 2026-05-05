@@ -59,12 +59,12 @@ export interface Route {
 
 interface MapStore {
   // 角色
-  character: Character
-  setCharacter: (c: Character) => void
+  character: Character | 'both'
+  setCharacter: (c: Character | 'both') => void
 
   // 模式
-  mode: GameMode
-  setMode: (m: GameMode) => void
+  mode: GameMode | 'both'
+  setMode: (m: GameMode | 'both') => void
 
   // 楼层
   floor: Floor
