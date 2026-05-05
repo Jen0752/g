@@ -139,7 +139,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
           <div className="w-20 border-r border-re2-subtle overflow-y-auto bg-re2-subtle/10 scrollbar-minimal">
             {CATEGORIES.map((cat) => {
               const isActive = cat.id === activeCategory
-              const iconPath = `re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
+              const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
 
               return (
                 <button
@@ -172,7 +172,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
           {/* 右侧：所有二级分类（按一级分类分组） */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 scrollbar-minimal">
             {CATEGORIES.map((cat) => {
-              const iconPath = `re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
+              const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
 
               return (
                 <div
@@ -206,7 +206,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                   <div className="grid grid-cols-4 gap-2.5">
                     {cat.subCategories.map((sub) => {
                       const isActive = activeCategories.has(sub.id)
-                      const subIconPath = `re2_map_sewer_ui/loot%20ping/${cat.id}/${sub.icon}`
+                      const subIconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${sub.icon}`
 
                       return (
                         <button

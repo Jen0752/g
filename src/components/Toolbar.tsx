@@ -121,7 +121,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
   const handleSelectSubCategory = useCallback((sub: { id: string; name: string; icon: string }) => {
     const cat = CATEGORIES.find(c => c.id === selectedCategory)
     if (!cat) return
-    const iconPath = `re2_map_sewer_ui/loot%20ping/${cat.id}/${sub.icon}`
+    const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${sub.icon}`
     console.log('select subcategory:', sub.name, 'path:', iconPath)
     setSelectedMarkerIcon(iconPath)
     setIsPlacingMarker(true)
@@ -427,7 +427,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               <p className="text-xs text-re2-muted mb-3">选择分类</p>
               <div className="grid grid-cols-5 gap-2">
                 {CATEGORIES.map((cat) => {
-                  const iconPath = `re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
+                  const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
                   return (
                     <button
                       key={cat.id}
@@ -462,7 +462,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
               </p>
               <div className="grid grid-cols-4 gap-2">
                 {CATEGORIES.find(c => c.id === selectedCategory)?.subCategories.map((sub) => {
-                  const iconPath = `re2_map_sewer_ui/loot%20ping/${selectedCategory}/${sub.icon}`
+                  const iconPath = `./re2_map_sewer_ui/loot%20ping/${selectedCategory}/${sub.icon}`
                   return (
                     <button
                       key={sub.id}

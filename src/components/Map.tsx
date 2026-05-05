@@ -6,14 +6,15 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import MarkerEditModal from './MarkerEditModal'
 
 // 楼层图片映射
+const BASE_PATH = import.meta.env.PROD ? './' : '/'
 const FLOOR_IMAGES: Record<string, string> = {
-  'B3': new URL('./re2_map_sewer/re2_sewer_B3.png', import.meta.url).href,
-  'B2': new URL('./re2_map_sewer/re2_sewer_B2.png', import.meta.url).href,
-  'B1o': new URL('./re2_map_sewer/re2_sewer_B1o.png', import.meta.url).href,
-  'B1': new URL('./re2_map_sewer/re2_sewer_B1.png', import.meta.url).href,
-  '1F': new URL('./re2_map_sewer/re2_sewer_1F.png', import.meta.url).href,
-  '2F': new URL('./re2_map_sewer/re2_sewer_2F.png', import.meta.url).href,
-  '3F': new URL('./re2_map_sewer/re2_sewer_3F.png', import.meta.url).href,
+  'B3': `${BASE_PATH}re2_map_sewer/re2_sewer_B3.png`,
+  'B2': `${BASE_PATH}re2_map_sewer/re2_sewer_B2.png`,
+  'B1o': `${BASE_PATH}re2_map_sewer/re2_sewer_B1o.png`,
+  'B1': `${BASE_PATH}re2_map_sewer/re2_sewer_B1.png`,
+  '1F': `${BASE_PATH}re2_map_sewer/re2_sewer_1F.png`,
+  '2F': `${BASE_PATH}re2_map_sewer/re2_sewer_2F.png`,
+  '3F': `${BASE_PATH}re2_map_sewer/re2_sewer_3F.png`,
 }
 
 // 图片宽高比 (从实际图片尺寸得出)
