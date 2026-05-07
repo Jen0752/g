@@ -102,7 +102,7 @@ export default function RouteEditor() {
   if (!isEditingRoutes) return null
 
   return (
-    <div className="absolute top-0 left-0 z-20 w-72 h-full bg-teal-100/95 backdrop-blur-md border-r border-teal-200/80 shadow-lifted flex flex-col">
+    <div className="absolute top-0 left-0 z-20 w-60 h-[60vh] bg-teal-100/95 backdrop-blur-md border-r border-teal-200/80 shadow-lifted flex flex-col rounded-r-xl">
       {/* 头部 */}
       <div className="flex items-center justify-between px-4 py-3.5 border-b border-re2-subtle">
         <h2 className="text-base font-semibold text-gray-700">路线编辑</h2>
@@ -128,12 +128,12 @@ export default function RouteEditor() {
               placeholder="路线名称"
               className="w-full px-3 py-2 bg-white text-gray-700 text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none mb-3"
             />
-            <div className="flex gap-2 mb-3">
+            <div className="flex flex-wrap gap-2 mb-3">
               {COLORS.map(color => (
                 <button
                   key={color}
                   onClick={() => setNewRouteColor(color)}
-                  className={`w-6 h-6 rounded-full transition-transform ${newRouteColor === color ? 'ring-2 ring-offset-2 ring-re2-accent scale-110' : 'hover:scale-110'}`}
+                  className={`w-6 h-6 rounded-full transition-transform flex-shrink-0 ${newRouteColor === color ? 'ring-2 ring-offset-2 ring-re2-accent scale-110' : 'hover:scale-110'}`}
                   style={{ backgroundColor: color }}
                 />
               ))}
@@ -220,12 +220,12 @@ export default function RouteEditor() {
                   {/* 颜色选择 */}
                   <div className="mb-3">
                     <label className="text-re2-muted text-xs mb-1.5 block">颜色</label>
-                    <div className="flex gap-1.5">
+                    <div className="flex flex-wrap gap-1.5">
                       {COLORS.map(color => (
                         <button
                           key={color}
                           onClick={() => updateRoute(route.id, { color })}
-                          className={`w-5 h-5 rounded-full transition-transform ${route.color === color ? 'ring-2 ring-offset-1 ring-re2-accent scale-110' : 'hover:scale-110'}`}
+                          className={`w-5 h-5 rounded-full transition-transform flex-shrink-0 ${route.color === color ? 'ring-2 ring-offset-1 ring-re2-accent scale-110' : 'hover:scale-110'}`}
                           style={{ backgroundColor: color }}
                         />
                       ))}

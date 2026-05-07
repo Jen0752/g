@@ -110,6 +110,9 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
       setShowMarkerPicker(false)
       setTempMarker(null)
     } else {
+      setShowCharacterPicker(false)
+      setShowModePicker(false)
+      setShowFloorPicker(false)
       setShowMarkerPicker(prev => !prev)
     }
   }, [isPlacingMarker, setIsPlacingMarker, setSelectedMarkerIcon, setTempMarker])
@@ -172,12 +175,101 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
   return (
     <div className="absolute top-3 right-3 z-10 flex items-start gap-2">
       {/* 收起/展开按钮 */}
-      <button
-        onClick={() => setIsCollapsed(prev => !prev)}
-        className={`${buttonBase} ${isCollapsed ? '' : 'bg-white/60'}`}
-      >
-        {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-      </button>
+      <div className="relative">
+        <button
+          onClick={() => setIsCollapsed(prev => !prev)}
+          className={`${buttonBase} ${isCollapsed ? '' : 'bg-white/60'}`}
+        >
+          {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </button>
+
+        {/* 标点选择器 - 固定在收起按钮下方 */}
+        {showMarkerPicker && (
+          <div className="absolute right-0 top-full mt-2 bg-rose-200/80 backdrop-blur-md rounded-xl shadow-lifted p-4 z-20 w-72">
+            {/* 导入/导出按钮 */}
+            <div className="flex gap-2 mb-4 border-b border-re2-subtle pb-4">
+              <label className="flex-1">
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={handleImportMarkers}
+                  className="hidden"
+                />
+                <div className="text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/50 hover:bg-re2-subtle cursor-pointer py-2 px-3 rounded-btn transition-colors">
+                  导入
+                </div>
+              </label>
+              <button
+                onClick={handleExportMarkers}
+                className="flex-1 text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/50 hover:bg-re2-subtle py-2 px-3 rounded-btn transition-colors"
+              >
+                导出
+              </button>
+            </div>
+
+            {!selectedCategory ? (
+              <>
+                <p className="text-xs text-re2-muted mb-3">选择分类</p>
+                <div className="grid grid-cols-5 gap-2">
+                  {CATEGORIES.map((cat) => {
+                    const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
+                    return (
+                      <button
+                        key={cat.id}
+                        onClick={() => handleSelectCategory(cat.id)}
+                        className="aspect-square bg-white rounded-lg overflow-hidden hover:shadow-soft transition-all duration-150 hover:scale-105 active:scale-95"
+                        title={cat.name}
+                      >
+                        <img
+                          src={iconPath.replace('loot%20ping', 'loot ping')}
+                          alt={cat.name}
+                          className="w-full h-full object-contain p-1.5"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                      </button>
+                    )
+                  })}
+                </div>
+              </>
+            ) : (
+              <>
+                <button
+                  onClick={() => setSelectedCategory(null)}
+                  className="text-xs text-re2-muted hover:text-gray-700 mb-3 flex items-center gap-1.5 transition-colors"
+                >
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                  返回
+                </button>
+                <p className="text-xs text-re2-muted mb-3">
+                  {CATEGORIES.find(c => c.id === selectedCategory)?.name}
+                </p>
+                <div className="grid grid-cols-4 gap-2">
+                  {CATEGORIES.find(c => c.id === selectedCategory)?.subCategories.map((sub) => {
+                    const iconPath = `./re2_map_sewer_ui/loot%20ping/${selectedCategory}/${sub.icon}`
+                    return (
+                      <button
+                        key={sub.id}
+                        onClick={() => handleSelectSubCategory(sub)}
+                        className="aspect-square bg-white rounded-lg overflow-hidden hover:shadow-soft transition-all duration-150 hover:scale-105 active:scale-95 flex items-center justify-center p-1.5"
+                        title={sub.name}
+                      >
+                        <img
+                          src={iconPath.replace('loot%20ping', 'loot ping')}
+                          alt={sub.name}
+                          className="w-full h-full object-contain"
+                          onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
+                        />
+                      </button>
+                    )
+                  })}
+                </div>
+              </>
+            )}
+          </div>
+        )}
+      </div>
 
       {/* 工具栏主体 */}
       {!isCollapsed && (
@@ -397,93 +489,6 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
           <EditIcon active={isEditingMarkers} />
         </button>
       </div>
-
-      {/* 标点选择器 */}
-      {showMarkerPicker && (
-        <div className="absolute right-full top-0 mr-2 bg-rose-200/80 backdrop-blur-md rounded-xl shadow-lifted p-4 z-20 w-72">
-          {/* 导入/导出按钮 */}
-          <div className="flex gap-2 mb-4 border-b border-re2-subtle pb-4">
-            <label className="flex-1">
-              <input
-                type="file"
-                accept=".json"
-                onChange={handleImportMarkers}
-                className="hidden"
-              />
-              <div className="text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/50 hover:bg-re2-subtle cursor-pointer py-2 px-3 rounded-btn transition-colors">
-                导入
-              </div>
-            </label>
-            <button
-              onClick={handleExportMarkers}
-              className="flex-1 text-xs text-center text-re2-muted hover:text-gray-700 bg-re2-subtle/50 hover:bg-re2-subtle py-2 px-3 rounded-btn transition-colors"
-            >
-              导出
-            </button>
-          </div>
-
-          {!selectedCategory ? (
-            <>
-              <p className="text-xs text-re2-muted mb-3">选择分类</p>
-              <div className="grid grid-cols-5 gap-2">
-                {CATEGORIES.map((cat) => {
-                  const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
-                  return (
-                    <button
-                      key={cat.id}
-                      onClick={() => handleSelectCategory(cat.id)}
-                      className="aspect-square bg-white rounded-lg overflow-hidden hover:shadow-soft transition-all duration-150 hover:scale-105 active:scale-95"
-                      title={cat.name}
-                    >
-                      <img
-                        src={iconPath.replace('loot%20ping', 'loot ping')}
-                        alt={cat.name}
-                        className="w-full h-full object-contain p-1.5"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                      />
-                    </button>
-                  )
-                })}
-              </div>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={() => setSelectedCategory(null)}
-                className="text-xs text-re2-muted hover:text-gray-700 mb-3 flex items-center gap-1.5 transition-colors"
-              >
-                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-                返回
-              </button>
-              <p className="text-xs text-re2-muted mb-3">
-                {CATEGORIES.find(c => c.id === selectedCategory)?.name}
-              </p>
-              <div className="grid grid-cols-4 gap-2">
-                {CATEGORIES.find(c => c.id === selectedCategory)?.subCategories.map((sub) => {
-                  const iconPath = `./re2_map_sewer_ui/loot%20ping/${selectedCategory}/${sub.icon}`
-                  return (
-                    <button
-                      key={sub.id}
-                      onClick={() => handleSelectSubCategory(sub)}
-                      className="aspect-square bg-white rounded-lg overflow-hidden hover:shadow-soft transition-all duration-150 hover:scale-105 active:scale-95 flex items-center justify-center p-1.5"
-                      title={sub.name}
-                    >
-                      <img
-                        src={iconPath.replace('loot%20ping', 'loot ping')}
-                        alt={sub.name}
-                        className="w-full h-full object-contain"
-                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none' }}
-                      />
-                    </button>
-                  )
-                })}
-              </div>
-            </>
-          )}
-        </div>
-      )}
         </>
       )}
     </div>

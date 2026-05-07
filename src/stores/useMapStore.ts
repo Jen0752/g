@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 export type Character = 'leon' | 'claire'
 export type GameMode = 'normal' | 'expert'
-export type Floor = '1F' | '2F' | '3F' | 'B1' | 'B1o' | 'B2' | 'B3'
+export type Floor = '1F' | '2F' | '3F' | 'B1' | 'B1o' | 'B2' | 'B2o' | 'B3'
 
 export interface MarkerItem {
   id: string

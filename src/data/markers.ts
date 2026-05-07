@@ -1,6 +1,6 @@
 import type { MarkerItem } from '../stores/useMapStore'
 
-export const FLOOR_ORDER = ['3F', '2F', '1F', 'B1', 'B1o', 'B2', 'B3'] as const
+export const FLOOR_ORDER = ['3F', '2F', '1F', 'B1', 'B1o', 'B2', 'B2o', 'B3'] as const
 
 export interface SubCategory {
   id: string
@@ -20,6 +20,9 @@ export const CATEGORIES: Array<{ id: string; name: string; icon: string; subCate
       { id: 'pistol bullets', name: '手枪子弹', icon: 'pistol bullets.png' },
       { id: 'shotgun bullet', name: '霰弹', icon: 'shotgun bullet.png' },
       { id: 'submachine gun bullets', name: '冲锋枪子弹', icon: 'submachine gun bullets.png' },
+      { id: 'gunpowder', name: '火药', icon: 'gunpoweder.png' },
+      { id: 'gunpowder big', name: '火药（大）', icon: 'gunpowder（big）.png' },
+      { id: 'advanced gunpowder', name: '高级火药', icon: 'advanced gunpowder.png' },
     ],
   },
   {

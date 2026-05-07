@@ -10,6 +10,7 @@ const BASE_PATH = import.meta.env.PROD ? './' : '/'
 const FLOOR_IMAGES: Record<string, string> = {
   'B3': `${BASE_PATH}re2_map_sewer/re2_sewer_B3.png`,
   'B2': `${BASE_PATH}re2_map_sewer/re2_sewer_B2.png`,
+  'B2o': `${BASE_PATH}re2_map_sewer/re2_sewer_B2o.png`,
   'B1o': `${BASE_PATH}re2_map_sewer/re2_sewer_B1o.png`,
   'B1': `${BASE_PATH}re2_map_sewer/re2_sewer_B1.png`,
   '1F': `${BASE_PATH}re2_map_sewer/re2_sewer_1F.png`,
@@ -21,6 +22,7 @@ const FLOOR_IMAGES: Record<string, string> = {
 const FLOOR_RATIOS: Record<string, number> = {
   'B3': 2.302,   // 3106x1349
   'B2': 0.583,   // 1564x2681
+  'B2o': 1.111,  // 2158x1942
   'B1o': 1.176,  // 2220x1888
   'B1': 1.328,   // 2359x1776
   '1F': 1.000,   // 2048x2048

@@ -17,7 +17,7 @@ type: project
 - Vite (构建工具)
 
 ## 核心功能
-- [x] 楼层图片切换显示 (B3/B2/B1o/B1/1F/2F/3F)
+- [x] 楼层图片切换显示 (B3/B2/B2o/B1o/B1/1F/2F/3F)
 - [x] 自定义标点放置（放置模式 → 点击 → 填写信息 → 确认）
 - [x] 标点属性：floor, character, mode, name, description, screenshots
 - [x] 标点拖拽移动
@@ -72,9 +72,10 @@ src/
 │   └── markers.ts       - 标点分类数据
 └── App.tsx
 public/
-├── re2_map_sewer/       - 楼层背景图片
+├── re2_map_sewer/       - 楼层背景图片（已压缩）
 └── re2_map_sewer_ui/   - UI 图标资源
 docs/                   - GitHub Pages 部署目录
+map save/              - 楼层图片备份（原图）
 ```
 
 ## 状态管理 (useMapStore)
@@ -100,6 +101,11 @@ docs/                   - GitHub Pages 部署目录
 - [x] 标点详情弹窗改为极简悬浮面板风格（无边界、去分割线）
 - [x] 标点详情弹窗添加可拖动功能
 - [x] 标点详情弹窗自动调整位置（避免超出屏幕）
+- [x] 人物/模式选择弹窗未选中状态文字颜色加深（text-re2-dark → text-gray-700）
+- [x] 道具选择弹窗固定在收起按钮下方（absolute right-0 top-full mt-2）
+- [x] 路线编辑器弹窗：宽度缩小至 w-60，高度缩小至 h-[60vh]，添加右侧圆角 rounded-r-xl
+- [x] 颜色选择按钮：添加 flex-shrink-0 使用 flex-wrap 防止超出宽度
+- [x] 点击放置标点按钮时关闭其他弹窗（人物/模式/楼层选择）
 
 ## GitHub 仓库
 - 仓库地址：https://github.com/Jen0752/g
@@ -107,6 +113,16 @@ docs/                   - GitHub Pages 部署目录
 - 分支：main
 - 部署方式：GitHub Pages (docs 目录)
 
+## 资源优化
+- [x] 楼层图片压缩：8张图从 ~13MB 压缩至 ~600KB（减少96%）
+- 原始图片备份在 `map save/` 目录
+
 ## 待完成功能
 - [ ] 路线显示开关（目前需要退出编辑才显示）
 - [ ] 更多标点分类
+- [ ] B2o 楼层标点数据
+
+## 新增道具（bullet 类别）
+- [x] 火药 (gunpoweder.png)
+- [x] 火药（大）(gunpowder（big）.png)
+- [x] 高级火药 (advanced gunpowder.png)
