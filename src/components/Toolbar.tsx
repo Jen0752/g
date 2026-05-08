@@ -1,6 +1,18 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { useMapStore, type Character, type GameMode, type CustomMarker } from '../stores/useMapStore'
 import { FLOOR_ORDER, CATEGORIES } from '../data/markers'
+import {
+  FilterIcon,
+  FloorIcon,
+  CharacterIcon,
+  PathIcon,
+  PinIcon,
+  EditIcon,
+  SettingsIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  ModeIcon,
+} from './Icons'
 
 interface ToolbarProps {
   onFilterToggle: () => void
@@ -9,84 +21,40 @@ interface ToolbarProps {
   showRoutes: boolean
 }
 
-// 统一风格的线性图标 - 每个图标有独立的未选中/选中颜色
-const FilterIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-slate-500' : 'text-slate-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-  </svg>
-)
-
-const FloorIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-blue-500' : 'text-blue-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-  </svg>
-)
-
-const CharacterIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-green-500' : 'text-green-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-  </svg>
-)
-
-const PathIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-purple-500' : 'text-purple-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
-  </svg>
-)
-
-const PinIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-rose-500' : 'text-rose-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-  </svg>
-)
-
-const EditIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-orange-500' : 'text-orange-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-  </svg>
-)
-
-const SettingsIcon = ({ active }: { active?: boolean }) => (
-  <svg className={`w-5 h-5 transition-colors ${active ? 'text-teal-500' : 'text-teal-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-  </svg>
-)
-
-const ChevronLeftIcon = () => (
-  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-  </svg>
-)
-
-const ChevronRightIcon = () => (
-  <svg className="w-4 h-4 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-  </svg>
-)
-
 export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, showRoutes }: ToolbarProps) {
   const [isCollapsed, setIsCollapsed] = useState(false)
-  const character = useMapStore(s => s.character)
-  const mode = useMapStore(s => s.mode)
-  const floor = useMapStore(s => s.floor)
-  const isPlacingMarker = useMapStore(s => s.isPlacingMarker)
-  const isEditingMarkers = useMapStore(s => s.isEditingMarkers)
-  const isEditingRoutes = useMapStore(s => s.isEditingRoutes)
-  const setCharacter = useMapStore(s => s.setCharacter)
-  const setMode = useMapStore(s => s.setMode)
-  const setFloor = useMapStore(s => s.setFloor)
-  const setIsPlacingMarker = useMapStore(s => s.setIsPlacingMarker)
-  const setIsEditingMarkers = useMapStore(s => s.setIsEditingMarkers)
-  const setIsEditingRoutes = useMapStore(s => s.setIsEditingRoutes)
-  const setSelectedMarkerIcon = useMapStore(s => s.setSelectedMarkerIcon)
-  const setTempMarker = useMapStore(s => s.setTempMarker)
+
+  // Single selector - one subscription instead of 14
+  const {
+    character,
+    mode,
+    floor,
+    isPlacingMarker,
+    isEditingMarkers,
+    isEditingRoutes,
+    customMarkers,
+    setCharacter,
+    setMode,
+    setFloor,
+    setIsPlacingMarker,
+    setIsEditingMarkers,
+    setIsEditingRoutes,
+    setSelectedMarkerIcon,
+    setTempMarker,
+    addCustomMarker,
+  } = useMapStore()
 
   const [showCharacterPicker, setShowCharacterPicker] = useState(false)
   const [showMarkerPicker, setShowMarkerPicker] = useState(false)
   const [showModePicker, setShowModePicker] = useState(false)
   const [showFloorPicker, setShowFloorPicker] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
+
+  // Memoize category lookup to avoid repeated find()
+  const selectedCategoryData = useMemo(
+    () => CATEGORIES.find(c => c.id === selectedCategory) ?? null,
+    [selectedCategory]
+  )
 
   const handleCharacterChange = useCallback((c: Character) => {
     setCharacter(c)
@@ -125,19 +93,15 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
   }, [])
 
   const handleSelectSubCategory = useCallback((sub: { id: string; name: string; icon: string }) => {
-    const cat = CATEGORIES.find(c => c.id === selectedCategory)
-    if (!cat) return
-    const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${sub.icon}`
+    if (!selectedCategoryData) return
+    const iconPath = `./re2_map_sewer_ui/loot%20ping/${selectedCategoryData.id}/${sub.icon}`
     console.log('select subcategory:', sub.name, 'path:', iconPath)
     setSelectedMarkerIcon(iconPath)
     setIsPlacingMarker(true)
     setShowMarkerPicker(false)
     setSelectedCategory(null)
     console.log('after set:', useMapStore.getState().isPlacingMarker, useMapStore.getState().selectedMarkerIcon)
-  }, [selectedCategory, setSelectedMarkerIcon, setIsPlacingMarker])
-
-  const customMarkers = useMapStore(s => s.customMarkers)
-  const addCustomMarker = useMapStore(s => s.addCustomMarker)
+  }, [selectedCategoryData, setSelectedMarkerIcon, setIsPlacingMarker])
 
   const handleExportMarkers = useCallback(() => {
     const data = {
@@ -172,8 +136,8 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
     e.target.value = ''
   }, [addCustomMarker])
 
-  // 按钮通用样式
-  const buttonBase = "w-11 h-11 rounded-xl flex items-center justify-center bg-slate-100/80 hover:bg-slate-200 shadow-soft transition-all duration-150 hover:shadow-card hover:scale-105 active:scale-95"
+  // 按钮通用样式 - 使用 CSS 类选择器实现 hover 优化
+  const buttonBase = "toolbar-btn w-11 h-11 rounded-xl flex items-center justify-center bg-slate-100/80 shadow-soft transition-all duration-150 active:scale-95"
 
   return (
     <div className="absolute top-3 right-3 z-10 flex items-start gap-2">
@@ -390,9 +354,7 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
             className={`${buttonBase} ${showModePicker ? 'border-2 border-amber-300/80 bg-re2-accent/5' : 'border border-amber-200/80'} ${mode === 'expert' ? 'ring-2 ring-red-400/40' : ''}`}
             title="模式"
           >
-            <svg className={`w-5 h-5 transition-colors ${mode === 'expert' ? 'text-red-500' : 'text-amber-400'}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1.8}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
+            <ModeIcon active={showModePicker || mode === 'expert'} />
           </button>
 
           {/* 模式选择面板 */}

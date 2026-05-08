@@ -13,6 +13,11 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
   const [isVisible, setIsVisible] = useState(false)
   const [isClosing, setIsClosing] = useState(false)
 
+  // 获取图标路径
+  const getIconSrc = (catId: string, iconName: string) => {
+    return `./re2_map_sewer_ui/loot%20ping/${catId}/${iconName}`
+  }
+
   useEffect(() => {
     // 入场动画
     requestAnimationFrame(() => {
@@ -139,7 +144,6 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
           <div className="w-20 border-r border-re2-subtle overflow-y-auto bg-re2-subtle/10 scrollbar-minimal">
             {CATEGORIES.map((cat) => {
               const isActive = cat.id === activeCategory
-              const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
 
               return (
                 <button
@@ -152,7 +156,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                 >
                   <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-soft flex-shrink-0">
                     <img
-                      src={iconPath}
+                      src={getIconSrc(cat.id, cat.icon)}
                       alt={cat.name}
                       className="w-6 h-6 object-contain"
                       onError={(e) => {
@@ -172,8 +176,6 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
           {/* 右侧：所有二级分类（按一级分类分组） */}
           <div ref={scrollRef} className="flex-1 overflow-y-auto p-4 scrollbar-minimal">
             {CATEGORIES.map((cat) => {
-              const iconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${cat.icon}`
-
               return (
                 <div
                   key={cat.id}
@@ -185,7 +187,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                     <div className="flex items-center gap-2.5">
                       <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center overflow-hidden shadow-soft">
                         <img
-                          src={iconPath}
+                          src={getIconSrc(cat.id, cat.icon)}
                           alt={cat.name}
                           className="w-5 h-5 object-contain"
                           onError={(e) => {
@@ -206,7 +208,6 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                   <div className="grid grid-cols-4 gap-2.5">
                     {cat.subCategories.map((sub) => {
                       const isActive = activeCategories.has(sub.id)
-                      const subIconPath = `./re2_map_sewer_ui/loot%20ping/${cat.id}/${sub.icon}`
 
                       return (
                         <button
@@ -220,7 +221,7 @@ export default function FilterPanel({ onClose }: FilterPanelProps) {
                         >
                           <div className="w-10 h-10 bg-re2-subtle/30 rounded-lg flex items-center justify-center overflow-hidden">
                             <img
-                              src={subIconPath}
+                              src={getIconSrc(cat.id, sub.icon)}
                               alt={sub.name}
                               className="w-7 h-7 object-contain"
                               onError={(e) => {

@@ -1,7 +1,9 @@
 import { useRef, useEffect, useState } from 'react'
-import maplibregl, { Map as MapLibreMap, Marker as MapMarker } from 'maplibre-gl'
+import maplibregl, { Marker as MapMarker } from 'maplibre-gl'
+import type { Map as MapLibreMap } from 'maplibre-gl'
 import { useMapStore, type CustomMarker } from '../stores/useMapStore'
 import { CATEGORIES } from '../data/markers'
+import { preloadAllFloorImages } from '../utils/preload'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import MarkerEditModal from './MarkerEditModal'
 
@@ -71,6 +73,20 @@ export default function Map() {
   // 路线路径点引用
   const waypointMarkersRef = useRef<MapMarker[]>([])
 
+  // 标点更新涓流 ref
+  const markerUpdateRafId = useRef<number | null>(null)
+
+  // 标点 Map（用于视口裁剪，按 ID 快速查找）
+  const markerMapRef = useRef<Record<string, maplibregl.Marker>>({})
+
+  // 当前可见的标点 ID 集合
+  const visibleMarkerIdsRef = useRef<Set<string>>(new Set())
+
+  // 标点数据快照（用于在 RAF 中访问最新值）
+  const markerDataRef = useRef<{ floor: string; character: string; mode: string; activeCategories: Set<string> }>({
+    floor: '', character: '', mode: '', activeCategories: new Set()
+  })
+
   const {
     floor,
     character,
@@ -89,6 +105,9 @@ export default function Map() {
 
   // 初始化地图
   useEffect(() => {
+    // 预加载所有楼层图片（利用浏览器缓存）
+    preloadAllFloorImages(FLOOR_IMAGES)
+
     if (!mapContainerRef.current || mapRef.current) return
 
     const map = new maplibregl.Map({
@@ -271,13 +290,18 @@ export default function Map() {
     console.log('temp marker at', tempMarker.coordinates)
   }, [tempMarker])
 
-  // 监听自定义标点变化，更新地图
+  // 监听自定义标点变化，更新地图（标记 Map + 视口裁剪）
   useEffect(() => {
     const map = mapRef.current
     if (!map) return
 
-    // 清除旧的标记
-    document.querySelectorAll('.map-marker-wrapper').forEach(el => el.remove())
+    // 更新快照数据
+    markerDataRef.current = {
+      floor,
+      character,
+      mode,
+      activeCategories: activeCategories
+    }
 
     // 辅助函数：通过标点 name 找到对应的子分类 id
     const getSubCategoryId = (marker: CustomMarker): string | null => {
@@ -287,24 +311,23 @@ export default function Map() {
       return sub?.id || null
     }
 
-    // 只显示当前楼层和当前人物线、模式的标点
-    const floorMarkers = customMarkers.filter(m => {
-      if (m.floor !== floor) return false
-      // 人物线过滤
-      if (character === 'leon' && m.character !== 'leon' && m.character !== 'both') return false
-      if (character === 'claire' && m.character !== 'claire' && m.character !== 'both') return false
-      // 模式过滤
-      if (mode === 'normal' && m.mode !== 'normal' && m.mode !== 'both') return false
-      if (mode === 'expert' && m.mode !== 'expert' && m.mode !== 'both') return false
-      // 分类筛选
-      const subCategoryId = getSubCategoryId(m)
-      if (subCategoryId && !activeCategories.has(subCategoryId)) return false
-      return true
-    })
+    // 过滤出应该在当前楼层显示的标点
+    const getFloorMarkers = () => {
+      const data = markerDataRef.current
+      return customMarkers.filter(m => {
+        if (m.floor !== data.floor) return false
+        if (data.character === 'leon' && m.character !== 'leon' && m.character !== 'both') return false
+        if (data.character === 'claire' && m.character !== 'claire' && m.character !== 'both') return false
+        if (data.mode === 'normal' && m.mode !== 'normal' && m.mode !== 'both') return false
+        if (data.mode === 'expert' && m.mode !== 'expert' && m.mode !== 'both') return false
+        const subCategoryId = getSubCategoryId(m)
+        if (subCategoryId && !data.activeCategories.has(subCategoryId)) return false
+        return true
+      })
+    }
 
-    // 添加新的标记
-    floorMarkers.forEach((marker, index) => {
-      // 创建包装器
+    // 创建单个标点
+    const createMarkerElement = (marker: CustomMarker, index: number): HTMLElement => {
       const wrapper = document.createElement('div')
       wrapper.className = 'map-marker-wrapper'
       wrapper.style.cssText = `
@@ -342,13 +365,63 @@ export default function Map() {
         z-index: 2;
       `
       wrapper.appendChild(img)
+      return wrapper
+    }
 
-      // 手动拖动实现
+    // 更新可见标点（根据视口）
+    const updateVisibleMarkers = () => {
+      if (markerUpdateRafId.current) return
+      markerUpdateRafId.current = requestAnimationFrame(() => {
+        markerUpdateRafId.current = null
+        const map = mapRef.current
+        if (!map) return
+
+        const bounds = map.getBounds()
+        const floorMarkers = getFloorMarkers()
+        const newVisibleIds = new Set<string>()
+
+        floorMarkers.forEach(marker => {
+          // 检查坐标是否在可见范围内
+          const isVisible = bounds.contains(marker.coordinates)
+          const existingMarker = markerMapRef.current[marker.id]
+
+          if (isVisible) {
+            newVisibleIds.add(marker.id)
+            if (!existingMarker) {
+              // 需要创建新标点
+              const wrapper = createMarkerElement(marker, 0)
+              setupMarkerEvents(wrapper, marker)
+
+              const mapMarker = new maplibregl.Marker({
+                element: wrapper,
+                anchor: 'bottom',
+              })
+                .setLngLat(marker.coordinates)
+                .addTo(map)
+
+              markerMapRef.current[marker.id] = mapMarker
+            }
+          } else {
+            // 隐藏不可见的标点
+            if (existingMarker) {
+              existingMarker.remove()
+              delete markerMapRef.current[marker.id]
+            }
+          }
+        })
+
+        visibleMarkerIdsRef.current = newVisibleIds
+      })
+    }
+
+    // 设置标点事件
+    const setupMarkerEvents = (wrapper: HTMLElement, marker: CustomMarker) => {
       let isDragging = false
       let hasMoved = false
       let startX = 0
       let startY = 0
       let startLngLat: [number, number] = [0, 0]
+      let mapMarker: maplibregl.Marker | null = null
 
       const onMouseDown = (e: MouseEvent) => {
         e.preventDefault()
@@ -357,15 +430,17 @@ export default function Map() {
         hasMoved = false
         startX = e.clientX
         startY = e.clientY
-        startLngLat = [mapMarker.getLngLat().lng, mapMarker.getLngLat().lat]
+        mapMarker = markerMapRef.current[marker.id] || null
+        if (mapMarker) {
+          startLngLat = [mapMarker.getLngLat().lng, mapMarker.getLngLat().lat]
+        }
         wrapper.style.cursor = 'grabbing'
       }
 
       const onMouseMove = (e: MouseEvent) => {
         if (!isDragging) return
-
         const map = mapRef.current
-        if (!map) return
+        if (!map || !mapMarker) return
 
         const dx = e.clientX - startX
         const dy = e.clientY - startY
@@ -392,14 +467,11 @@ export default function Map() {
         isDragging = false
         wrapper.style.cursor = 'grab'
 
-        if (hasMoved) {
+        if (hasMoved && mapMarker) {
           const lngLat = mapMarker.getLngLat()
-          const markerId = wrapper.dataset.markerId
-          if (markerId) {
-            useMapStore.getState().updateCustomMarker(markerId, {
-              coordinates: [lngLat.lng, lngLat.lat],
-            })
-          }
+          useMapStore.getState().updateCustomMarker(marker.id, {
+            coordinates: [lngLat.lng, lngLat.lat],
+          })
         }
       }
 
@@ -410,37 +482,52 @@ export default function Map() {
       // 点击标点显示详情弹窗或编辑弹窗
       wrapper.addEventListener('click', (e) => {
         e.stopPropagation()
-        const markerId = wrapper.dataset.markerId
-        if (!markerId) return
-
-        const marker = customMarkers.find(m => m.id === markerId)
-        if (!marker) return
+        const markerData = customMarkers.find(m => m.id === marker.id)
+        if (!markerData) return
 
         const rect = wrapper.getBoundingClientRect()
         const pos = {
           x: rect.left + rect.width / 2,
-          y: rect.top + 42,  // anchor: 'bottom' 的尖端位置
+          y: rect.top + 42,
         }
 
         if (isEditingMarkers) {
-          // 编辑模式：打开编辑弹窗
-          setEditingMarker({ marker, position: pos })
+          setEditingMarker({ marker: markerData, position: pos })
           setSelectedMarkerId(null)
         } else {
-          // 查看模式：打开详情弹窗
           setPopupPosition(pos)
-          setSelectedMarkerId(markerId)
+          setSelectedMarkerId(marker.id)
         }
       })
+    }
 
-      // 创建地图标记
-      const mapMarker = new maplibregl.Marker({
-        element: wrapper,
-        anchor: 'bottom',
-      })
-        .setLngLat(marker.coordinates)
-        .addTo(map)
+    // 清除当前楼层不在过滤条件内的标点
+    const currentFloorMarkers = getFloorMarkers()
+    const currentFloorMarkerIds = new Set(currentFloorMarkers.map(m => m.id))
+
+    // 移除不属于当前楼层或不符合过滤条件的标点
+    Object.keys(markerMapRef.current).forEach(markerId => {
+      if (!currentFloorMarkerIds.has(markerId)) {
+        markerMapRef.current[markerId].remove()
+        delete markerMapRef.current[markerId]
+      }
     })
+
+    // 初始化可见性检查（首次加载时全部显示，因为还没监听 moveend）
+    updateVisibleMarkers()
+
+    // 监听地图移动/缩放事件，更新可见标点
+    const handleMapMove = () => {
+      updateVisibleMarkers()
+    }
+
+    map.on('moveend', handleMapMove)
+    map.on('zoomend', handleMapMove)
+
+    return () => {
+      map.off('moveend', handleMapMove)
+      map.off('zoomend', handleMapMove)
+    }
   }, [customMarkers, floor, character, mode, isEditingMarkers, activeCategories])
 
   // 楼层变化时更新图片

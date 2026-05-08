@@ -1,0 +1,128 @@
+/* ============================================
+   Icon Sprites for different display sizes
+   Each sprite has 10 columns x 4 rows
+   ============================================ */
+
+/* Base sprite class */
+.icon-sprite {
+  background-repeat: no-repeat;
+  display: block;
+}
+
+/* 32px icons sprite */
+.icon-sprite-32 {
+  background-image: url("/re2_map_sewer_ui/icons-sprite-32.png");
+  background-size: 320px 128px;
+  width: 32px;
+  height: 32px;
+}
+
+/* 40px icons sprite */
+.icon-sprite-40 {
+  background-image: url("/re2_map_sewer_ui/icons-sprite-40.png");
+  background-size: 400px 160px;
+  width: 40px;
+  height: 40px;
+}
+
+/* 56px icons sprite */
+.icon-sprite-56 {
+  background-image: url("/re2_map_sewer_ui/icons-sprite-56.png");
+  background-size: 560px 224px;
+  width: 56px;
+  height: 56px;
+}
+
+/* ============================================
+   Icon Positions - Row 0 (y=0): bullet, checkpoint
+   ============================================ */
+
+/* bullet column */
+.icon-bullet-_1_bullet { background-position: 0px 0px; }
+.icon-bullet-acid-bomb { background-position: -32px 0px; }
+.icon-bullet-fire-bomb { background-position: -64px 0px; }
+.icon-bullet-magnum-bullet { background-position: -96px 0px; }
+.icon-bullet-pistol-bullets { background-position: -128px 0px; }
+.icon-bullet-shotgun-bullet { background-position: -160px 0px; }
+.icon-bullet-submachine-gun-bullets { background-position: -192px 0px; }
+
+/* checkpoint column */
+.icon-checkpoint-_1_checkpoint { background-position: -224px 0px; }
+.icon-checkpoint-lnk-ribbon { background-position: -256px 0px; }
+.icon-checkpoint-typewriter { background-position: -288px 0px; }
+
+/* ============================================
+   Icon Positions - Row 1 (y=-32px/-40px/-56px): collection, door, enemy
+   ============================================ */
+
+/* collection column */
+.icon-collection-_1_collection { background-position: 0px -32px; }
+.icon-collection-Fanny-pack { background-position: -32px -32px; }
+.icon-collection-document { background-position: -64px -32px; }
+.icon-collection-locked-container { background-position: -96px -32px; }
+.icon-collection-map { background-position: -128px -32px; }
+.icon-collection-raccoon-toy { background-position: -160px -32px; }
+
+/* door column */
+.icon-door-_1_door { background-position: -192px -32px; }
+.icon-door-keygate { background-position: -224px -32px; }
+
+/* enemy column */
+.icon-enemy-_1_enemy { background-position: -256px -32px; }
+.icon-enemy-enemy { background-position: -288px -32px; }
+.icon-enemy-mutated-enemy { background-position: -320px -32px; }
+
+/* medicine column (extends to row 2) */
+.icon-medicine-_1_medicine { background-position: -352px -32px; }
+.icon-medicine-blue-grass { background-position: -384px -32px; }
+.icon-medicine-first-aid-spray { background-position: -416px -32px; }
+.icon-medicine-green-grass { background-position: -448px -32px; }
+.icon-medicine-red-grass { background-position: -480px -32px; }
+
+/* ============================================
+   Icon Positions - Row 2 (y=-64px/-80px/-112px): projectile, puzzle, tip, weapon
+   ============================================ */
+
+/* projectile column */
+.icon-projectile-_1_projectile { background-position: 0px -64px; }
+.icon-projectile-dagger { background-position: -32px -64px; }
+.icon-projectile-flashbang { background-position: -64px -64px; }
+.icon-projectile-grenade { background-position: -96px -64px; }
+
+/* puzzle-item column */
+.icon-puzzle-item-_1_puzzle-item { background-position: -128px -64px; }
+.icon-puzzle-item-important-props { background-position: -160px -64px; }
+.icon-puzzle-item-key { background-position: -192px -64px; }
+
+/* tip column */
+.icon-tip-_1_tips { background-position: -224px -64px; }
+.icon-tip-guidance-tips { background-position: -256px -64px; }
+.icon-tip-mechanisms { background-position: -288px -64px; }
+.icon-tip-street-sign { background-position: -320px -64px; }
+
+/* weapon column */
+.icon-weapon-_1_weapon { background-position: -352px -64px; }
+.icon-weapon-weapon-accessories { background-position: -384px -64px; }
+.icon-weapon-weapon { background-position: -416px -64px; }
+
+/* medicine continued (row 3 for 32px sprite) */
+.icon-medicine-_1_medicine-32 { background-position: -352px -64px; }
+.icon-medicine-blue-grass-32 { background-position: -384px -64px; }
+.icon-medicine-first-aid-spray-32 { background-position: -416px -64px; }
+.icon-medicine-green-grass-32 { background-position: -448px -64px; }
+.icon-medicine-red-grass-32 { background-position: -480px -64px; }
+
+/* ============================================
+   Row-based Y positions for different sizes
+   ============================================ */
+.icon-sprite-32 .row-1 { background-position-y: -32px; }
+.icon-sprite-32 .row-2 { background-position-y: -64px; }
+.icon-sprite-32 .row-3 { background-position-y: -96px; }
+
+.icon-sprite-40 .row-1 { background-position-y: -40px; }
+.icon-sprite-40 .row-2 { background-position-y: -80px; }
+.icon-sprite-40 .row-3 { background-position-y: -120px; }
+
+.icon-sprite-56 .row-1 { background-position-y: -56px; }
+.icon-sprite-56 .row-2 { background-position-y: -112px; }
+.icon-sprite-56 .row-3 { background-position-y: -168px; }

@@ -1,0 +1,3009 @@
+{
+  "version": 1,
+  "floor": "B3",
+  "markers": [
+    {
+      "id": "custom_1778062675378",
+      "name": "手雷",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/grenade.png",
+      "coordinates": [
+        0.3899912921490909,
+        0.4626629159771909
+      ],
+      "floor": "3F",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062687311",
+      "name": "武器配件",
+      "category": "weapon",
+      "icon": "./re2_map_sewer_ui/loot%20ping/weapon/Weapon accessories.png",
+      "coordinates": [
+        0.43670354786235066,
+        0.46371385154220945
+      ],
+      "floor": "3F",
+      "character": "leon",
+      "mode": "both",
+      "description": "长枪管W-870（霰弹枪配件），提升弹容量，威力，枪口初速；全方面提升霰弹枪性能",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062702885",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.3922655842426366,
+        0.5016930568106801
+      ],
+      "floor": "3F",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062713780",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.43678547913771126,
+        0.5102222367376186
+      ],
+      "floor": "3F",
+      "character": "leon",
+      "mode": "both",
+      "description": "三代的吉尔写给老板的一封信；全收集文件这里容易漏",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062773089",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.5878060040888897,
+        0.3732817408397153
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062798902",
+      "name": "打字机",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/typewriter.png",
+      "coordinates": [
+        0.41659661771100787,
+        0.38582697886897677
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "both",
+      "description": "专家模式可以先到前面拿墨带存档",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062841662",
+      "name": "墨带",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/lnk ribbon.png",
+      "coordinates": [
+        0.34659089991882297,
+        0.6019000909747234
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "expert",
+      "description": "两个墨带",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062859104",
+      "name": "手雷",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/grenade.png",
+      "coordinates": [
+        0.17601899120825237,
+        0.09842837318724662
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062869927",
+      "name": "浣熊玩具",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/raccoon toy.png",
+      "coordinates": [
+        0.2233739261710923,
+        0.04786458780240821
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "both",
+      "description": " 容易漏！！",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062916844",
+      "name": "打字机",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/typewriter.png",
+      "coordinates": [
+        0.831614430977055,
+        0.32654000748865997
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "出门触发剧情",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062934955",
+      "name": "武器",
+      "category": "weapon",
+      "icon": "./re2_map_sewer_ui/loot%20ping/weapon/Weapon.png",
+      "coordinates": [
+        0.6953899453917245,
+        0.4132748681146836
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "电磁枪",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062949786",
+      "name": "打字机",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/typewriter.png",
+      "coordinates": [
+        0.6584349259150031,
+        0.4773729399210964
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "建议只留手枪，霰弹枪和对应弹药。",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062975994",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.6456110504265382,
+        0.30005998221189145
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "身份腕表相关文件",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778062991798",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.609426421444681,
+        0.2691970051339325
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "用电磁枪开门",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063005548",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.5170901052085242,
+        0.2680232633031352
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063038113",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.4481668573902482,
+        0.3782330719135558
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "一楼",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063050510",
+      "name": "闪光弹",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/flashbang.png",
+      "coordinates": [
+        0.4486989842870628,
+        0.4053709067208615
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "一楼，艾达没有收集的必要，\n切换到里昂不会继承\n但是可以用来对付暴君",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063058510",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.39921118288387447,
+        0.4021782249180319
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "二楼\n就是要贪\n",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063103837",
+      "name": "打字机",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/typewriter.png",
+      "coordinates": [
+        0.3769926176927356,
+        0.5055217980554971
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "建议拿完腕表再存档",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063129042",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.40769640439373234,
+        0.5357988300369101
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "需要身份腕表",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063139822",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.2928205193958888,
+        0.6638481286836679
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "腕表在焚化炉的文件",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063149804",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.30893800707528385,
+        0.6619825010050704
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "开焚化炉门的开关",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063162709",
+      "name": "浣熊玩具",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/raccoon toy.png",
+      "coordinates": [
+        0.2684963629187678,
+        0.619947111071312
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "别忘了！！",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063174032",
+      "name": "重要道具",
+      "category": "puzzle item",
+      "icon": "./re2_map_sewer_ui/loot%20ping/puzzle item/important props.png",
+      "coordinates": [
+        0.3025524843131677,
+        0.5374716629611527
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "身份腕表，捡上后会有一段剧情",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063271860",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.14661285157157522,
+        0.053224187385310984
+      ],
+      "floor": "B1",
+      "character": "both",
+      "mode": "both",
+      "description": "垃圾堆上",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063324406",
+      "name": "霰弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/shotgun bullet.png",
+      "coordinates": [
+        0.6246181268550686,
+        0.5045359550628916
+      ],
+      "floor": "B1",
+      "character": "leon",
+      "mode": "both",
+      "description": "不要错过",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063345079",
+      "name": "飞刀",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/dagger.png",
+      "coordinates": [
+        0.7782457173428554,
+        0.7291988262561517
+      ],
+      "floor": "B1",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778063370265",
+      "name": "重要道具",
+      "category": "puzzle item",
+      "icon": "./re2_map_sewer_ui/loot%20ping/puzzle item/important props.png",
+      "coordinates": [
+        0.5601981389713444,
+        0.06655739140727235
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "both",
+      "description": "剧情道具，\n一个录像带",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063389091",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.40599361223183905,
+        0.3495774611297975
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "both",
+      "description": "需要B3的钥匙",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063397889",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.1703664245430616,
+        0.48437451963400235
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "both",
+      "description": "单向门",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063414116",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.2897585241349532,
+        0.529409219543794
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "both",
+      "description": "拿下棋子后前面的桥会上升",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063427086",
+      "name": "重要道具",
+      "category": "puzzle item",
+      "icon": "./re2_map_sewer_ui/loot%20ping/puzzle item/important props.png",
+      "coordinates": [
+        0.2690580673741181,
+        0.528617528121174
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778063463701",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.3220708552905478,
+        0.7444650673680258
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "both",
+      "description": "需要B3的钥匙",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063610428",
+      "name": "蓝草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/blue grass.png",
+      "coordinates": [
+        0.9116138508917686,
+        0.1325760351350027
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "蓝草能解毒和加防御力",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063619804",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.8924704452289518,
+        0.1389571517455579
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "需要到B2找T形扳手",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778063634754",
+      "name": "霰弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/shotgun bullet.png",
+      "coordinates": [
+        0.8843025921471224,
+        0.10654106241456418
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "容易漏，在箱子上",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778065758239",
+      "name": "霰弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/shotgun bullet.png",
+      "coordinates": [
+        0.6166622371968913,
+        0.09890826023763566
+      ],
+      "floor": "B2o",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778065804458",
+      "name": "马格南子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/magnum bullet.png",
+      "coordinates": [
+        0.344352798403861,
+        0.33752028543155177
+      ],
+      "floor": "B2o",
+      "character": "leon",
+      "mode": "both",
+      "description": "六发马格南\n满满的安全感",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778065865467",
+      "name": "锁闭容器",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/locked container.png",
+      "coordinates": [
+        0.664511883448256,
+        0.3090856871597225
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "容器侧面有密码",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778065873678",
+      "name": "武器配件",
+      "category": "weapon",
+      "icon": "./re2_map_sewer_ui/loot%20ping/weapon/Weapon accessories.png",
+      "coordinates": [
+        0.6651274568113763,
+        0.3013911297848466
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": "霰弹枪枪托\n提升霰弹枪射速",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778065890952",
+      "name": "蓝草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/blue grass.png",
+      "coordinates": [
+        0.6115619145013795,
+        0.33313530761192567
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778065910235",
+      "name": "红草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/red grass.png",
+      "coordinates": [
+        0.6657242573613189,
+        0.5265644726063243
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778065926618",
+      "name": "重要道具",
+      "category": "puzzle item",
+      "icon": "./re2_map_sewer_ui/loot%20ping/puzzle item/important props.png",
+      "coordinates": [
+        0.673865287462462,
+        0.5910634039186249
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "T型门阀手",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778065961525",
+      "name": "打字机",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/typewriter.png",
+      "coordinates": [
+        0.4778881337116161,
+        0.5507390125437723
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "专家模式第一次来建议腰包背包只用五个格子\n专家模式开完捷径回来建议整理背包依然留五或六个格子\n",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066003611",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.4506180794863326,
+        0.5532161667671716
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "下水道设施相关剧情文件",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066021692",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.44987806234220784,
+        0.539321430698692
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "录像机",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066066942",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.40044751405258694,
+        0.48503903682231453
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "里昂线表关 国王\n克莱尔线里关 骑士",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066074381",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.4136687646574444,
+        0.4852116298299478
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "里昂线表关 皇后\n克莱尔线里关 城堡",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066085863",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.4270865462618758,
+        0.48489037475552266
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "里昂线表关 士兵\n克莱尔线里关 士兵",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066092120",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.42671016377229876,
+        0.4366482630776858
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "里昂线 主教\n克莱尔线 皇后",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066096369",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.4152917782073189,
+        0.43667944612441545
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "里昂线表关 城堡\n克莱尔线里关 主教",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066100861",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.40351368965730217,
+        0.4370318865659897
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "里昂线表关 骑士\n克莱尔线里关 国王",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066137115",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.45762447561878616,
+        0.4266516764632371
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "需要解开象棋谜题",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066172441",
+      "name": "蓝草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/blue grass.png",
+      "coordinates": [
+        0.4754907529688239,
+        0.3021359251592486
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778066197044",
+      "name": "绿草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/green grass.png",
+      "coordinates": [
+        0.5028302478965259,
+        0.2498521984628468
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778066214983",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.5389985865490985,
+        0.3023699918531122
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "需要先通电，才能打开",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066220719",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.5196757754880537,
+        0.30137909190401047
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "电源控制的大门",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066233693",
+      "name": "墨带",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/lnk ribbon.png",
+      "coordinates": [
+        0.5583213976111949,
+        0.3018745424024303
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "expert",
+      "description": "一个",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066248177",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.4486393972939595,
+        0.24918097759268676
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "单向门",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066261337",
+      "name": "红草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/red grass.png",
+      "coordinates": [
+        0.48922320847316314,
+        0.10602923464387004
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778066330314",
+      "name": "飞刀",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/dagger.png",
+      "coordinates": [
+        0.26309294393374216,
+        0.2908144315001948
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066342616",
+      "name": "闪光弹",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/flashbang.png",
+      "coordinates": [
+        0.24315792917883527,
+        0.28612389961769225
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066355331",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.24286476719711914,
+        0.275277037322752
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "可以控制集装箱把威廉撞下悬崖",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066377456",
+      "name": "马格南子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/magnum bullet.png",
+      "coordinates": [
+        0.26373550552330016,
+        0.16534993518818908
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066476079",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.7472744635610127,
+        0.21096081855601767
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "打开门的开关",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066500933",
+      "name": "绿草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/green grass.png",
+      "coordinates": [
+        0.7230489482017219,
+        0.18442827246889237
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778066537369",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.5786554128488888,
+        0.1511881301800173
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "需要T形门扳手",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066548010",
+      "name": "绿草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/green grass.png",
+      "coordinates": [
+        0.597672003526128,
+        0.12097300681811873
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "小心吓到",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066565494",
+      "name": "钥匙",
+      "category": "puzzle item",
+      "icon": "./re2_map_sewer_ui/loot%20ping/puzzle item/key.png",
+      "coordinates": [
+        0.6196365933464563,
+        0.019971685590675747
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "开启'B1o'钥匙门的钥匙",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066585744",
+      "name": "马格南子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/magnum bullet.png",
+      "coordinates": [
+        0.3539691256930837,
+        0.04863642046790062
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "如果不是强迫症，\n不建议捡。",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066628412",
+      "name": "浣熊玩具",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/raccoon toy.png",
+      "coordinates": [
+        0.19283955207504277,
+        0.05379415280687283
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "里关表关均可收集",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066650610",
+      "name": "武器",
+      "category": "weapon",
+      "icon": "./re2_map_sewer_ui/loot%20ping/weapon/Weapon.png",
+      "coordinates": [
+        0.1495320182571902,
+        0.10085596651772732
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "喷火枪",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066664235",
+      "name": "红草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/red grass.png",
+      "coordinates": [
+        0.16810531352240332,
+        0.12697469053647126
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778066703665",
+      "name": "蓝草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/blue grass.png",
+      "coordinates": [
+        0.04319603560227847,
+        0.07927684325221662
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "三合一",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066713439",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.06673684020040582,
+        0.11784221731286948
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "国王插座",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066718055",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.11426326010749221,
+        0.10021441954918942
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "王后插座",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066728030",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.14683453930302903,
+        0.07805035336306787
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "国王插座",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066745466",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.08146554771286674,
+        0.07694747214942765
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "一楼的皇后插座",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066750526",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.08086225311740236,
+        0.05706686406480799
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "二楼的国王插座",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778066781493",
+      "name": "钥匙门",
+      "category": "door",
+      "icon": "./re2_map_sewer_ui/loot%20ping/door/keygate.png",
+      "coordinates": [
+        0.13658188335466548,
+        0.11133678825825655
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "单向门",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778068122244",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.32064724205372386,
+        0.5906831146360645
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "normal",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778068245764",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.17755984713687667,
+        0.6926792633658891
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "both",
+      "description": "按照左右左的顺序可以轻松过\n最后记得打爆管子，不然还是会死。别问我怎么知道的\n",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778068256875",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.17500528575735075,
+        0.7410374935405883
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "both",
+      "description": "变异鳄鱼，里昂跳下后触发追逐",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778068427103",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.7005006688418121,
+        0.6056506694452537
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "跳下去，到'B1'层",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778068446283",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.3695027595947806,
+        0.3442683816222569
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "电源开关",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778068563237",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.062418838458711434,
+        0.039321630450203315
+      ],
+      "floor": "B1",
+      "character": "leon",
+      "mode": "both",
+      "description": "上层是'1F'，该层是B1",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778069508669",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.47831383600959043,
+        0.2845405461467294
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778069522131",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.5170419585269883,
+        0.31145294322270445
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "可推开挡路的柜子",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778069560263",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.42001751078404936,
+        0.2873640045619936
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778069567437",
+      "name": "火药",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/gunpoweder.png",
+      "coordinates": [
+        0.44221134891583347,
+        0.33573968106807683
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778069584861",
+      "name": "重要道具",
+      "category": "puzzle item",
+      "icon": "./re2_map_sewer_ui/loot%20ping/puzzle item/important props.png",
+      "coordinates": [
+        0.11321403133342756,
+        0.4811661444381201
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "胶卷    获得枪配件（沙鹰红点）和喷火器燃料\n去对面钥匙房回警察局",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778069594772",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.12253557035637641,
+        0.4500953766078055
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778069621720",
+      "name": "腰包",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/Fanny pack.png",
+      "coordinates": [
+        0.10272729993167218,
+        0.5324325976713453
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "normal",
+      "description": "专家模式没有这个背包",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778069650725",
+      "name": "火药（大）",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/gunpowder（big）.png",
+      "coordinates": [
+        0.3651520082443369,
+        0.8090046315919608
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778069714189",
+      "name": "墨带",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/lnk ribbon.png",
+      "coordinates": [
+        0.5622847270642808,
+        0.570224371230637
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "expert",
+      "description": "两个",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070174254",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.6373707942680653,
+        0.2463816416261011
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "没子弹可以断腿。这样丧尸不会出门",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070196665",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.5883904363981856,
+        0.3129676915342543
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "全成就需要将这个丧尸引开",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070203001",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.4943277375938919,
+        0.3308022990095765
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "全成就的话不用理",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070210101",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.3984760299407526,
+        0.27091906285882317
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "会从天上掉下来，吓你一跳",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070222794",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.6226695052251898,
+        0.3228716857069287
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "艾达开二楼门后，暴君同学出现，但是基本没有威胁",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070268088",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.5124182154740424,
+        0.12212130799483134
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "捡完录像带，\n转角遇到爱",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070275742",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.38673100697570817,
+        0.3979838639994995
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "头顶上",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070288484",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.31314328549123616,
+        0.5247464904807373
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "装睡的丧尸，\n建议霰弹枪破头",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070297794",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.1385556965291812,
+        0.4839831268388366
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "装睡的丧尸",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070465550",
+      "name": "锁闭容器",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/locked container.png",
+      "coordinates": [
+        0.34934668476805086,
+        0.3002669118619963
+      ],
+      "floor": "B2o",
+      "character": "both",
+      "mode": "both",
+      "description": "密码是\nszf\n提示获取点在B1o层的钥匙房里",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070591531",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.6275011505346697,
+        0.09454701225513418
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "第一次下去不刷，回来的时候会刷",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070605444",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.48262347164487096,
+        0.06754860312604194
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "建议开枪叫醒\n然后贴左侧墙",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070619677",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.33076322756946297,
+        0.1323933041624059
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "贴左侧墙走",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778070630904",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.4119188955610298,
+        0.09995412250009394
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "直接贴左侧墙走\n有时候会攻击你；需要引招再往前走",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778140602606",
+      "name": "墨带",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/lnk ribbon.png",
+      "coordinates": [
+        0.39109590115830883,
+        0.5063806782091547
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "expert",
+      "description": "一个",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778140731119",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.34005932917796144,
+        0.6793586823172006
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "建议用霰弹枪破头",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778140809640",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.8448403489376233,
+        0.1771030173642174
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "第一次来不刷\n第二次来刷新；\n但是贴左边墙走直接过",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778140883726",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.603429091030705,
+        0.1531364205632002
+      ],
+      "floor": "B2o",
+      "character": "claire",
+      "mode": "both",
+      "description": "建议断腿",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778140891296",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.34490047525292766,
+        0.23898319153150283
+      ],
+      "floor": "B2o",
+      "character": "claire",
+      "mode": "both",
+      "description": "建议断腿",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778140901711",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.26793394078472943,
+        0.19951346675905768
+      ],
+      "floor": "B2o",
+      "character": "claire",
+      "mode": "both",
+      "description": "建议断腿\n",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141058179",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.7001812770093636,
+        0.1629383666644486
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "建议破头",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141065749",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.6798452220788249,
+        0.17176340874924279
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "建议破头",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141069862",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.6583580696993749,
+        0.22279508739438825
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "装睡的丧尸",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141113031",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.04825680856859549,
+        0.06017668801220566
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "里关新增装睡的丧尸\n建议破头",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141120424",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.0981223790241188,
+        0.07774589035219037
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": "头顶上，建议破头",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141288310",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.7652874761787132,
+        0.6671809435792113
+      ],
+      "floor": "B1",
+      "character": "leon",
+      "mode": "both",
+      "description": "往下是'B3'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141299459",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6508675074878738,
+        0.7319125218566711
+      ],
+      "floor": "B1",
+      "character": "leon",
+      "mode": "both",
+      "description": "上面是'B1o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141333772",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.054054054053096934,
+        0.31065957235078656
+      ],
+      "floor": "2F",
+      "character": "leon",
+      "mode": "both",
+      "description": "从这上去触发艾达剧情",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141369902",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6696696696697018,
+        0.7284693749544857
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "往下去到'B1'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141375882",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.034472226099438785,
+        0.4566239652870081
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "下到'B3'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141385676",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.5660660660658436,
+        0.3095686102789301
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "推开柜子能回到警察局；\n去洗胶卷\n洗胶卷的路上没有敌人",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141577735",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.7788228537832254,
+        0.44490243490550085
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": "下到'B3'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141588180",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.7283943785421059,
+        0.7885533748063835
+      ],
+      "floor": "B2o",
+      "character": "leon",
+      "mode": "both",
+      "description": "下到'B3'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141599692",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.27477477477464163,
+        0.3464578558304936
+      ],
+      "floor": "B2o",
+      "character": "leon",
+      "mode": "both",
+      "description": "下到'B2'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141632264",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6979634936114678,
+        0.09083830053170061
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "上到'B2'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141640773",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.670516230434032,
+        0.41875895495103066
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "上到'B2o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141650972",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.9925591753078891,
+        0.18226356364606033
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "上面是'B1'\n但是回不去",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141703552",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.769010258626281,
+        0.28128404337984136
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "里昂线建议先用手枪“叫醒”\n然后贴左侧墙跑过去",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141733665",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.9560795648885403,
+        0.19861310184987246
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "克莱尔下水道开局位置",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141802808",
+      "name": "冲锋枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/submachine gun bullets.png",
+      "coordinates": [
+        0.35086428739859343,
+        0.34615930615692037
+      ],
+      "floor": "B2o",
+      "character": "claire",
+      "mode": "both",
+      "description": "",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141828248",
+      "name": "火弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/fire bomb.png",
+      "coordinates": [
+        0.6109618632465583,
+        0.10560530307513716
+      ],
+      "floor": "B2o",
+      "character": "claire",
+      "mode": "both",
+      "description": "一发",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141837225",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.27976139011482815,
+        0.34362141444393046
+      ],
+      "floor": "B2o",
+      "character": "claire",
+      "mode": "both",
+      "description": "下到'B2'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141889004",
+      "name": "武器配件",
+      "category": "weapon",
+      "icon": "./re2_map_sewer_ui/loot%20ping/weapon/Weapon accessories.png",
+      "coordinates": [
+        0.6639077172870316,
+        0.300601601146397
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both",
+      "description": "手枪升级为手炮的配件\n",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141934296",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.5378077075412477,
+        0.5678450229946463
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778141965892",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.3811582176331285,
+        0.46572253981103984
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "解密相关文件和解密提示",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142045880",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.6706754230430363,
+        0.6307706729617735
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778142089636",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.6907148817522,
+        0.7140539236559817
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778142107830",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.7804371839900739,
+        0.44624629350749956
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both",
+      "description": "下到'B3'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142138155",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.7002376073086509,
+        0.09018604037362365
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "上到'B2'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142174009",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.5961163386992325,
+        0.09495102723435878
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "克莱尔里关刷新一个装睡的蓝色衣服丧尸，建议破头",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142207122",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.26679482779195496,
+        0.07255357769199122
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "克莱尔里关刷新的敌人，\n建议用高威力武器打出硬直",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142243147",
+      "name": "武器",
+      "category": "weapon",
+      "icon": "./re2_map_sewer_ui/loot%20ping/weapon/Weapon.png",
+      "coordinates": [
+        0.1670193819371093,
+        0.0961271869109197
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "电击枪；\n瞄准变异老鼠的眼睛一发蓄力秒",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142391286",
+      "name": "手雷",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/grenade.png",
+      "coordinates": [
+        0.6843200786565546,
+        0.24417809091409026
+      ],
+      "floor": "B3",
+      "character": "both",
+      "mode": "both",
+      "description": " ",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142459058",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.84595087849695,
+        0.1009110309947232
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "上到'B1o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142478505",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.12130431614744452,
+        0.43636700820047736
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778142489557",
+      "name": "重要道具",
+      "category": "puzzle item",
+      "icon": "./re2_map_sewer_ui/loot%20ping/puzzle item/important props.png",
+      "coordinates": [
+        0.11401685651628668,
+        0.4833291186050701
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "胶卷；去对面的钥匙房回警局\n获得电击枪弹药和冲锋枪大弹夹",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142514611",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.2668475938988024,
+        0.507579489081877
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "醒来的丧尸",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142531042",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.35165394075087875,
+        0.4606175417055596
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "直接刷",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142600467",
+      "name": "墨带",
+      "category": "checkpoint",
+      "icon": "./re2_map_sewer_ui/loot%20ping/checkpoint/lnk ribbon.png",
+      "coordinates": [
+        0.410458283306923,
+        0.8103040816104254
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "expert"
+    },
+    {
+      "id": "custom_1778142676372",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.567748100564728,
+        0.3130337316983116
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "推开柜子能回到警察局（记得捡马格南弹药）；\n去洗胶卷\n洗胶卷的路上没有敌人",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142699038",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.4141983473877815,
+        0.269714332695699
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "靠里面的柜子里",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142731319",
+      "name": "火药（大）",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/gunpowder（big）.png",
+      "coordinates": [
+        0.4697722544162559,
+        0.3413733867152331
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "桌上",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142765925",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6666666666681067,
+        0.7308514150386287
+      ],
+      "floor": "B1",
+      "character": "claire",
+      "mode": "both",
+      "description": "上到'B1o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142779115",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.678678678678267,
+        0.7269679946799101
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "下到'B1'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142849141",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6561561561579765,
+        0.20834829519789366
+      ],
+      "floor": "B1",
+      "character": "claire",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778142862488",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6033091310502812,
+        0.1761952928133752
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "下到'B1'；\n前面可以开之前开不了的捷径.",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142900437",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.5975975975994459,
+        0.347986243474125
+      ],
+      "floor": "B1",
+      "character": "claire",
+      "mode": "both",
+      "description": "注意！！前面会刷变异敌人\n建议掏出用电击枪瞄准眼睛杀掉",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142924776",
+      "name": "马格南子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/magnum bullet.png",
+      "coordinates": [
+        0.6246246246211911,
+        0.5026365779511224
+      ],
+      "floor": "B1",
+      "character": "claire",
+      "mode": "both",
+      "description": "里关特供马格南子弹",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778142973325",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.7608593213637391,
+        0.040902015558103244
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778143062847",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.014653855397511961,
+        0.3252835316050522
+      ],
+      "floor": "B1",
+      "character": "both",
+      "mode": "both",
+      "description": "需要到B2找直角手柄",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778143080073",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.029728523854231526,
+        0.37296230432964705
+      ],
+      "floor": "B1",
+      "character": "both",
+      "mode": "both",
+      "description": "这里以后才能来\n去往'B3'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778143196349",
+      "name": "绿草",
+      "category": "medicine",
+      "icon": "./re2_map_sewer_ui/loot%20ping/medicine/green grass.png",
+      "coordinates": [
+        0.14921987939490577,
+        0.037342432068655285
+      ],
+      "floor": "3F",
+      "character": "leon",
+      "mode": "both",
+      "description": "这儿有药别忘拿",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778144299102",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.6854200662422727,
+        0.2527589259116496
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "如果要做艾达‘老练特工’成就，在这不用能开枪",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778144679298",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.484936530479132,
+        0.4106877953400101
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "通电后上二楼会，\n开电源门后暴君会出现",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778144747100",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.43838358997777505,
+        0.43312127770818165
+      ],
+      "floor": "1F",
+      "character": "leon",
+      "mode": "both",
+      "description": "进门往后看，\n然后破电风扇，\n动作要快！",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778145579027",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6537232714987624,
+        0.19363380780495731
+      ],
+      "floor": "B1",
+      "character": "leon",
+      "mode": "both",
+      "description": "这里上到'B1o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778146742654",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.4185923952701671,
+        0.3462890899170503
+      ],
+      "floor": "B2o",
+      "character": "both",
+      "mode": "both",
+      "description": "剧情文件",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778146875235",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.5916570523232565,
+        0.6074661732946964
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": "无法往上，\n但上到'B2o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778147112725",
+      "name": "地图",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/map.png",
+      "coordinates": [
+        0.5318528894330825,
+        0.5043079134837853
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "下水道地图",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778147359844",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.6213029148097746,
+        0.32039703719573254
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "装睡的丧尸",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778147769998",
+      "name": "文件",
+      "category": "collection",
+      "icon": "./re2_map_sewer_ui/loot%20ping/collection/document.png",
+      "coordinates": [
+        0.6923016292727766,
+        0.717623445216617
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": "保险柜密码提示",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778148307233",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.8446868605991824,
+        0.09729119983259693
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "上到'B1o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778149275514",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.06210794118695162,
+        0.45719170949764987
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "这里洗完胶卷可以从这原路返回。也可以从B1o去到B1打开捷径",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778149480101",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.5120120120174931,
+        0.37351125936719143
+      ],
+      "floor": "B1",
+      "character": "leon",
+      "mode": "both",
+      "description": "获得T形扳手后来开捷径；\n会刷新三个丧尸。\n注意这三个丧尸都可以淹死",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778150678919",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.14303779210828793,
+        0.1274729144512321
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "前面的解密是先拿上国王插头和皇后插头\n然后在一楼线拿武器，开单向门\n最后先放国王插座，然后绕回去拿王后插座",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778150975660",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.23994100036452437,
+        0.10899515402311977
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "返回的时候，先贴左边墙走上岸\n然后再上岸躲堵梯子的敌人（敌人潜水后）直接走",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778151160661",
+      "name": "高级火药",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/advanced gunpowder.png",
+      "coordinates": [
+        0.4024024024019468,
+        0.8065404349095644
+      ],
+      "floor": "B1o",
+      "character": "both",
+      "mode": "normal"
+    },
+    {
+      "id": "custom_1778152011041",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.4886662606784,
+        0.13424410262871334
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "站在这里威廉挠不到你",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778152131951",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.2932178429840633,
+        0.15276468060569925
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": "boss思路：先按按钮然后和boss周旋。找到机会打出硬直后，立马回去按机关",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778152539888",
+      "name": "高级火药",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/advanced gunpowder.png",
+      "coordinates": [
+        0.7921427819678399,
+        0.1977290197017112
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778152551394",
+      "name": "高级火药",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/advanced gunpowder.png",
+      "coordinates": [
+        0.7954248262491888,
+        0.1983854235894853
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778152583482",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.6756150026650118,
+        0.4192154459830846
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "上到'B2o'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778152733923",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.7175670678186066,
+        0.5852282104827111
+      ],
+      "floor": "B2",
+      "character": "both",
+      "mode": "both",
+      "description": "文件全收集需要收集这个地方的两个文件\n里昂表关；里昂表关；克莱尔里关；克莱尔表关",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778153340367",
+      "name": "马格南子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/magnum bullet.png",
+      "coordinates": [
+        0.38609440027804,
+        0.04820063145736242
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "没有强迫症不建议拿",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778153374493",
+      "name": "变异敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/mutated enemy.png",
+      "coordinates": [
+        0.8502491617167891,
+        0.17934292926554463
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "第一次来不刷新\n第二次来开完机关经过刷新\n贴左边墙直接过",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778153433489",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.042105678320183415,
+        0.4653816160385986
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "下到'B3'",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778154027390",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.11011709874043163,
+        0.12192114342913385
+      ],
+      "floor": "B3",
+      "character": "claire",
+      "mode": "both",
+      "description": "里关和表关的解密没有任何区别",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778154236813",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.49055190220587974,
+        0.0909118163095286
+      ],
+      "floor": "B2",
+      "character": "leon",
+      "mode": "both",
+      "description": "表关124\n靠近门会触发boss战\n",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778154305508",
+      "name": "机关",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/mechanisms.png",
+      "coordinates": [
+        0.48888556419294105,
+        0.09132839982123642
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both",
+      "description": "里关234\n靠近门触发boss战",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778154385186",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.28997341409774435,
+        0.1533033133229651
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both",
+      "description": "思路：先按按钮，然后找机会用两发火焰弹打出硬直；立马回去按开关",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778154475096",
+      "name": "闪光弹",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/flashbang.png",
+      "coordinates": [
+        0.2704459464098363,
+        0.2951332605483117
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both"
+    },
+    {
+      "id": "custom_1778154536077",
+      "name": "手枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/pistol bullets.png",
+      "coordinates": [
+        0.24526579071064702,
+        0.25916203338574917
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both",
+      "description": "地上",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778154548851",
+      "name": "飞刀",
+      "category": "projectile",
+      "icon": "./re2_map_sewer_ui/loot%20ping/projectile/dagger.png",
+      "coordinates": [
+        0.2524601209088644,
+        0.29256389040887143
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both",
+      "description": "箱子上",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778154571758",
+      "name": "冲锋枪子弹",
+      "category": "bullet",
+      "icon": "./re2_map_sewer_ui/loot%20ping/bullet/submachine gun bullets.png",
+      "coordinates": [
+        0.25246012091102443,
+        0.17231682191561504
+      ],
+      "floor": "B2",
+      "character": "claire",
+      "mode": "both",
+      "description": "冲锋枪弹药",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778216330034",
+      "name": "普通敌人",
+      "category": "enemy",
+      "icon": "./re2_map_sewer_ui/loot%20ping/enemy/enemy.png",
+      "coordinates": [
+        0.1100050788847966,
+        0.5107598265206263
+      ],
+      "floor": "B1o",
+      "character": "claire",
+      "mode": "both",
+      "description": "装睡的敌人\n",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778216538961",
+      "name": "路标",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/street sign.png",
+      "coordinates": [
+        0.5959022996539716,
+        0.1965455067153954
+      ],
+      "floor": "B1o",
+      "character": "leon",
+      "mode": "both",
+      "description": "下去到B1\n开捷径可以需经过此处",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778218559298",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.5358353098592374,
+        0.367187365697518
+      ],
+      "floor": "B1",
+      "character": "leon",
+      "mode": "both",
+      "description": "第二次来，开捷径会刷怪",
+      "screenshots": []
+    },
+    {
+      "id": "custom_1778218873727",
+      "name": "引导提示",
+      "category": "tip",
+      "icon": "./re2_map_sewer_ui/loot%20ping/tip/guidance tips.png",
+      "coordinates": [
+        0.8311065260546684,
+        0.17914102481596217
+      ],
+      "floor": "B3",
+      "character": "leon",
+      "mode": "both",
+      "description": "注意第二次来会刷一直变异敌人",
+      "screenshots": []
+    }
+  ]
+}

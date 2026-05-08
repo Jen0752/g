@@ -109,3 +109,20 @@ overflow-y-auto.scrollbar-minimal {
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
 }
+
+/* 移动端优化：禁用 hover 在触摸设备上 */
+@media (hover: none) and (pointer: coarse) {
+  /* 移除触摸设备上的 hover 效果，避免视觉反馈延迟 */
+  .btn-hover:hover {
+    transform: none;
+  }
+}
+
+/* 工具栏按钮 hover 优化：仅在指点设备上生效 */
+@media (hover: hover) and (pointer: fine) {
+  .toolbar-btn:hover {
+    background-color: rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+  }
+}

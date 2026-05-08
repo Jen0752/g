@@ -19,7 +19,8 @@
       "Bash(git checkout *)",
       "Bash(node -e ' *)",
       "Bash(curl -s http://localhost:5181/src/components/Map.tsx)",
-      "Bash(curl -s http://localhost:5181/src/App.tsx)"
+      "Bash(curl -s http://localhost:5181/src/App.tsx)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:5173/re2_map_sewer_ui/icons-sprite.png)"
     ],
     "additionalDirectories": [
       "D:\\re2_sewer_map\\re2_map_sewer_ui\\ui_controls"
