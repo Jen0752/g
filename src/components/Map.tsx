@@ -84,6 +84,7 @@ export default function Map() {
     isEditingRoutes,
     editingRouteId,
     setEditingRouteId,
+    activeCategories,
   } = useMapStore()
 
   // 初始化地图
@@ -278,6 +279,14 @@ export default function Map() {
     // 清除旧的标记
     document.querySelectorAll('.map-marker-wrapper').forEach(el => el.remove())
 
+    // 辅助函数：通过标点 name 找到对应的子分类 id
+    const getSubCategoryId = (marker: CustomMarker): string | null => {
+      const cat = CATEGORIES.find(c => c.id === marker.category)
+      if (!cat) return null
+      const sub = cat.subCategories.find(s => s.name === marker.name)
+      return sub?.id || null
+    }
+
     // 只显示当前楼层和当前人物线、模式的标点
     const floorMarkers = customMarkers.filter(m => {
       if (m.floor !== floor) return false
@@ -287,6 +296,9 @@ export default function Map() {
       // 模式过滤
       if (mode === 'normal' && m.mode !== 'normal' && m.mode !== 'both') return false
       if (mode === 'expert' && m.mode !== 'expert' && m.mode !== 'both') return false
+      // 分类筛选
+      const subCategoryId = getSubCategoryId(m)
+      if (subCategoryId && !activeCategories.has(subCategoryId)) return false
       return true
     })
 
@@ -429,7 +441,7 @@ export default function Map() {
         .setLngLat(marker.coordinates)
         .addTo(map)
     })
-  }, [customMarkers, floor, character, mode, isEditingMarkers])
+  }, [customMarkers, floor, character, mode, isEditingMarkers, activeCategories])
 
   // 楼层变化时更新图片
   useEffect(() => {

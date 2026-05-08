@@ -5,7 +5,7 @@ interface RoutePanelProps {
 }
 
 export default function RoutePanel({ onClose }: RoutePanelProps) {
-  const { activeRoutes, toggleRoute, routes, floor, setFloor } = useMapStore()
+  const { activeRoutes, toggleRoute, routes, setFloor } = useMapStore()
 
   const handleFloorClick = (e: React.MouseEvent, routeFloor: Floor, routeId: string) => {
     e.stopPropagation()

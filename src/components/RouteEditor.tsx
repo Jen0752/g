@@ -169,8 +169,7 @@ export default function RouteEditor() {
         )}
 
         {/* 导入/导出按钮 */}
-        {routes.length > 0 && (
-          <div className="flex gap-2 mb-3 border-b border-re2-subtle pb-3">
+        <div className="flex gap-2 mb-3 border-b border-re2-subtle pb-3">
             <label className="flex-1">
               <input
                 type="file"
@@ -188,8 +187,7 @@ export default function RouteEditor() {
             >
               导出
             </button>
-          </div>
-        )}
+        </div>
 
         {/* 路线列表 */}
         <div className="space-y-2">

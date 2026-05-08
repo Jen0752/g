@@ -1,4 +1,5 @@
 import { create } from 'zustand'
+import { ALL_CATEGORY_IDS } from '../data/categoryIds'
 
 export type Character = 'leon' | 'claire'
 export type GameMode = 'normal' | 'expert'
@@ -122,10 +123,7 @@ interface MapStore {
   setIsEditingMarkers: (v: boolean) => void
 }
 
-const ALL_CATEGORIES = [
-  'bullet', 'checkpoint', 'collection', 'door', 'enemy',
-  'medicine', 'projectile', 'puzzle item', 'tip', 'weapon'
-]
+const ALL_CATEGORIES = ALL_CATEGORY_IDS
 
 export const useMapStore = create<MapStore>((set) => ({
   character: 'leon',
