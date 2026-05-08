@@ -55,6 +55,7 @@ export interface Route {
   name: string
   color: string
   waypoints: Waypoint[]
+  floor: Floor
 }
 
 interface MapStore {

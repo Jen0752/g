@@ -1,11 +1,18 @@
-import { useMapStore } from '../stores/useMapStore'
+import { useMapStore, type Floor } from '../stores/useMapStore'
 
 interface RoutePanelProps {
   onClose: () => void
 }
 
 export default function RoutePanel({ onClose }: RoutePanelProps) {
-  const { activeRoutes, toggleRoute, routes } = useMapStore()
+  const { activeRoutes, toggleRoute, routes, floor, setFloor } = useMapStore()
+
+  const handleFloorClick = (e: React.MouseEvent, routeFloor: Floor, routeId: string) => {
+    e.stopPropagation()
+    setFloor(routeFloor)
+    toggleRoute(routeId)
+    onClose()
+  }
 
   return (
     <div className="absolute bottom-0 left-0 right-0 z-20 bg-purple-100/95 backdrop-blur-md rounded-t-2xl shadow-lifted">
@@ -23,40 +30,44 @@ export default function RoutePanel({ onClose }: RoutePanelProps) {
       </div>
 
       {/* 路线列表 */}
-      <div className="p-4 space-y-2.5 max-h-72 overflow-y-auto">
+      <div className="p-3 space-y-2 max-h-64 overflow-y-auto">
         {routes.length === 0 ? (
           <p className="text-re2-muted text-sm text-center py-6">
             暂无路线，请在编辑模式中创建
           </p>
         ) : (
-          routes.map((route) => {
-            const isActive = activeRoutes.has(route.id)
+          <div className="grid grid-cols-2 gap-2">
+            {routes.map((route) => {
+              const isActive = activeRoutes.has(route.id)
 
-            return (
-              <button
-                key={route.id}
-                onClick={() => toggleRoute(route.id)}
-                className={`w-full p-3.5 rounded-xl flex items-center gap-3 transition-all duration-150 ${
-                  isActive
-                    ? 'bg-re2-accent/10 ring-2 ring-re2-accent/30 shadow-soft'
-                    : 'bg-re2-subtle/30 hover:bg-re2-subtle/50'
-                }`}
-              >
-                <div
-                  className="w-4 h-4 rounded-full shadow-sm"
-                  style={{ backgroundColor: route.color }}
-                />
-                <span className={`text-sm font-medium ${isActive ? 'text-gray-700' : 'text-re2-muted'}`}>
-                  {route.name}
-                </span>
-                {isActive && (
-                  <svg className="w-5 h-5 ml-auto text-re2-accent" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                )}
-              </button>
-            )
-          })
+              return (
+                <button
+                  key={route.id}
+                  onClick={() => toggleRoute(route.id)}
+                  className={`p-2.5 rounded-lg flex items-center gap-2 transition-all duration-150 text-left ${
+                    isActive
+                      ? 'bg-re2-accent/10 ring-2 ring-re2-accent/30 shadow-soft'
+                      : 'bg-re2-subtle/30 hover:bg-re2-subtle/50'
+                  }`}
+                >
+                  <div
+                    className="w-3 h-3 rounded-full shadow-sm flex-shrink-0"
+                    style={{ backgroundColor: route.color }}
+                  />
+                  <span className={`text-sm font-medium truncate flex-1 ${isActive ? 'text-gray-700' : 'text-re2-muted'}`}>
+                    {route.name}
+                  </span>
+                  <span className="text-re2-muted text-xs bg-re2-subtle/50 px-2 py-1 rounded flex-shrink-0 cursor-pointer hover:bg-re2-subtle transition-colors"
+                    onClick={(e) => handleFloorClick(e, route.floor, route.id)}>{route.floor}</span>
+                  {isActive && (
+                    <svg className="w-4 h-4 text-re2-accent flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </button>
+              )
+            })}
+          </div>
         )}
       </div>
 

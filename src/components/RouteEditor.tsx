@@ -1,10 +1,12 @@
 import { useState, useEffect, useCallback } from 'react'
-import { useMapStore, type Route } from '../stores/useMapStore'
+import { useMapStore, type Route, type Floor } from '../stores/useMapStore'
 
 const COLORS = [
   '#4a90d9', '#e05a5a', '#4caf50', '#f5a623',
   '#9c6ade', '#e91e8c', '#00bcd4', '#8bc34a'
 ]
+
+const FLOORS: Floor[] = ['B3', 'B2', 'B2o', 'B1', 'B1o', '1F', '2F', '3F']
 
 export default function RouteEditor() {
   const {
@@ -16,6 +18,8 @@ export default function RouteEditor() {
     setIsEditingRoutes,
     editingRouteId,
     setEditingRouteId,
+    floor,
+    setFloor,
   } = useMapStore()
 
   const [newRouteName, setNewRouteName] = useState('')
@@ -74,7 +78,8 @@ export default function RouteEditor() {
       id: `route_${Date.now()}`,
       name: newRouteName.trim(),
       color: newRouteColor,
-      waypoints: []
+      waypoints: [],
+      floor: useMapStore.getState().floor
     }
 
     addRoute(newRoute)
@@ -125,6 +130,7 @@ export default function RouteEditor() {
               type="text"
               value={newRouteName}
               onChange={(e) => setNewRouteName(e.target.value)}
+              onKeyDown={(e) => e.key === 'Enter' && handleCreateRoute()}
               placeholder="路线名称"
               className="w-full px-3 py-2 bg-white text-gray-700 text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none mb-3"
             />
@@ -193,7 +199,12 @@ export default function RouteEditor() {
               className={`bg-re2-subtle/20 rounded-xl p-3 cursor-pointer transition-all duration-150 ${
                 editingRouteId === route.id ? 'ring-2 ring-re2-accent/40 bg-white shadow-soft' : 'hover:bg-re2-subtle/30'
               }`}
-              onClick={() => setEditingRouteId(route.id === editingRouteId ? null : route.id)}
+              onClick={() => {
+                if (route.floor !== floor) {
+                  setFloor(route.floor)
+                }
+                setEditingRouteId(route.id === editingRouteId ? null : route.id)
+              }}
             >
               <div className="flex items-center gap-2.5 mb-2">
                 <div
@@ -201,6 +212,7 @@ export default function RouteEditor() {
                   style={{ backgroundColor: route.color }}
                 />
                 <span className="text-gray-700 text-sm font-medium flex-1">{route.name}</span>
+                <span className="text-re2-muted text-xs bg-re2-subtle/50 px-1.5 py-0.5 rounded">{route.floor}</span>
                 <span className="text-re2-muted text-xs">{route.waypoints.length} 点</span>
               </div>
 
@@ -213,6 +225,7 @@ export default function RouteEditor() {
                       type="text"
                       value={route.name}
                       onChange={(e) => updateRoute(route.id, { name: e.target.value })}
+                      onClick={(e) => e.stopPropagation()}
                       className="w-full px-3 py-2 bg-white text-gray-700 text-sm rounded-lg border border-re2-subtle focus:border-re2-accent focus:outline-none"
                     />
                   </div>
@@ -228,6 +241,26 @@ export default function RouteEditor() {
                           className={`w-5 h-5 rounded-full transition-transform flex-shrink-0 ${route.color === color ? 'ring-2 ring-offset-1 ring-re2-accent scale-110' : 'hover:scale-110'}`}
                           style={{ backgroundColor: color }}
                         />
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 楼层选择 */}
+                  <div className="mb-3">
+                    <label className="text-re2-muted text-xs mb-1.5 block">楼层</label>
+                    <div className="flex flex-wrap gap-1">
+                      {FLOORS.map(f => (
+                        <button
+                          key={f}
+                          onClick={() => updateRoute(route.id, { floor: f })}
+                          className={`px-2 py-1 text-xs rounded transition-colors ${
+                            route.floor === f
+                              ? 'bg-re2-accent text-white'
+                              : 'bg-re2-subtle/30 text-re2-muted hover:bg-re2-subtle/50'
+                          }`}
+                        >
+                          {f}
+                        </button>
                       ))}
                     </div>
                   </div>

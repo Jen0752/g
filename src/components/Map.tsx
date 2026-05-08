@@ -83,6 +83,7 @@ export default function Map() {
     activeRoutes,
     isEditingRoutes,
     editingRouteId,
+    setEditingRouteId,
   } = useMapStore()
 
   // 初始化地图
@@ -479,6 +480,16 @@ export default function Map() {
     setImageError(null)
   }, [floor])
 
+  // 楼层切换时收起路线编辑
+  useEffect(() => {
+    if (editingRouteId) {
+      const route = routes.find(r => r.id === editingRouteId)
+      if (route && route.floor !== floor) {
+        setEditingRouteId(null)
+      }
+    }
+  }, [floor, editingRouteId, routes, setEditingRouteId])
+
   // 当地图移动/缩放时更新弹窗位置
   useEffect(() => {
     const map = mapRef.current
@@ -620,9 +631,9 @@ export default function Map() {
     waypointMarkersRef.current.forEach(marker => marker.remove())
     waypointMarkersRef.current = []
 
-    // 计算应该显示的路线ID（包括 activeRoutes 和正在编辑的路线）
+    // 计算应该显示的路线ID（包括 activeRoutes 和正在编辑的路线，但必须匹配当前楼层）
     const visibleRouteIds = new Set([
-      ...routes.filter(r => r.waypoints.length >= 2 && activeRoutes.has(r.id)).map(r => r.id),
+      ...routes.filter(r => r.waypoints.length >= 2 && activeRoutes.has(r.id) && r.floor === floor).map(r => r.id),
       editingRouteId
     ].filter(Boolean))
 
@@ -640,9 +651,9 @@ export default function Map() {
       }
     })
 
-    // 只显示有路径点且在 activeRoutes 中选中的路线，或正在编辑的路线
+    // 只显示有路径点且在 activeRoutes 中选中的路线，或正在编辑的路线，且必须匹配当前楼层
     const routesWithWaypoints = routes.filter(r =>
-      r.waypoints.length >= 2 && (activeRoutes.has(r.id) || r.id === editingRouteId)
+      r.waypoints.length >= 2 && (activeRoutes.has(r.id) || r.id === editingRouteId) && r.floor === floor
     )
     if (routesWithWaypoints.length === 0) return
 
@@ -652,41 +663,49 @@ export default function Map() {
       if (route.waypoints.length >= 2) {
         const lineCoordinates = route.waypoints.map(wp => wp.coordinates)
 
-        // 如果源不存在，则添加
-        if (!map.getSource(`route-source-${route.id}`)) {
-          map.addSource(`route-source-${route.id}`, {
-            type: 'geojson',
-            data: {
+        const addRouteLayer = () => {
+          // 如果源不存在，则添加
+          if (!map.getSource(`route-source-${route.id}`)) {
+            map.addSource(`route-source-${route.id}`, {
+              type: 'geojson',
+              data: {
+                type: 'Feature',
+                properties: {},
+                geometry: {
+                  type: 'LineString',
+                  coordinates: lineCoordinates
+                }
+              }
+            })
+
+            map.addLayer({
+              id: `route-line-${route.id}`,
+              type: 'line',
+              source: `route-source-${route.id}`,
+              paint: {
+                'line-color': route.color,
+                'line-width': 4,
+                'line-opacity': 0.8
+              }
+            })
+          } else {
+            // 如果源已存在但路径点有变化，更新数据
+            const source = map.getSource(`route-source-${route.id}`) as maplibregl.GeoJSONSource
+            source.setData({
               type: 'Feature',
               properties: {},
               geometry: {
                 type: 'LineString',
                 coordinates: lineCoordinates
               }
-            }
-          })
+            })
+          }
+        }
 
-          map.addLayer({
-            id: `route-line-${route.id}`,
-            type: 'line',
-            source: `route-source-${route.id}`,
-            paint: {
-              'line-color': route.color,
-              'line-width': 4,
-              'line-opacity': 0.8
-            }
-          })
+        if (map.isStyleLoaded()) {
+          addRouteLayer()
         } else {
-          // 如果源已存在但路径点有变化，更新数据
-          const source = map.getSource(`route-source-${route.id}`) as maplibregl.GeoJSONSource
-          source.setData({
-            type: 'Feature',
-            properties: {},
-            geometry: {
-              type: 'LineString',
-              coordinates: lineCoordinates
-            }
-          })
+          map.once('load', addRouteLayer)
         }
       }
 
@@ -715,7 +734,7 @@ export default function Map() {
         waypointMarkersRef.current.push(marker)
       })
     })
-  }, [routes, editingRouteId, activeRoutes])
+  }, [routes, editingRouteId, activeRoutes, floor])
 
   // 路线编辑模式提示
   useEffect(() => {
