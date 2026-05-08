@@ -424,6 +424,8 @@ export default function Map() {
       let mapMarker: maplibregl.Marker | null = null
 
       const onMouseDown = (e: MouseEvent) => {
+        // 只有在编辑模式下才允许拖动标点
+        if (!isEditingMarkers) return
         e.preventDefault()
         e.stopPropagation()
         isDragging = true
@@ -1078,12 +1080,12 @@ export default function Map() {
           if (!marker) return null
           return (
             <div
-              className={`absolute z-50 bg-white/95 backdrop-blur-md rounded-xl shadow-lifted overflow-hidden ${
+              className={`absolute z-50 backdrop-blur-md rounded-xl shadow-lifted overflow-hidden ${
                 character === 'leon'
-                  ? 'border border-blue-200/80'
+                  ? 'bg-blue-200/90 border border-blue-400/60'
                   : character === 'claire'
-                  ? 'border border-red-200/80'
-                  : 'border border-gray-200'
+                  ? 'bg-red-200/90 border border-red-400/60'
+                  : 'bg-white/95 border border-gray-200'
               }`}
               style={{
                 left: popupPos.x,
