@@ -11,7 +11,6 @@ const RouteEditor = lazy(() => import('./components/RouteEditor'))
 function App() {
   const [showFilter, setShowFilter] = useState(false)
   const [showRoutes, setShowRoutes] = useState(false)
-  const floor = useMapStore(s => s.floor)
 
   // 加载默认标点和路线数据
   useEffect(() => {
@@ -31,7 +30,7 @@ function App() {
 
   return (
     <div className="w-full h-full relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200">
-      <Map key={floor} />
+      <Map />
 
       <Toolbar
         onFilterToggle={handleFilterToggle}
