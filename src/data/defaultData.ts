@@ -18,18 +18,13 @@ export function initDefaultData(store: {
 }) {
   // 避免重复加载
   if (store.customMarkers.length > 0 || store.routes.length > 0) {
-    console.log('[initDefaultData] Already loaded, skipping')
     return
   }
-
-  console.log('[initDefaultData] Starting load, defaultMarkers:', defaultMarkers.length)
 
   // 加载标点
   ;(defaultMarkers as CustomMarker[]).forEach((marker) => {
     store.addCustomMarker(marker)
   })
-
-  console.log('[initDefaultData] Done, store.customMarkers:', store.customMarkers.length)
 
   // 加载路线
   ;(defaultRoutes as Route[]).forEach((route) => {

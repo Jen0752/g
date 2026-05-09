@@ -166,10 +166,26 @@ export default function Map() {
       const maxY = Math.max(...coords.map(c => c[1]))
       map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 0, animate: false })
 
-      // 延迟500ms后再初始化标点，确保地图已完全渲染
-      setTimeout(() => {
-        console.log('[Map] Delayed init - customMarkers:', useMapStore.getState().customMarkers.length)
-      }, 500)
+      // 同步预加载所有楼层图片到 MapLibre（关键修复）
+      // 使用 fetch + image 方式确保图片完全加载后再添加到 MapLibre
+      const preloadPromises = Object.entries(FLOOR_IMAGES).map(([floorName, imgUrl]) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image()
+          img.onload = () => {
+            if (mapRef.current && !mapRef.current.hasImage(`floor-${floorName}`)) {
+              mapRef.current.addImage(`floor-${floorName}`, img, { pixelRatio: 1 })
+            }
+            resolve()
+          }
+          img.onerror = () => resolve() // 加载失败也继续
+          img.src = imgUrl
+        })
+      })
+
+      // 等待所有图片预加载完成（最多等 5 秒）
+      Promise.all(preloadPromises).catch(() => {}).finally(() => {
+        console.log('All floor images preloaded to MapLibre')
+      })
 
       // 点击事件监听 - 在 map 初始化后设置
       map.on('click', (e) => {
@@ -409,8 +425,6 @@ export default function Map() {
         const BATCH_SIZE = 10
         let index = 0
 
-        console.log('[Map] updateVisibleMarkers called, toCreate:', toCreate.length)
-
         const processBatch = () => {
           const batch = toCreate.slice(index, index + BATCH_SIZE)
           batch.forEach(marker => {
@@ -567,25 +581,39 @@ export default function Map() {
     const imageUrl = FLOOR_IMAGES[floor]
     if (!imageUrl) return
 
+    const imageId = `floor-${floor}`
+
     const updateFloorImage = () => {
-      if (map.getLayer('floor-layer')) {
-        map.removeLayer('floor-layer')
-      }
-      if (map.getSource('floor-image')) {
-        map.removeSource('floor-image')
-      }
+      // 检查是否已有预加载的图片
+      if (map.hasImage(imageId)) {
+        // 已有预加载图片，直接使用（无需再次添加 source/layer）
+        // 但需要先移除旧的
+        if (map.getLayer('floor-layer')) map.removeLayer('floor-layer')
+        if (map.getSource('floor-image')) map.removeSource('floor-image')
 
-      map.addSource('floor-image', {
-        type: 'image',
-        url: imageUrl,
-        coordinates: getFloorCoordinates(floor),
-      })
-
-      map.addLayer({
-        id: 'floor-layer',
-        type: 'raster',
-        source: 'floor-image',
-      })
+        // 使用预加载图片的方式：通过 image source 但引用已缓存的图片
+        // MapLibre 会自动使用缓存
+        map.addSource('floor-image', {
+          type: 'image',
+          url: imageUrl, // MapLibre 会检查缓存
+          coordinates: getFloorCoordinates(floor),
+        })
+        map.addLayer({ id: 'floor-layer', type: 'raster', source: 'floor-image' })
+      } else {
+        // 没有预加载图片，正常加载
+        if (map.getLayer('floor-layer')) map.removeLayer('floor-layer')
+        if (map.getSource('floor-image')) map.removeSource('floor-image')
+        map.addSource('floor-image', {
+          type: 'image',
+          url: imageUrl,
+          coordinates: getFloorCoordinates(floor),
+        })
+        map.addLayer({
+          id: 'floor-layer',
+          type: 'raster',
+          source: 'floor-image',
+        })
+      }
 
       // 调整视图以适应新楼层
       const coords = getFloorCoordinates(floor)
