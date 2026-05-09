@@ -15,8 +15,10 @@ function App() {
 
   // 加载默认标点和路线数据
   useEffect(() => {
+    console.log('[App] initDefaultData starting')
     const store = useMapStore.getState()
     initDefaultData(store)
+    console.log('[App] initDefaultData done, markers:', store.customMarkers.length)
   }, [])
 
   const handleFilterToggle = useCallback(() => {

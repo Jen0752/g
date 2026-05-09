@@ -166,6 +166,11 @@ export default function Map() {
       const maxY = Math.max(...coords.map(c => c[1]))
       map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 0, animate: false })
 
+      // 延迟500ms后再初始化标点，确保地图已完全渲染
+      setTimeout(() => {
+        console.log('[Map] Delayed init - customMarkers:', useMapStore.getState().customMarkers.length)
+      }, 500)
+
       // 点击事件监听 - 在 map 初始化后设置
       map.on('click', (e) => {
         const state = useMapStore.getState()
@@ -403,6 +408,8 @@ export default function Map() {
         // 分批创建标点，每帧10个
         const BATCH_SIZE = 10
         let index = 0
+
+        console.log('[Map] updateVisibleMarkers called, toCreate:', toCreate.length)
 
         const processBatch = () => {
           const batch = toCreate.slice(index, index + BATCH_SIZE)
