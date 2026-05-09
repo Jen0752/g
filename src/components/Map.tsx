@@ -167,17 +167,20 @@ export default function Map() {
       // 阶段2：添加当前楼层图片作为地图层
       const imageUrl = FLOOR_IMAGES[floor]
       if (imageUrl) {
-        map.addSource('floor-image', {
-          type: 'image',
-          url: imageUrl,
-          coordinates: getFloorCoordinates(floor),
-        })
+        // 避免重复添加 source（防止异步竞态）
+        if (!map.getSource('floor-image')) {
+          map.addSource('floor-image', {
+            type: 'image',
+            url: imageUrl,
+            coordinates: getFloorCoordinates(floor),
+          })
 
-        map.addLayer({
-          id: 'floor-layer',
-          type: 'raster',
-          source: 'floor-image',
-        })
+          map.addLayer({
+            id: 'floor-layer',
+            type: 'raster',
+            source: 'floor-image',
+          })
+        }
       }
 
       setLoadingProgress(60)
@@ -938,7 +941,7 @@ export default function Map() {
             />
           </div>
           <p className="text-sm text-gray-500">
-            {loadingProgress < 50 ? '加载楼层地图...' : loadingProgress < 80 ? '加载标点...' : '完成'}
+            {loadingProgress < 100 ? '加载楼层地图...' : '完成'}
           </p>
         </div>
       )}
