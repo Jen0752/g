@@ -4,7 +4,6 @@ import type { Map as MapLibreMap } from 'maplibre-gl'
 import { useMapStore, type CustomMarker } from '../stores/useMapStore'
 import { CATEGORIES } from '../data/markers'
 import { preloadAllFloorImages } from '../utils/preload'
-import { preloadIconsImmediately, MARKER_ICONS } from '../hooks/usePreloadIcons'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import MarkerEditModal from './MarkerEditModal'
 
@@ -166,9 +165,6 @@ export default function Map() {
       const maxX = Math.max(...coords.map(c => c[0]))
       const maxY = Math.max(...coords.map(c => c[1]))
       map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 0, animate: false })
-
-      // 地图加载完成后，在后台预加载图标（不影响地图渲染）
-      preloadIconsImmediately(MARKER_ICONS)
 
       // 点击事件监听 - 在 map 初始化后设置
       map.on('click', (e) => {
