@@ -53,6 +53,8 @@ export default function Map() {
   const mapContainerRef = useRef<HTMLDivElement>(null)
   const mapRef = useRef<MapLibreMap | null>(null)
   const [imageError, setImageError] = useState<string | null>(null)
+  const [isMapLoading, setIsMapLoading] = useState(true)
+  const [loadingProgress, setLoadingProgress] = useState(0)
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(null)
   const [popupPosition, setPopupPosition] = useState<{x: number; y: number} | null>(null)
   const [popupPos, setPopupPos] = useState({ x: 0, y: 0 })
@@ -139,8 +141,30 @@ export default function Map() {
 
     mapRef.current = map
 
-    map.on('load', () => {
-      // 添加楼层图片作为地图层
+    map.on('load', async () => {
+      setLoadingProgress(10)
+
+      // 阶段1：预加载所有楼层图片到 MapLibre
+      const totalFloors = Object.keys(FLOOR_IMAGES).length
+      const preloadPromises = Object.entries(FLOOR_IMAGES).map(([floorName, imgUrl], index) => {
+        return new Promise<void>((resolve) => {
+          const img = new Image()
+          img.onload = () => {
+            if (mapRef.current && !mapRef.current.hasImage(`floor-${floorName}`)) {
+              mapRef.current.addImage(`floor-${floorName}`, img, { pixelRatio: 1 })
+            }
+            setLoadingProgress(10 + Math.round((index / totalFloors) * 40))
+            resolve()
+          }
+          img.onerror = () => resolve()
+          img.src = imgUrl
+        })
+      })
+
+      await Promise.all(preloadPromises)
+      setLoadingProgress(50)
+
+      // 阶段2：添加当前楼层图片作为地图层
       const imageUrl = FLOOR_IMAGES[floor]
       if (imageUrl) {
         map.addSource('floor-image', {
@@ -156,7 +180,7 @@ export default function Map() {
         })
       }
 
-      // 不使用默认的 NavigationControl，我们用自定义样式按钮
+      setLoadingProgress(60)
 
       // 设置初始视图以适应图片
       const coords = getFloorCoordinates(floor)
@@ -166,25 +190,15 @@ export default function Map() {
       const maxY = Math.max(...coords.map(c => c[1]))
       map.fitBounds([[minX, minY], [maxX, maxY]], { padding: 0, animate: false })
 
-      // 同步预加载所有楼层图片到 MapLibre（关键修复）
-      // 使用 fetch + image 方式确保图片完全加载后再添加到 MapLibre
-      const preloadPromises = Object.entries(FLOOR_IMAGES).map(([floorName, imgUrl]) => {
-        return new Promise<void>((resolve) => {
-          const img = new Image()
-          img.onload = () => {
-            if (mapRef.current && !mapRef.current.hasImage(`floor-${floorName}`)) {
-              mapRef.current.addImage(`floor-${floorName}`, img, { pixelRatio: 1 })
-            }
-            resolve()
-          }
-          img.onerror = () => resolve() // 加载失败也继续
-          img.src = imgUrl
-        })
-      })
+      setLoadingProgress(70)
+      console.log('Floor images loaded, ready for markers')
 
-      // 等待所有图片预加载完成（最多等 5 秒）
+      // 等待所有楼层图片预加载完成后，标记地图加载完成
+      // 标点将在独立 useEffect 中加载
       Promise.all(preloadPromises).catch(() => {}).finally(() => {
-        console.log('All floor images preloaded to MapLibre')
+        setLoadingProgress(100)
+        // 延迟一点关闭加载画面，让最终进度显示一下
+        setTimeout(() => setIsMapLoading(false), 200)
       })
 
       // 点击事件监听 - 在 map 初始化后设置
@@ -584,25 +598,31 @@ export default function Map() {
     const imageId = `floor-${floor}`
 
     const updateFloorImage = () => {
-      // 检查是否已有预加载的图片
+      // 如果已有预加载的图片数据，直接更新到现有 source/layer
       if (map.hasImage(imageId)) {
-        // 已有预加载图片，直接使用（无需再次添加 source/layer）
-        // 但需要先移除旧的
+        // 直接更新 source 的图片（复用已有 source/layer，避免重建）
+        const source = map.getSource('floor-image') as maplibregl.ImageSource
+        if (source) {
+          source.updateImage({
+            url: imageUrl,
+            coordinates: getFloorCoordinates(floor),
+          })
+        } else {
+          // 极端情况下 source 不存在，创建新的
+          if (map.getLayer('floor-layer')) map.removeLayer('floor-layer')
+          map.addSource('floor-image', {
+            type: 'image',
+            url: imageUrl,
+            coordinates: getFloorCoordinates(floor),
+          })
+          map.addLayer({ id: 'floor-layer', type: 'raster', source: 'floor-image' })
+        }
+      } else {
+        // 没有预加载，先移除旧的
         if (map.getLayer('floor-layer')) map.removeLayer('floor-layer')
         if (map.getSource('floor-image')) map.removeSource('floor-image')
 
-        // 使用预加载图片的方式：通过 image source 但引用已缓存的图片
-        // MapLibre 会自动使用缓存
-        map.addSource('floor-image', {
-          type: 'image',
-          url: imageUrl, // MapLibre 会检查缓存
-          coordinates: getFloorCoordinates(floor),
-        })
-        map.addLayer({ id: 'floor-layer', type: 'raster', source: 'floor-image' })
-      } else {
-        // 没有预加载图片，正常加载
-        if (map.getLayer('floor-layer')) map.removeLayer('floor-layer')
-        if (map.getSource('floor-image')) map.removeSource('floor-image')
+        // 创建新 source（MapLibre 会触发图片加载）
         map.addSource('floor-image', {
           type: 'image',
           url: imageUrl,
@@ -613,6 +633,15 @@ export default function Map() {
           type: 'raster',
           source: 'floor-image',
         })
+
+        // 同时预加载该图片到缓存
+        const img = new Image()
+        img.onload = () => {
+          if (mapRef.current && !mapRef.current.hasImage(imageId)) {
+            mapRef.current.addImage(imageId, img, { pixelRatio: 1 })
+          }
+        }
+        img.src = imageUrl
       }
 
       // 调整视图以适应新楼层
@@ -899,6 +928,21 @@ export default function Map() {
 
   return (
     <div className="w-full h-full relative">
+      {/* 地图加载提示 */}
+      {isMapLoading && (
+        <div className="absolute inset-2 z-50 flex flex-col items-center justify-center bg-gray-100/95 backdrop-blur-sm rounded-xl">
+          <div className="w-48 h-2 bg-gray-200 rounded-full overflow-hidden mb-3">
+            <div
+              className="h-full bg-blue-500 transition-all duration-300 ease-out"
+              style={{ width: `${loadingProgress}%` }}
+            />
+          </div>
+          <p className="text-sm text-gray-500">
+            {loadingProgress < 50 ? '加载楼层地图...' : loadingProgress < 80 ? '加载标点...' : '完成'}
+          </p>
+        </div>
+      )}
+
       {/* 地图容器 - 带圆角和阴影 */}
       <div
         ref={mapContainerRef}
