@@ -4,7 +4,6 @@ import Toolbar from './components/Toolbar'
 import FilterPanel from './components/FilterPanel'
 import RoutePanel from './components/RoutePanel'
 import { useMapStore } from './stores/useMapStore'
-import { usePreloadIcons } from './hooks/usePreloadIcons'
 import { initDefaultData } from './data/defaultData'
 
 const RouteEditor = lazy(() => import('./components/RouteEditor'))
@@ -13,9 +12,6 @@ function App() {
   const [showFilter, setShowFilter] = useState(false)
   const [showRoutes, setShowRoutes] = useState(false)
   const floor = useMapStore(s => s.floor)
-
-  // 预加载所有图标，避免 FilterPanel 等弹窗首次打开时卡顿
-  usePreloadIcons()
 
   // 加载默认标点和路线数据
   useEffect(() => {

@@ -8,6 +8,7 @@
 
 ## 项目状态
 - [project_state.md](project_state.md) - 当前项目开发状态
+- [project_progress.md](project_progress.md) - 最近更新进度总结
 
 ---
 
@@ -17,29 +18,23 @@ A React + TypeScript + MapLibre GL JS interactive map for Resident Evil 2 sewers
 
 ## Recent Changes (2026-05-08)
 
-**路线编辑功能:**
-- 每条路线绑定 `floor` 字段，创建时自动设为当前楼层
-- 点击不同楼层的路线自动切换到该楼层
-- 路线只在对应楼层显示，切换楼层时收起编辑状态
-- 路线名称输入添加 `stopPropagation` 防止点击隐藏，Enter 键创建
-- 路线列表和选择面板显示楼层标签
+**移动端优化 (已完成):**
+- React.lazy() 懒加载 RouteEditor
+- Icon组件提取到 Icons.tsx
+- Zustand selector 合并优化
+- useMemo memoization
+- CSS hover 媒体查询优化
 
-**路线选择面板 (RoutePanel):**
-- 一行两条路线布局
-- 楼层标签可点击：切换到该楼层并选中路线
-- 楼层标签增大便于点击
+**标点交互修复:**
+- 只有编辑模式才能拖动标点
+- 弹窗背景色跟随人物线（里昂=蓝色，克莱尔=深红色）
 
-**角色切换:**
-- 选择克莱尔时自动切换到 B3 楼层
+**资源补充:**
+- B2o 楼层图片
+- gunpowder 类图标
 
-**标点筛选功能:**
-- 筛选逻辑：通过标点 `name` 找到对应子分类 ID，检查 `activeCategories`
-- 默认全选所有子分类（新建 `categoryIds.ts` 存储所有子分类 ID）
-- 找不到子分类映射的标点默认显示
-
-**Bug 修复:**
-- 修复 "Style is not done loading" 错误
-- 移除未使用的 `floor` 变量
+**网站图标:**
+- 64x64 WebP 格式 favicon.webp
 
 ## 技术栈
 - React + TypeScript + Vite

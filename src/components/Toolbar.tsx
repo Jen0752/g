@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from 'react'
 import { useMapStore, type Character, type GameMode, type CustomMarker } from '../stores/useMapStore'
 import { FLOOR_ORDER, CATEGORIES } from '../data/markers'
+import { preloadFilterIcons } from '../hooks/usePreloadIcons'
 import {
   FilterIcon,
   FloorIcon,
@@ -254,6 +255,9 @@ export default function Toolbar({ onFilterToggle, onRouteToggle, showFilter, sho
         {/* 筛选按钮 - 灰蓝色边框 */}
         <button
           onClick={() => {
+            if (!showFilter) {
+              preloadFilterIcons()
+            }
             onFilterToggle()
             setShowModePicker(false)
             setShowFloorPicker(false)
