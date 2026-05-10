@@ -727,7 +727,7 @@ export default function Map() {
   // 点击地图空白区域关闭弹窗
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !selectedMarkerId) return
+    if (!map) return
 
     const handleMapClick = () => {
       setSelectedMarkerId(null)
@@ -742,7 +742,7 @@ export default function Map() {
   // 点击地图空白区域关闭编辑弹窗
   useEffect(() => {
     const map = mapRef.current
-    if (!map || !editingMarker) return
+    if (!map) return
 
     const handleMapClick = () => {
       setEditingMarker(null)
@@ -753,6 +753,25 @@ export default function Map() {
       map.off('click', handleMapClick)
     }
   }, [editingMarker])
+
+  // 点击弹窗和地图外部区域关闭弹窗
+  useEffect(() => {
+    if (!selectedMarkerId && !editingMarker) return
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement
+      // 如果点击的是弹窗本身或弹窗内的元素，不关闭
+      if (target.closest('.marker-popup') || target.closest('.marker-edit-modal')) return
+      // 如果点击的是地图或地图内的标点，不关闭
+      if (target.closest('.maplibregl-canvas') || target.closest('.map-marker-wrapper')) return
+
+      setSelectedMarkerId(null)
+      setEditingMarker(null)
+    }
+
+    document.addEventListener('click', handleClickOutside)
+    return () => document.removeEventListener('click', handleClickOutside)
+  }, [selectedMarkerId, editingMarker])
 
   // ESC键关闭弹窗
   useEffect(() => {
@@ -1184,7 +1203,7 @@ export default function Map() {
           if (!marker) return null
           return (
             <div
-              className={`absolute z-50 backdrop-blur-md rounded-xl shadow-lifted overflow-hidden ${
+              className={`absolute z-50 backdrop-blur-md rounded-xl shadow-lifted overflow-hidden marker-popup ${
                 character === 'leon'
                   ? 'bg-blue-200/90 border border-blue-400/60'
                   : character === 'claire'

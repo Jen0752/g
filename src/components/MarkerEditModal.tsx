@@ -122,7 +122,7 @@ export default function MarkerEditModal({
 
   return (
     <div
-      className="absolute z-50 bg-orange-200/80 backdrop-blur-md border border-orange-200/80 rounded-xl shadow-lifted overflow-hidden"
+      className="absolute z-50 bg-orange-200/80 backdrop-blur-md border border-orange-200/80 rounded-xl shadow-lifted overflow-hidden marker-edit-modal"
       style={{ left: pos.x, top: pos.y, width: popupWidth, maxHeight: '80vh' }}
     >
       {/* 可拖动的头部 */}
