@@ -8,7 +8,7 @@
 
 ## 项目状态
 - [project_state.md](project_state.md) - 当前项目开发状态
-- [project_progress.md](project_progress.md) - 最近更新进度总结
+- [project_progress.md](project_progress.md) - 最近更新进度总结（2026/05/10 地图加载优化）
 
 ---
 

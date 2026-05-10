@@ -482,8 +482,8 @@ export default function Map() {
       let mapMarker: maplibregl.Marker | null = null
 
       const onMouseDown = (e: MouseEvent) => {
-        // 只有在编辑模式下才允许拖动标点
-        if (!isEditingMarkers) return
+        // 只有在编辑模式下才允许拖动标点（动态读取 store 状态）
+        if (!useMapStore.getState().isEditingMarkers) return
         e.preventDefault()
         e.stopPropagation()
         isDragging = true
@@ -542,7 +542,9 @@ export default function Map() {
       // 点击标点显示详情弹窗或编辑弹窗
       wrapper.addEventListener('click', (e) => {
         e.stopPropagation()
-        const markerData = customMarkers.find(m => m.id === marker.id)
+        // 动态读取 store 状态，确保始终使用最新值
+        const state = useMapStore.getState()
+        const markerData = state.customMarkers.find(m => m.id === marker.id)
         if (!markerData) return
 
         const rect = wrapper.getBoundingClientRect()
@@ -551,7 +553,7 @@ export default function Map() {
           y: rect.top + 42,
         }
 
-        if (isEditingMarkers) {
+        if (state.isEditingMarkers) {
           setEditingMarker({ marker: markerData, position: pos })
           setSelectedMarkerId(null)
         } else {
